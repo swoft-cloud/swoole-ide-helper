@@ -12,4 +12,4 @@ you can add it by `composer`:
 composer require swoft/swoole-ide-helper
 ```
 
-`swoft/swoole-ide-helper` keep the same version of **swoole**
+`swoft/swoole-ide-helper` use the same version of **swoole**
