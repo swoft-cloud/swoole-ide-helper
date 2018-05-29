@@ -3,6 +3,7 @@ namespace Swoole\Redis;
 
 /**
  * @since 2.1.3
+ * @property mixed $data
  */
 class Server extends \Swoole\Server
 {
