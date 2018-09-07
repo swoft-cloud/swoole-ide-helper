@@ -43,9 +43,10 @@ class Response
 
     /**
      * @param $http_code[required]
+     * @param $reason
      * @return mixed
      */
-    public function status($http_code){}
+    public function status($http_code, $reason = NULL){}
 
     /**
      * @param $compress_level[optional]
