@@ -2,7 +2,7 @@
 namespace Swoole\Http2;
 
 /**
- * @since 2.1.3
+ * @since 4.0.1
  */
 class Client extends \Swoole\Client
 {
@@ -216,6 +216,11 @@ class Client extends \Swoole\Client
      * @return mixed
      */
     public function on($event_name, $callback){}
+
+    /**
+     * @return mixed
+     */
+    public function getSocket(){}
 
 
 }
