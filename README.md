@@ -1,6 +1,6 @@
 # swoole-ide-helper
 
-add ide-helper for **swoole**, use [swoole/ide-helper](https://github.com/swoole/ide-helper)
+add ide-helper for **swoole**, forked from [swoole/ide-helper](https://github.com/swoole/ide-helper)
 
 ## Usage
 
