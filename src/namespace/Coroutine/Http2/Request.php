@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http2;
 
 /**
- * @since 2.1.3
+ * @since 4.0.1
  */
 class Request
 {

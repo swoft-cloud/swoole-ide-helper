@@ -20,6 +20,11 @@ class swoole_async extends Swoole\Async
 
 }
 
+class swoole_connection_iterator extends Swoole\Connection\Iterator
+{
+
+}
+
 class swoole_exception extends Swoole\Exception
 {
 
@@ -40,7 +45,7 @@ class swoole_coroutine extends Swoole\Coroutine
 
 }
 
-class co extends Co
+class co extends swoole\coroutine
 {
 
 }
@@ -115,6 +120,11 @@ class swoole_websocket_frame extends Swoole\Websocket\Frame
 
 }
 
+class swoole_websocket_close_frame extends Swoole\Websocket\Close\Frame
+{
+
+}
+
 class swoole_mysql extends Swoole\Mysql
 {
 
@@ -135,7 +145,7 @@ class swoole_channel extends Swoole\Channel
 
 }
 
-class chan extends Chan
+class chan extends swoole\coroutine\channel
 {
 
 }
@@ -146,16 +156,6 @@ class swoole_ringqueue extends Swoole\Ringqueue
 }
 
 class swoole_msgqueue extends Swoole\Msgqueue
-{
-
-}
-
-class swoole_http2_client extends Swoole\Http2\Client
-{
-
-}
-
-class swoole_http2_response extends Swoole\Http2\Response
 {
 
 }

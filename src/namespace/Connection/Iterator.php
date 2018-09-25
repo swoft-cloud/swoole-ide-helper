@@ -2,7 +2,7 @@
 namespace Swoole\Connection;
 
 /**
- * @since 2.1.0
+ * @since 4.2.1
  */
 class Iterator
 {
@@ -11,82 +11,62 @@ class Iterator
     /**
      * @return mixed
      */
-    public function rewind()
-    {
-    }
+    public function rewind(){}
 
     /**
      * @return mixed
      */
-    public function next()
-    {
-    }
+    public function next(){}
 
     /**
      * @return mixed
      */
-    public function current()
-    {
-    }
+    public function current(){}
 
     /**
      * @return mixed
      */
-    public function key()
-    {
-    }
+    public function key(){}
 
     /**
      * @return mixed
      */
-    public function valid()
-    {
-    }
+    public function valid(){}
 
     /**
      * @return mixed
      */
-    public function count()
-    {
-    }
+    public function count(){}
 
     /**
      * @return mixed
      */
-    public function __destruct()
-    {
-    }
+    public function __destruct(){}
 
     /**
-     * @param $fd[required]
+     * @param $fd [required]
      * @return mixed
      */
-    public function offsetExists($fd)
-    {
-    }
+    public function offsetExists(int $fd){}
 
     /**
-     * @param $fd[required]
+     * @param $fd [required]
      * @return mixed
      */
-    public function offsetGet($fd)
-    {
-    }
+    public function offsetGet(int $fd){}
 
     /**
-     * @param $fd[required]
-     * @param $value[required]
+     * @param $fd [required]
+     * @param $value [required]
      * @return mixed
      */
-    public function offsetSet($fd, $value)
-    {
-    }
+    public function offsetSet(int $fd, $value){}
 
     /**
-     * @param $fd[required]
+     * @param $fd [required]
      * @return mixed
      */
-    public function offsetUnset($fd)
-    {
-    }
+    public function offsetUnset(int $fd){}
+
+
 }

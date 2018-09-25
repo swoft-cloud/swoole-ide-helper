@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 2.1.3
+ * @since 4.2.1
  */
 class Lock
 {
@@ -10,15 +10,15 @@ class Lock
     const MUTEX = 3;
     const SEM = 4;
     const RWLOCK = 1;
-    const SPINLOCK = 5;
 
+    public $errCode;
 
     /**
-     * @param $type[optional]
-     * @param $filename[optional]
+     * @param $type [optional]
+     * @param $filename [optional]
      * @return mixed
      */
-    public function __construct($type=null, $filename=null){}
+    public function __construct($type=null, string $filename=null){}
 
     /**
      * @return mixed
@@ -31,10 +31,10 @@ class Lock
     public function lock(){}
 
     /**
-     * @param $timeout[optional]
+     * @param $timeout [optional]
      * @return mixed
      */
-    public function lockwait($timeout=null){}
+    public function lockwait(float $timeout=null){}
 
     /**
      * @return mixed
@@ -55,6 +55,11 @@ class Lock
      * @return mixed
      */
     public function unlock(){}
+
+    /**
+     * @return mixed
+     */
+    public function destroy(){}
 
 
 }
