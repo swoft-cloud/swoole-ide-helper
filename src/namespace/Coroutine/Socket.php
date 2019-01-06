@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Socket
 {
@@ -12,10 +12,10 @@ class Socket
     /**
      * @param $domain [required]
      * @param $type [required]
-     * @param $protocol [required]
+     * @param $protocol [optional]
      * @return mixed
      */
-    public function __construct($domain, $type, $protocol){}
+    public function __construct($domain, $type, $protocol=null){}
 
     /**
      * @param $address [required]
@@ -45,10 +45,11 @@ class Socket
     public function connect(string $host, int $port=null, float $timeout=null){}
 
     /**
+     * @param $length [optional]
      * @param $timeout [optional]
      * @return mixed
      */
-    public function recv(float $timeout=null){}
+    public function recv(int $length=null, float $timeout=null){}
 
     /**
      * @param $data [required]

@@ -2,7 +2,7 @@
 namespace Swoole\Redis;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Server extends \Swoole\Server
 {
@@ -14,23 +14,6 @@ class Server extends \Swoole\Server
     const SET = 5;
     const MAP = 6;
 
-    public $onConnect;
-    public $onReceive;
-    public $onClose;
-    public $onPacket;
-    public $onBufferFull;
-    public $onBufferEmpty;
-    public $onStart;
-    public $onShutdown;
-    public $onWorkerStart;
-    public $onWorkerStop;
-    public $onWorkerExit;
-    public $onWorkerError;
-    public $onTask;
-    public $onFinish;
-    public $onManagerStart;
-    public $onManagerStop;
-    public $onPipeMessage;
     public $setting;
     public $connections;
     public $host;
@@ -111,10 +94,10 @@ class Server extends \Swoole\Server
     /**
      * @param $fd [required]
      * @param $send_data [required]
-     * @param $reactor_id [optional]
+     * @param $server_socket [optional]
      * @return mixed
      */
-    public function send(int $fd, string $send_data, int $reactor_id=null){}
+    public function send(int $fd, string $send_data, $server_socket=null){}
 
     /**
      * @param $ip [required]

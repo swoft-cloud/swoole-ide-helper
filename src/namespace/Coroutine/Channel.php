@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Channel
 {
@@ -17,21 +17,16 @@ class Channel
     public function __construct(int $size=null){}
 
     /**
-     * @return mixed
-     */
-    public function __destruct(){}
-
-    /**
      * @param $data [required]
      * @return mixed
      */
     public function push($data){}
 
     /**
-     * @param $timeout [required]
+     * @param $timeout [optional]
      * @return mixed
      */
-    public function pop(float $timeout){}
+    public function pop(float $timeout=null){}
 
     /**
      * @return mixed

@@ -138,9 +138,10 @@ function swoole_async_dns_lookup(string $hostname, $callback){}
 
 /**
  * @param $domain_name [required]
+ * @param $timeout [optional]
  * @return mixed
  */
-function swoole_async_dns_lookup_coro(string $domain_name){}
+function swoole_async_dns_lookup_coro(string $domain_name, float $timeout=null){}
 
 /**
  * @param $func [required]
@@ -155,10 +156,22 @@ function swoole_coroutine_create($func){}
 function swoole_coroutine_exec(string $command){}
 
 /**
+ * @param mixed $callback [required]
+ * @return mixed
+ */
+function swoole_coroutine_defer($callback){}
+
+/**
  * @param $func [required]
  * @return mixed
  */
 function go($func){}
+
+/**
+ * @param mixed $callback [required]
+ * @return mixed
+ */
+function defer($callback){}
 
 /**
  * @param $read_array [required]
@@ -204,5 +217,13 @@ function swoole_errno(){}
  */
 function swoole_hashcode($data, $type=null){}
 
+/**
+ * @param $filename [required]
+ * @return mixed
+ */
+function swoole_get_mime_type(string $filename){}
+
 function swoole_call_user_shutdown_begin(){}
+
+function swoole_clear_dns_cache(){}
 

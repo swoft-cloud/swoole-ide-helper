@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Coroutine
 {
@@ -10,15 +10,30 @@ class Coroutine
 
     /**
      * @param $func [required]
+     * @param $params [optional]
      * @return mixed
      */
-    public static function create($func){}
+    public static function create($func, array $params=null){}
 
     /**
      * @param $command [required]
      * @return mixed
      */
     public static function exec(string $command){}
+
+    /**
+     * @param $domain_name [required]
+     * @param $family [optional]
+     * @param $timeout [optional]
+     * @return mixed
+     */
+    public static function gethostbyname(string $domain_name, $family=null, float $timeout=null){}
+
+    /**
+     * @param mixed $callback [required]
+     * @return mixed
+     */
+    public static function defer($callback){}
 
     /**
      * @param $options [required]
@@ -50,6 +65,11 @@ class Coroutine
     /**
      * @return mixed
      */
+    public static function getCid(){}
+
+    /**
+     * @return mixed
+     */
     public static function getuid(){}
 
     /**
@@ -77,7 +97,7 @@ class Coroutine
      * @param $length [optional]
      * @return mixed
      */
-    public static function fwrite($handle, $string, int $length=null){}
+    public static function fwrite($handle, string $string, int $length=null){}
 
     /**
      * @param $filename [required]
@@ -94,13 +114,6 @@ class Coroutine
     public static function writeFile(string $filename, $data, $flags=null){}
 
     /**
-     * @param $domain_name [required]
-     * @param $family [optional]
-     * @return mixed
-     */
-    public static function gethostbyname(string $domain_name, $family=null){}
-
-    /**
      * @param $hostname [required]
      * @param $family [optional]
      * @param $socktype [optional]
@@ -109,6 +122,12 @@ class Coroutine
      * @return mixed
      */
     public static function getaddrinfo(string $hostname, $family=null, $socktype=null, $protocol=null, $service=null){}
+
+    /**
+     * @param $path [required]
+     * @return mixed
+     */
+    public static function statvfs(string $path){}
 
     /**
      * @param $cid [required]

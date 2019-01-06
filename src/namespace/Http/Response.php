@@ -2,7 +2,7 @@
 namespace Swoole\Http;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Response
 {
@@ -27,7 +27,7 @@ class Response
      * @param $httponly [optional]
      * @return mixed
      */
-    public function cookie($name, $value=null, $expires=null, $path=null, $domain=null, $secure=null, $httponly=null){}
+    public function cookie(string $name, $value=null, $expires=null, string $path=null, $domain=null, $secure=null, $httponly=null){}
 
     /**
      * @param $name [required]
@@ -39,7 +39,7 @@ class Response
      * @param $httponly [optional]
      * @return mixed
      */
-    public function rawcookie($name, $value=null, $expires=null, $path=null, $domain=null, $secure=null, $httponly=null){}
+    public function rawcookie(string $name, $value=null, $expires=null, string $path=null, $domain=null, $secure=null, $httponly=null){}
 
     /**
      * @param $http_code [required]

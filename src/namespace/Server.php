@@ -2,28 +2,28 @@
 namespace Swoole;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Server
 {
 
-    public $onConnect;
-    public $onReceive;
-    public $onClose;
-    public $onPacket;
-    public $onBufferFull;
-    public $onBufferEmpty;
-    public $onStart;
-    public $onShutdown;
-    public $onWorkerStart;
-    public $onWorkerStop;
-    public $onWorkerExit;
-    public $onWorkerError;
-    public $onTask;
-    public $onFinish;
-    public $onManagerStart;
-    public $onManagerStop;
-    public $onPipeMessage;
+    private $onConnect;
+    private $onReceive;
+    private $onClose;
+    private $onPacket;
+    private $onBufferFull;
+    private $onBufferEmpty;
+    private $onStart;
+    private $onShutdown;
+    private $onWorkerStart;
+    private $onWorkerStop;
+    private $onWorkerExit;
+    private $onWorkerError;
+    private $onTask;
+    private $onFinish;
+    private $onManagerStart;
+    private $onManagerStop;
+    private $onPipeMessage;
     public $setting;
     public $connections;
     public $host;
@@ -109,10 +109,10 @@ class Server
      *
      * @param $fd [required]
      * @param $send_data [required]
-     * @param $reactor_id [optional]
+     * @param $server_socket [optional]
      * @return bool
      */
-    public function send(int $fd, string $send_data, int $reactor_id=null){}
+    public function send(int $fd, string $send_data, $server_socket=null){}
 
     /**
      * @param $ip [required]

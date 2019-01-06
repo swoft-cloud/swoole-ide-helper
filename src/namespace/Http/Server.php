@@ -2,28 +2,11 @@
 namespace Swoole\Http;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Server extends \Swoole\Server
 {
 
-    public $onConnect;
-    public $onReceive;
-    public $onClose;
-    public $onPacket;
-    public $onBufferFull;
-    public $onBufferEmpty;
-    public $onStart;
-    public $onShutdown;
-    public $onWorkerStart;
-    public $onWorkerStop;
-    public $onWorkerExit;
-    public $onWorkerError;
-    public $onTask;
-    public $onFinish;
-    public $onManagerStart;
-    public $onManagerStop;
-    public $onPipeMessage;
     public $connections;
     public $host;
     public $port;
@@ -38,18 +21,6 @@ class Server extends \Swoole\Server
     public $onRequest;
     public $onHandshake;
     public $setting;
-
-    /**
-     * @param $event_name [required]
-     * @param mixed $callback [required]
-     * @return mixed
-     */
-    public function on(string $event_name, $callback){}
-
-    /**
-     * @return mixed
-     */
-    public function start(){}
 
     /**
      * @param $host [required]
@@ -82,18 +53,30 @@ class Server extends \Swoole\Server
     public function addlistener(string $host, int $port, $sock_type){}
 
     /**
+     * @param $event_name [required]
+     * @param mixed $callback [required]
+     * @return mixed
+     */
+    public function on(string $event_name, $callback){}
+
+    /**
      * @param $settings [required]
      * @return mixed
      */
     public function set(array $settings){}
 
     /**
-     * @param $fd [required]
-     * @param $send_data [required]
-     * @param $reactor_id [optional]
      * @return mixed
      */
-    public function send(int $fd, string $send_data, int $reactor_id=null){}
+    public function start(){}
+
+    /**
+     * @param $fd [required]
+     * @param $send_data [required]
+     * @param $server_socket [optional]
+     * @return mixed
+     */
+    public function send(int $fd, string $send_data, $server_socket=null){}
 
     /**
      * @param $ip [required]

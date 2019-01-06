@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Table
 {
@@ -24,7 +24,7 @@ class Table
      * @param $size [optional]
      * @return mixed
      */
-    public function column($name, $type, int $size=null){}
+    public function column(string $name, $type, int $size=null){}
 
     /**
      * @return mixed

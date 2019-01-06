@@ -2,12 +2,12 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class MySQL
 {
 
-    private $serverInfo;
+    public $serverInfo;
     public $sock;
     public $connected;
     public $connect_error;
@@ -46,11 +46,16 @@ class MySQL
     public function recv(){}
 
     /**
+     * @return mixed
+     */
+    public function nextResult(){}
+
+    /**
      * @param $string [required]
      * @param $flags [optional]
      * @return mixed
      */
-    public function escape($string, $flags=null){}
+    public function escape(string $string, $flags=null){}
 
     /**
      * @param $timeout [optional]

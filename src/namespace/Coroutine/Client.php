@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Client
 {
@@ -38,9 +38,10 @@ class Client
      * @param $host [required]
      * @param $port [optional]
      * @param $timeout [optional]
+     * @param $sock_flag [optional]
      * @return mixed
      */
-    public function connect(string $host, int $port=null, float $timeout=null){}
+    public function connect(string $host, int $port=null, float $timeout=null, $sock_flag=null){}
 
     /**
      * @param $timeout [optional]
@@ -83,6 +84,21 @@ class Client
      * @return mixed
      */
     public function recvfrom(int $length, $address, int $port=null){}
+
+    /**
+     * @return mixed
+     */
+    public function enableSSL(){}
+
+    /**
+     * @return mixed
+     */
+    public function getPeerCert(){}
+
+    /**
+     * @return mixed
+     */
+    public function verifyPeerCert(){}
 
     /**
      * @return mixed

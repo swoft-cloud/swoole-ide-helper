@@ -49,12 +49,14 @@ class ExtensionDocument
     ];
 
     public static $arrVars = [
-        'settings', 'read_array', 'write_array', 'error_array'
+        'settings', 'read_array', 'write_array', 'error_array', 'headers', 'cookies',
+        'params',
     ];
 
     public static $strVars = [
         'host', 'event_name', 'reason', 'send_data', 'filename', 'message', 'sql',
-        'process_name', 'content', 'hostname', 'domain_name', 'command',
+        'process_name', 'content', 'hostname', 'domain_name', 'command', 'string',
+        'path', 'method', 'name',
     ];
 
     public static function isPHPKeyword($word)
@@ -82,30 +84,41 @@ class ExtensionDocument
         if (stripos($className, 'co') !== 0) {
             return;
         }
+
         $ns = explode('\\', $className);
         foreach ($ns as &$n) {
             $n = ucfirst($n);
         }
+
         $path = OUTPUT_DIR . '/alias/' . implode('/', array_slice($ns, 1)) . '.php';
-        if (!is_dir(dirname($path))) {
-            mkdir(dirname($path), 0777, true);
-        }
-        file_put_contents($path, sprintf("<?php\nnamespace %s \n{\n" . self::SPACE5 .
-            "class %s extends \%s {}\n}\n", implode('\\', array_slice($ns, 0, count($ns) - 1)), end($ns),
-            str_replace('co\\', 'swoole\\', $className)));
+
+        $this->createDir(dirname($path)); // create dir
+
+        file_put_contents($path, sprintf(
+            "<?php\nnamespace %s \n{\n" . self::SPACE5 . "class %s extends \%s {}\n}\n",
+            implode('\\', array_slice($ns, 0, count($ns) - 1)),
+            end($ns),
+            str_replace('Co\\', 'Swoole\\', ucwords($className, "\\"))
+        ));
     }
 
     public static function getNamespaceAlias($className)
     {
-        if (strtolower($className) === 'co') {
-            return "swoole\\coroutine";
+        $lowerName = strtolower($className);
+
+        if ($lowerName === 'co') {
+            return "Swoole\\Coroutine";
         }
 
-        if (strtolower($className) === 'chan') {
-            return "swoole\\coroutine\\channel";
+        if ($lowerName === 'chan') {
+            return "Swoole\\Coroutine\\Channel";
         }
 
-        return str_replace(' ', '\\', ucwords(str_replace('_', ' ', $className)));
+        if ($lowerName === 'swoole_websocket_close_frame') {
+            return 'Swoole\\Websocket\\CloseFrame';
+        }
+
+        return str_replace('_', '\\', ucwords($className, '_'));
     }
 
     public function getConfig($class, $name, $type)
@@ -291,9 +304,7 @@ class ExtensionDocument
         $dir = dirname($path);
         $name = basename($path);
 
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
-        }
+        $this->createDir($dir); // create dir
 
         $content = "<?php\nnamespace {$namespace};\n\n" . $this->getClassDef($name, $ref);
         file_put_contents($path . '.php', $content);
@@ -312,10 +323,12 @@ class ExtensionDocument
         if ($ref->getParentClass()) {
             $classname .= ' extends \\' . $ref->getParentClass()->name;
         }
+
         $modifier = 'class';
         if ($ref->isInterface()) {
             $modifier = 'interface';
         }
+
         //获取常量定义
         $consts = $this->getConstantsDef($classname, $ref->getConstants());
         //获取方法定义
@@ -353,6 +366,18 @@ class ExtensionDocument
     }
 
     /**
+     * 支持层级目录的创建
+     * @param $path
+     * @param int|string $mode
+     * @param bool $recursive
+     * @return bool
+     */
+    public function createDir($path, $mode = 0775, $recursive = true): bool
+    {
+        return (is_dir($path) || !(!@mkdir($path, $mode, $recursive) && !is_dir($path))) && is_writable($path);
+    }
+
+    /**
      * ExtensionDocument constructor.
      * @param string $outDir
      * @throws ReflectionException
@@ -377,10 +402,11 @@ class ExtensionDocument
             if (!is_numeric($ref)) {
                 $ref = "'$ref'";
             }
+
             $defines .= "define('$className', $ref);\n";
         }
 
-        if (!is_dir(OUTPUT_DIR)) mkdir(OUTPUT_DIR);
+        $this->createDir(OUTPUT_DIR); // create dir
 
         file_put_contents(
             OUTPUT_DIR . '/constants.php', "<?php\n" . $defines
@@ -423,9 +449,8 @@ class ExtensionDocument
 echo 'Swoole version: ' . swoole_version() . "\n";
 try {
     (new ExtensionDocument())->export();
-    echo "dump success.\n";
-
+    echo "- Dump successful.\n";
 } catch (Exception $e) {
-    echo "dump failure.\n error:", $e->getMessage();
+    echo "- Dump failure.\n error:", $e->getMessage();
 }
 

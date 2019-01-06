@@ -2,17 +2,18 @@
 namespace Swoole\Http;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Client
 {
 
     public $type;
     public $errCode;
-    public $sock;
+    public $errMsg;
     public $statusCode;
     public $host;
     public $port;
+    public $ssl;
     public $requestMethod;
     public $requestHeaders;
     public $requestBody;
@@ -50,19 +51,19 @@ class Client
      * @param $method [required]
      * @return mixed
      */
-    public function setMethod($method){}
+    public function setMethod(string $method){}
 
     /**
      * @param $headers [required]
      * @return mixed
      */
-    public function setHeaders($headers){}
+    public function setHeaders(array $headers){}
 
     /**
      * @param $cookies [required]
      * @return mixed
      */
-    public function setCookies($cookies){}
+    public function setCookies(array $cookies){}
 
     /**
      * @param $data [required]
@@ -79,14 +80,14 @@ class Client
      * @param $length [optional]
      * @return mixed
      */
-    public function addFile($path, $name, $type=null, string $filename=null, int $offset=null, int $length=null){}
+    public function addFile(string $path, string $name, $type=null, string $filename=null, int $offset=null, int $length=null){}
 
     /**
      * @param $path [required]
      * @param mixed $callback [required]
      * @return mixed
      */
-    public function execute($path, $callback){}
+    public function execute(string $path, $callback){}
 
     /**
      * @param $data [required]
@@ -101,7 +102,7 @@ class Client
      * @param mixed $callback [required]
      * @return mixed
      */
-    public function get($path, $callback){}
+    public function get(string $path, $callback){}
 
     /**
      * @param $path [required]
@@ -109,14 +110,14 @@ class Client
      * @param mixed $callback [required]
      * @return mixed
      */
-    public function post($path, $data, $callback){}
+    public function post(string $path, $data, $callback){}
 
     /**
      * @param $path [required]
      * @param mixed $callback [required]
      * @return mixed
      */
-    public function upgrade($path, $callback){}
+    public function upgrade(string $path, $callback){}
 
     /**
      * @param $path [required]
@@ -125,7 +126,7 @@ class Client
      * @param $offset [optional]
      * @return mixed
      */
-    public function download($path, $file, $callback, int $offset=null){}
+    public function download(string $path, $file, $callback, int $offset=null){}
 
     /**
      * @return mixed

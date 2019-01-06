@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class MySQL
 {
@@ -65,7 +65,7 @@ class MySQL
      * @param $flags [optional]
      * @return mixed
      */
-    public function escape($string, $flags=null){}
+    public function escape(string $string, $flags=null){}
 
     /**
      * @param $sql [required]

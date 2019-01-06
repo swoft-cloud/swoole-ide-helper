@@ -2,9 +2,9 @@
 namespace Swoole;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
-class ExitException extends \Exception
+class ExitException extends \Swoole\Exception
 {
 
     protected $message;

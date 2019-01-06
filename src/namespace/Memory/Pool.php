@@ -2,7 +2,7 @@
 namespace Swoole\Memory;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Pool
 {

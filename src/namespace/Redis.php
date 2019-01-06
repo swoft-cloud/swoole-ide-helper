@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Redis
 {
@@ -63,7 +63,7 @@ class Redis
      * @param $params [required]
      * @return mixed
      */
-    public function __call(string $command, $params){}
+    public function __call(string $command, array $params){}
 
 
 }

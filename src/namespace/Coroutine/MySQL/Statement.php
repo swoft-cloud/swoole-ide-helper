@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\MySQL;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Statement
 {
@@ -17,7 +17,7 @@ class Statement
      * @param $timeout [optional]
      * @return mixed
      */
-    public function execute($params=null, float $timeout=null){}
+    public function execute(array $params=null, float $timeout=null){}
 
     /**
      * @return mixed

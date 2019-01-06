@@ -1,10 +1,5 @@
 <?php
 
-class swoole_server extends Swoole\Server
-{
-
-}
-
 class swoole_timer extends Swoole\Timer
 {
 
@@ -20,12 +15,22 @@ class swoole_async extends Swoole\Async
 
 }
 
-class swoole_connection_iterator extends Swoole\Connection\Iterator
+class swoole_exception extends Swoole\Exception
 {
 
 }
 
-class swoole_exception extends Swoole\Exception
+class swoole_server extends Swoole\Server
+{
+
+}
+
+class swoole_server_task extends Swoole\Server\Task
+{
+
+}
+
+class swoole_connection_iterator extends Swoole\Connection\Iterator
 {
 
 }
@@ -45,7 +50,7 @@ class swoole_coroutine extends Swoole\Coroutine
 
 }
 
-class co extends swoole\coroutine
+class co extends Swoole\Coroutine
 {
 
 }
@@ -75,6 +80,11 @@ class swoole_table_row extends Swoole\Table\Row
 
 }
 
+class swoole_runtime extends Swoole\Runtime
+{
+
+}
+
 class swoole_lock extends Swoole\Lock
 {
 
@@ -95,12 +105,12 @@ class swoole_http_server extends Swoole\Http\Server
 
 }
 
-class swoole_http_response extends Swoole\Http\Response
+class swoole_http_request extends Swoole\Http\Request
 {
 
 }
 
-class swoole_http_request extends Swoole\Http\Request
+class swoole_http_response extends Swoole\Http\Response
 {
 
 }
@@ -120,7 +130,7 @@ class swoole_websocket_frame extends Swoole\Websocket\Frame
 
 }
 
-class swoole_websocket_close_frame extends Swoole\Websocket\Close\Frame
+class swoole_websocket_closeframe extends Swoole\Websocket\Closeframe
 {
 
 }
@@ -145,7 +155,7 @@ class swoole_channel extends Swoole\Channel
 
 }
 
-class chan extends swoole\coroutine\channel
+class chan extends Swoole\Coroutine\Channel
 {
 
 }
@@ -160,7 +170,12 @@ class swoole_msgqueue extends Swoole\Msgqueue
 
 }
 
-class swoole_serialize extends Swoole\Serialize
+class swoole_memory_pool extends Swoole\Memory\Pool
+{
+
+}
+
+class swoole_memory_pool_slice extends Swoole\Memory\Pool\Slice
 {
 
 }

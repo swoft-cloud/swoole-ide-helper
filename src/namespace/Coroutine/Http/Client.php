@@ -2,24 +2,25 @@
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Client
 {
 
     public $errCode;
-    public $sock;
-    public $type;
-    public $setting;
+    public $errMsg;
     public $connected;
-    public $statusCode;
     public $host;
     public $port;
+    public $ssl;
+    public $setting;
     public $requestMethod;
     public $requestHeaders;
     public $requestBody;
     public $uploadFiles;
     public $downloadFile;
+    public $downloadOffset;
+    public $statusCode;
     public $headers;
     public $set_cookie_headers;
     public $cookies;
@@ -45,22 +46,33 @@ class Client
     public function set(array $settings){}
 
     /**
+     * @return mixed
+     */
+    public function getDefer(){}
+
+    /**
+     * @param $defer [optional]
+     * @return mixed
+     */
+    public function setDefer($defer=null){}
+
+    /**
      * @param $method [required]
      * @return mixed
      */
-    public function setMethod($method){}
+    public function setMethod(string $method){}
 
     /**
      * @param $headers [required]
      * @return mixed
      */
-    public function setHeaders($headers){}
+    public function setHeaders(array $headers){}
 
     /**
      * @param $cookies [required]
      * @return mixed
      */
-    public function setCookies($cookies){}
+    public function setCookies(array $cookies){}
 
     /**
      * @param $data [required]
@@ -72,20 +84,20 @@ class Client
      * @param $path [required]
      * @return mixed
      */
-    public function execute($path){}
+    public function execute(string $path){}
 
     /**
      * @param $path [required]
      * @return mixed
      */
-    public function get($path){}
+    public function get(string $path){}
 
     /**
      * @param $path [required]
      * @param $data [required]
      * @return mixed
      */
-    public function post($path, $data){}
+    public function post(string $path, $data){}
 
     /**
      * @param $path [required]
@@ -93,13 +105,13 @@ class Client
      * @param $offset [optional]
      * @return mixed
      */
-    public function download($path, $file, int $offset=null){}
+    public function download(string $path, $file, int $offset=null){}
 
     /**
      * @param $path [required]
      * @return mixed
      */
-    public function upgrade($path){}
+    public function upgrade(string $path){}
 
     /**
      * @param $path [required]
@@ -110,7 +122,7 @@ class Client
      * @param $length [optional]
      * @return mixed
      */
-    public function addFile($path, $name, $type=null, string $filename=null, int $offset=null, int $length=null){}
+    public function addFile(string $path, string $name, $type=null, string $filename=null, int $offset=null, int $length=null){}
 
     /**
      * @param $path [required]
@@ -119,28 +131,7 @@ class Client
      * @param $filename [optional]
      * @return mixed
      */
-    public function addData($path, $name, $type=null, string $filename=null){}
-
-    /**
-     * @return mixed
-     */
-    public function isConnected(){}
-
-    /**
-     * @return mixed
-     */
-    public function close(){}
-
-    /**
-     * @param $defer [optional]
-     * @return mixed
-     */
-    public function setDefer($defer=null){}
-
-    /**
-     * @return mixed
-     */
-    public function getDefer(){}
+    public function addData(string $path, string $name, $type=null, string $filename=null){}
 
     /**
      * @param $timeout [optional]
@@ -155,6 +146,11 @@ class Client
      * @return mixed
      */
     public function push($data, int $opcode=null, $finish=null){}
+
+    /**
+     * @return mixed
+     */
+    public function close(){}
 
 
 }

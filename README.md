@@ -19,3 +19,19 @@ composer require swoft/swoole-ide-helper
 ```bash
 php dump.php
 ```
+
+## Diff With swoole/ide-helper
+
+跟源仓库稍微不同的是：给大部分方法参数添加了变量类型。
+
+eg, old：
+
+```php
+public function send($fd, $send_data, $reactor_id=null){}
+```
+
+now:
+
+```php
+public function send(int $fd, string $send_data, int $reactor_id=null){}
+```

@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.2.1
+ * @since 4.2.12
  */
 class Client
 {
@@ -21,12 +21,13 @@ class Client
     public $type;
     public $id;
     public $setting;
-    public $onConnect;
-    public $onError;
-    public $onReceive;
-    public $onClose;
-    public $onBufferFull;
-    public $onBufferEmpty;
+    private $onConnect;
+    private $onError;
+    private $onReceive;
+    private $onClose;
+    private $onBufferFull;
+    private $onBufferEmpty;
+    private $onSSLReady;
 
     /**
      * @param $type [required]
@@ -116,6 +117,22 @@ class Client
      * @return mixed
      */
     public function shutdown($how){}
+
+    /**
+     * @param mixed $callback [optional]
+     * @return mixed
+     */
+    public function enableSSL($callback=null){}
+
+    /**
+     * @return mixed
+     */
+    public function getPeerCert(){}
+
+    /**
+     * @return mixed
+     */
+    public function verifyPeerCert(){}
 
     /**
      * @return mixed
