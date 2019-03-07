@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.2.12
+ * @since 4.3.0
  */
 class Redis
 {
@@ -38,6 +38,16 @@ class Redis
     /**
      * @return mixed
      */
+    public function getAuth(){}
+
+    /**
+     * @return mixed
+     */
+    public function getDBNum(){}
+
+    /**
+     * @return mixed
+     */
     public function getOptions(){}
 
     /**
@@ -49,12 +59,13 @@ class Redis
     /**
      * @return mixed
      */
-    public function setDefer(){}
+    public function getDefer(){}
 
     /**
+     * @param $defer [required]
      * @return mixed
      */
-    public function getDefer(){}
+    public function setDefer($defer){}
 
     /**
      * @return mixed
@@ -1068,6 +1079,18 @@ class Redis
      * @return mixed
      */
     public function subscribe($channels){}
+
+    /**
+     * @param $channels [required]
+     * @return mixed
+     */
+    public function unsubscribe($channels){}
+
+    /**
+     * @param $patterns [required]
+     * @return mixed
+     */
+    public function pUnSubscribe($patterns){}
 
     /**
      * @return mixed

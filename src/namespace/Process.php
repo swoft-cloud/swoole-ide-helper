@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.2.12
+ * @since 4.3.0
  */
 class Process
 {
@@ -47,9 +47,10 @@ class Process
 
     /**
      * @param $usec [required]
+     * @param $type [optional]
      * @return mixed
      */
-    public static function alarm($usec){}
+    public static function alarm($usec, $type=null){}
 
     /**
      * @param $pid [required]
@@ -141,6 +142,11 @@ class Process
      * @return mixed
      */
     public function exec($exec_file, $args){}
+
+    /**
+     * @return mixed
+     */
+    public function exportSocket(){}
 
     /**
      * @param $process_name [required]

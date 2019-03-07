@@ -2,7 +2,7 @@
 namespace Swoole\Http;
 
 /**
- * @since 4.2.12
+ * @since 4.3.0
  */
 class Response
 {
@@ -49,10 +49,12 @@ class Response
     public function status($http_code, string $reason=null){}
 
     /**
-     * @param $compress_level [optional]
+     * @param $key [required]
+     * @param $value [required]
+     * @param $ucwords [optional]
      * @return mixed
      */
-    public function gzip($compress_level=null){}
+    public function header($key, $value, $ucwords=null){}
 
     /**
      * @param $key [required]
@@ -60,7 +62,7 @@ class Response
      * @param $ucwords [optional]
      * @return mixed
      */
-    public function header($key, $value, $ucwords=null){}
+    public function trailer($key, $value, $ucwords=null){}
 
     /**
      * @param $content [required]

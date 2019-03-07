@@ -65,17 +65,18 @@ function swoole_event_isset(int $fd, $events=null){}
 /**
  * @param $ms [required]
  * @param mixed $callback [required]
- * @param $param [optional]
+ * @param $params [optional]
  * @return mixed
  */
-function swoole_timer_after(int $ms, $callback, $param=null){}
+function swoole_timer_after(int $ms, $callback, array $params=null){}
 
 /**
  * @param $ms [required]
  * @param mixed $callback [required]
+ * @param $params [optional]
  * @return mixed
  */
-function swoole_timer_tick(int $ms, $callback){}
+function swoole_timer_tick(int $ms, $callback, array $params=null){}
 
 /**
  * @param $timer_id [required]
@@ -90,53 +91,6 @@ function swoole_timer_exists(int $timer_id){}
 function swoole_timer_clear(int $timer_id){}
 
 /**
- * @param $settings [required]
- * @return mixed
- */
-function swoole_async_set(array $settings){}
-
-/**
- * @param $filename [required]
- * @param mixed $callback [required]
- * @param $chunk_size [optional]
- * @param $offset [optional]
- * @return mixed
- */
-function swoole_async_read(string $filename, $callback, int $chunk_size=null, int $offset=null){}
-
-/**
- * @param $filename [required]
- * @param $content [required]
- * @param $offset [optional]
- * @param mixed $callback [optional]
- * @return mixed
- */
-function swoole_async_write(string $filename, string $content, int $offset=null, $callback=null){}
-
-/**
- * @param $filename [required]
- * @param mixed $callback [required]
- * @return mixed
- */
-function swoole_async_readfile(string $filename, $callback){}
-
-/**
- * @param $filename [required]
- * @param $content [required]
- * @param mixed $callback [optional]
- * @param $flags [optional]
- * @return mixed
- */
-function swoole_async_writefile(string $filename, string $content, $callback=null, $flags=null){}
-
-/**
- * @param $hostname [required]
- * @param mixed $callback [required]
- * @return mixed
- */
-function swoole_async_dns_lookup(string $hostname, $callback){}
-
-/**
  * @param $domain_name [required]
  * @param $timeout [optional]
  * @return mixed
@@ -144,10 +98,17 @@ function swoole_async_dns_lookup(string $hostname, $callback){}
 function swoole_async_dns_lookup_coro(string $domain_name, float $timeout=null){}
 
 /**
- * @param $func [required]
+ * @param $settings [required]
  * @return mixed
  */
-function swoole_coroutine_create($func){}
+function swoole_async_set(array $settings){}
+
+/**
+ * @param $func [required]
+ * @param $params [optional]
+ * @return mixed
+ */
+function swoole_coroutine_create($func, array $params=null){}
 
 /**
  * @param $command [required]
@@ -163,9 +124,10 @@ function swoole_coroutine_defer($callback){}
 
 /**
  * @param $func [required]
+ * @param $params [optional]
  * @return mixed
  */
-function go($func){}
+function go($func, array $params=null){}
 
 /**
  * @param mixed $callback [required]
@@ -223,7 +185,7 @@ function swoole_hashcode($data, $type=null){}
  */
 function swoole_get_mime_type(string $filename){}
 
-function swoole_call_user_shutdown_begin(){}
-
 function swoole_clear_dns_cache(){}
+
+function swoole_internal_call_user_shutdown_begin(){}
 

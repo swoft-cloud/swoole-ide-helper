@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.2.12
+ * @since 4.3.0
  */
 class Client
 {
@@ -12,6 +12,7 @@ class Client
     const MSG_WAITALL = 64;
 
     public $errCode;
+    public $errMsg;
     public $sock;
     public $type;
     public $setting;

@@ -2,7 +2,7 @@
 namespace Swoole\WebSocket;
 
 /**
- * @since 4.2.12
+ * @since 4.3.0
  */
 class Server extends \Swoole\Http\Server
 {
@@ -38,12 +38,6 @@ class Server extends \Swoole\Http\Server
      * @return mixed
      */
     public function disconnect(int $fd, $code=null, string $reason=null){}
-
-    /**
-     * @param $fd [required]
-     * @return mixed
-     */
-    public function exist(int $fd){}
 
     /**
      * @param $fd [required]
@@ -104,6 +98,12 @@ class Server extends \Swoole\Http\Server
     public function on(string $event_name, $callback){}
 
     /**
+     * @param $event_name [required]
+     * @return mixed
+     */
+    public function getCallback(string $event_name){}
+
+    /**
      * @param $settings [required]
      * @return mixed
      */
@@ -137,6 +137,18 @@ class Server extends \Swoole\Http\Server
      * @return mixed
      */
     public function sendwait(int $conn_fd, string $send_data){}
+
+    /**
+     * @param $fd [required]
+     * @return mixed
+     */
+    public function exists(int $fd){}
+
+    /**
+     * @param $fd [required]
+     * @return mixed
+     */
+    public function exist(int $fd){}
 
     /**
      * @param $fd [required]

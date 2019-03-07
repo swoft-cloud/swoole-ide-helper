@@ -2,21 +2,21 @@
 namespace Swoole\Server;
 
 /**
- * @since 4.2.12
+ * @since 4.3.0
  */
 class Port
 {
 
-    public $onConnect;
-    public $onReceive;
-    public $onClose;
-    public $onPacket;
-    public $onBufferFull;
-    public $onBufferEmpty;
-    public $onRequest;
-    public $onHandShake;
-    public $onMessage;
-    public $onOpen;
+    private $onConnect;
+    private $onReceive;
+    private $onClose;
+    private $onPacket;
+    private $onBufferFull;
+    private $onBufferEmpty;
+    private $onRequest;
+    private $onHandShake;
+    private $onMessage;
+    private $onOpen;
     public $host;
     public $port;
     public $type;

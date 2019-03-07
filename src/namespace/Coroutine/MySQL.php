@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.2.12
+ * @since 4.3.0
  */
 class MySQL
 {
@@ -76,11 +76,11 @@ class MySQL
     public function rollback(float $timeout=null){}
 
     /**
-     * @param $query [required]
+     * @param $statement [required]
      * @param $timeout [optional]
      * @return mixed
      */
-    public function prepare($query, float $timeout=null){}
+    public function prepare($statement, float $timeout=null){}
 
     /**
      * @param $defer [optional]
