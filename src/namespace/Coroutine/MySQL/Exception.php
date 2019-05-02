@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\MySQL;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Exception extends \Swoole\Exception
 {

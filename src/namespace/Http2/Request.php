@@ -2,7 +2,7 @@
 namespace Swoole\Http2;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Request
 {
@@ -13,7 +13,6 @@ class Request
     public $cookies;
     public $data;
     public $pipeline;
-    public $files;
 
 
 }

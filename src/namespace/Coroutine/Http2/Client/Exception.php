@@ -1,10 +1,10 @@
 <?php
-namespace Swoole;
+namespace Swoole\Coroutine\Http2\Client;
 
 /**
  * @since 4.3.3
  */
-class Exception extends \Exception
+class Exception extends \Swoole\Exception
 {
 
     protected $message;

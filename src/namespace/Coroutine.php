@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Coroutine
 {
@@ -17,9 +17,10 @@ class Coroutine
 
     /**
      * @param $command [required]
+     * @param $get_error_stream [optional]
      * @return mixed
      */
-    public static function exec(string $command){}
+    public static function exec(string $command, $get_error_stream=null){}
 
     /**
      * @param $domain_name [required]

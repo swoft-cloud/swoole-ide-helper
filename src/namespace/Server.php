@@ -2,22 +2,22 @@
 namespace Swoole;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Server
 {
 
-    private $on_start;
-    private $on_shutdown;
-    private $on_workerstart;
-    private $on_workerstop;
-    private $on_workerexit;
-    private $on_workererror;
-    private $on_task;
-    private $on_finish;
-    private $on_managerstart;
-    private $on_managerstop;
-    private $on_pipemessage;
+    private $onStart;
+    private $onShutdown;
+    private $onWorkerStart;
+    private $onWorkerStop;
+    private $onWorkerExit;
+    private $onWorkerError;
+    private $onTask;
+    private $onFinish;
+    private $onManagerStart;
+    private $onManagerStop;
+    private $onPipeMessage;
     public $setting;
     public $connections;
     public $host;

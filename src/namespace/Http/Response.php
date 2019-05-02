@@ -2,7 +2,7 @@
 namespace Swoole\Http;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Response
 {
@@ -59,10 +59,14 @@ class Response
     /**
      * @param $key [required]
      * @param $value [required]
-     * @param $ucwords [optional]
      * @return mixed
      */
-    public function trailer($key, $value, $ucwords=null){}
+    public function trailer($key, $value){}
+
+    /**
+     * @return mixed
+     */
+    public function ping(){}
 
     /**
      * @param $content [required]

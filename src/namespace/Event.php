@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Event
 {
@@ -61,6 +61,18 @@ class Event
      * @return mixed
      */
     public static function cycle($callback, $before=null){}
+
+    /**
+     * @return mixed
+     */
+    public static function dispatch(){}
+
+    /**
+     * @param $fd [required]
+     * @param $events [optional]
+     * @return mixed
+     */
+    public static function isset(int $fd, $events=null){}
 
 
 }

@@ -2,7 +2,7 @@
 namespace Swoole\Server;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Port
 {
@@ -15,8 +15,8 @@ class Port
     private $onBufferEmpty;
     private $onRequest;
     private $onHandShake;
-    private $onMessage;
     private $onOpen;
+    private $onMessage;
     public $host;
     public $port;
     public $type;
@@ -46,6 +46,12 @@ class Port
      * @return mixed
      */
     public function on(string $event_name, $callback){}
+
+    /**
+     * @param $event_name [required]
+     * @return mixed
+     */
+    public function getCallback(string $event_name){}
 
     /**
      * @return mixed

@@ -2,11 +2,12 @@
 namespace Swoole\WebSocket;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Server extends \Swoole\Http\Server
 {
 
+    public $setting;
     public $connections;
     public $host;
     public $port;
@@ -18,9 +19,6 @@ class Server extends \Swoole\Http\Server
     public $worker_id;
     public $taskworker;
     public $worker_pid;
-    public $onRequest;
-    public $onHandshake;
-    public $setting;
 
     /**
      * @param $fd [required]

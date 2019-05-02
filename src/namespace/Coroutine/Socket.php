@@ -2,13 +2,14 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.3.0
+ * @since 4.3.3
  */
 class Socket
 {
 
     public $fd;
     public $errCode;
+    public $errMsg;
 
     /**
      * @param $domain [required]
@@ -87,6 +88,21 @@ class Socket
      * @return mixed
      */
     public function sendto($addr, int $port, $data){}
+
+    /**
+     * @param $level [required]
+     * @param $opt_name [required]
+     * @return mixed
+     */
+    public function getOption($level, $opt_name){}
+
+    /**
+     * @param $level [required]
+     * @param $opt_name [required]
+     * @param $opt_value [required]
+     * @return mixed
+     */
+    public function setOption($level, $opt_name, $opt_value){}
 
     /**
      * @param $how [required]
