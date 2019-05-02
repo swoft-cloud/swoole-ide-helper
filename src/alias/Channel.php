@@ -1,5 +1,5 @@
 <?php
 namespace Co 
 {
-     class Channel extends \Swoole\CoroutineChannel {}
+     class Channel extends \Swoole\Coroutine\Channel {}
 }

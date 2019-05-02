@@ -1,5 +1,5 @@
 <?php
 namespace Co 
 {
-     class Iterator extends \Swoole\CoroutineIterator {}
+     class Iterator extends \Swoole\Coroutine\Iterator {}
 }

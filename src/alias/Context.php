@@ -1,5 +1,5 @@
 <?php
 namespace Co 
 {
-     class Context extends \Swoole\CoroutineContext {}
+     class Context extends \Swoole\Coroutine\Context {}
 }
