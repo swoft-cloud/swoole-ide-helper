@@ -125,10 +125,5 @@ class Socket
      */
     public function getsockname(){}
 
-    /**
-     * @return mixed
-     */
-    public function getSocket(){}
-
 
 }

@@ -1,5 +1,5 @@
 <?php
 namespace Co\Mysql 
 {
-     class Exception extends \Swoole\Mysql\Exception {}
+     class Exception extends \Swoole\Coroutine\Mysql\Exception {}
 }

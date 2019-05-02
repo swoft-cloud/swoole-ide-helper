@@ -53,10 +53,5 @@ class Port
      */
     public function getCallback(string $event_name){}
 
-    /**
-     * @return mixed
-     */
-    public function getSocket(){}
-
 
 }
