@@ -148,7 +148,7 @@ class ExtensionDocument
             "<?php\nnamespace %s \n{\n" . self::SPACE5 . "class %s extends \%s {}\n}\n",
             implode('\\', array_slice($ns, 0, count($ns) - 1)),
             end($ns),
-            str_replace('Co\\', 'Swoole\\Coroutine', ucwords($className, "\\"))
+            str_replace('Co\\', 'Swoole\\Coroutine\\', ucwords($className, "\\"))
         ));
     }
 
