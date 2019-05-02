@@ -8,8 +8,8 @@ class Client
 {
     const MSG_OOB = 1;
     const MSG_PEEK = 2;
-    const MSG_DONTWAIT = 128;
-    const MSG_WAITALL = 64;
+    const MSG_DONTWAIT = 64;
+    const MSG_WAITALL = 256;
 
     public $errCode;
     public $errMsg;
@@ -120,11 +120,6 @@ class Client
      * @return mixed
      */
     public function close(){}
-
-    /**
-     * @return mixed
-     */
-    public function getSocket(){}
 
 
 }

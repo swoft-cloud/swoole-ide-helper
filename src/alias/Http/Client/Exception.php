@@ -1,5 +1,5 @@
 <?php
 namespace Co\Http\Client 
 {
-     class Exception extends \Swoole\Http\Client\Exception {}
+     class Exception extends \Swoole\CoroutineHttp\Client\Exception {}
 }

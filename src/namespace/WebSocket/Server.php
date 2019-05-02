@@ -326,12 +326,6 @@ class Server extends \Swoole\Http\Server
     public function stats(){}
 
     /**
-     * @param $port [optional]
-     * @return mixed
-     */
-    public function getSocket(int $port=null){}
-
-    /**
      * @param $fd [required]
      * @param $uid [required]
      * @return mixed

@@ -1,5 +1,5 @@
 <?php
 namespace Co 
 {
-     class Client extends \Swoole\Client {}
+     class Client extends \Swoole\CoroutineClient {}
 }

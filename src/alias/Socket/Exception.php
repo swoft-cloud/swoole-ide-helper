@@ -1,5 +1,5 @@
 <?php
 namespace Co\Socket 
 {
-     class Exception extends \Swoole\Socket\Exception {}
+     class Exception extends \Swoole\CoroutineSocket\Exception {}
 }

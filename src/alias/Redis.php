@@ -1,5 +1,5 @@
 <?php
 namespace Co 
 {
-     class Redis extends \Swoole\Redis {}
+     class Redis extends \Swoole\CoroutineRedis {}
 }

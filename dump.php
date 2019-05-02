@@ -148,7 +148,7 @@ class ExtensionDocument
             "<?php\nnamespace %s \n{\n" . self::SPACE5 . "class %s extends \%s {}\n}\n",
             implode('\\', array_slice($ns, 0, count($ns) - 1)),
             end($ns),
-            str_replace('Co\\', 'Swoole\\', ucwords($className, "\\"))
+            str_replace('Co\\', 'Swoole\\Coroutine', ucwords($className, "\\"))
         ));
     }
 
@@ -444,6 +444,10 @@ class ExtensionDocument
 
     public function export(): void
     {
+        echo "rm -rf src \n";
+        $srcDir = __DIR__ . '/src';
+        shell_exec("rm -rf $srcDir");
+
         // 获取所有define常量
         $consts  = $this->rftExt->getConstants();
         $defines = '';
