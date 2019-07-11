@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class ExitException extends \Swoole\Exception
 {
@@ -11,6 +11,8 @@ class ExitException extends \Swoole\Exception
     protected $code;
     protected $file;
     protected $line;
+    private $flags;
+    private $status;
 
     /**
      * @return mixed

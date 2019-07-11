@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http2;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Client
 {
@@ -15,6 +15,7 @@ class Client
     public $connected;
     public $host;
     public $port;
+    public $ssl;
 
     /**
      * @param $host [required]

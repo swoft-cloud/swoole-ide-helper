@@ -2,7 +2,7 @@
 namespace Swoole\Server;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Port
 {
@@ -52,6 +52,11 @@ class Port
      * @return mixed
      */
     public function getCallback(string $event_name){}
+
+    /**
+     * @return mixed
+     */
+    public function getSocket(){}
 
 
 }

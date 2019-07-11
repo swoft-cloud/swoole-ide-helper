@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class MySQL
 {
@@ -10,8 +10,8 @@ class MySQL
     public $serverInfo;
     public $sock;
     public $connected;
-    public $connect_error;
     public $connect_errno;
+    public $connect_error;
     public $affected_rows;
     public $insert_id;
     public $error;
@@ -28,10 +28,21 @@ class MySQL
     public function __destruct(){}
 
     /**
-     * @param $server_config [required]
      * @return mixed
      */
-    public function connect($server_config){}
+    public function getDefer(){}
+
+    /**
+     * @param $defer [optional]
+     * @return mixed
+     */
+    public function setDefer($defer=null){}
+
+    /**
+     * @param $server_config [optional]
+     * @return mixed
+     */
+    public function connect($server_config=null){}
 
     /**
      * @param $sql [required]
@@ -43,7 +54,12 @@ class MySQL
     /**
      * @return mixed
      */
-    public function recv(){}
+    public function fetch(){}
+
+    /**
+     * @return mixed
+     */
+    public function fetchAll(){}
 
     /**
      * @return mixed
@@ -51,11 +67,16 @@ class MySQL
     public function nextResult(){}
 
     /**
-     * @param $string [required]
-     * @param $flags [optional]
+     * @param $query [required]
+     * @param $timeout [optional]
      * @return mixed
      */
-    public function escape(string $string, $flags=null){}
+    public function prepare($query, float $timeout=null){}
+
+    /**
+     * @return mixed
+     */
+    public function recv(){}
 
     /**
      * @param $timeout [optional]
@@ -76,22 +97,11 @@ class MySQL
     public function rollback(float $timeout=null){}
 
     /**
-     * @param $statement [required]
-     * @param $timeout [optional]
+     * @param $string [required]
+     * @param $flags [optional]
      * @return mixed
      */
-    public function prepare($statement, float $timeout=null){}
-
-    /**
-     * @param $defer [optional]
-     * @return mixed
-     */
-    public function setDefer($defer=null){}
-
-    /**
-     * @return mixed
-     */
-    public function getDefer(){}
+    public function escape(string $string, $flags=null){}
 
     /**
      * @return mixed

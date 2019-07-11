@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Iterator extends \ArrayIterator
 {

@@ -2,11 +2,12 @@
 namespace Swoole\Coroutine\MySQL;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Statement
 {
 
+    public $id;
     public $affected_rows;
     public $insert_id;
     public $error;
@@ -20,24 +21,33 @@ class Statement
     public function execute(array $params=null, float $timeout=null){}
 
     /**
+     * @param $timeout [optional]
      * @return mixed
      */
-    public function fetch(){}
+    public function fetch(float $timeout=null){}
+
+    /**
+     * @param $timeout [optional]
+     * @return mixed
+     */
+    public function fetchAll(float $timeout=null){}
+
+    /**
+     * @param $timeout [optional]
+     * @return mixed
+     */
+    public function nextResult(float $timeout=null){}
+
+    /**
+     * @param $timeout [optional]
+     * @return mixed
+     */
+    public function recv(float $timeout=null){}
 
     /**
      * @return mixed
      */
-    public function fetchAll(){}
-
-    /**
-     * @return mixed
-     */
-    public function nextResult(){}
-
-    /**
-     * @return mixed
-     */
-    public function __destruct(){}
+    public function close(){}
 
 
 }

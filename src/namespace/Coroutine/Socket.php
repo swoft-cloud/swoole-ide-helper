@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Socket
 {
@@ -54,11 +54,25 @@ class Socket
     public function recv(int $length=null, float $timeout=null){}
 
     /**
+     * @param $timeout [optional]
+     * @return mixed
+     */
+    public function recvPacket(float $timeout=null){}
+
+    /**
      * @param $data [required]
      * @param $timeout [optional]
      * @return mixed
      */
     public function send($data, float $timeout=null){}
+
+    /**
+     * @param $filename [required]
+     * @param $offset [optional]
+     * @param $length [optional]
+     * @return mixed
+     */
+    public function sendFile(string $filename, int $offset=null, int $length=null){}
 
     /**
      * @param $length [optional]
@@ -97,6 +111,12 @@ class Socket
     public function getOption($level, $opt_name){}
 
     /**
+     * @param $settings [required]
+     * @return mixed
+     */
+    public function setProtocol(array $settings){}
+
+    /**
      * @param $level [required]
      * @param $opt_name [required]
      * @param $opt_value [required]
@@ -109,6 +129,12 @@ class Socket
      * @return mixed
      */
     public function shutdown($how){}
+
+    /**
+     * @param $event [optional]
+     * @return mixed
+     */
+    public function cancel($event=null){}
 
     /**
      * @return mixed

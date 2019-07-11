@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Client
 {
@@ -69,6 +69,13 @@ class Client
     public function setHeaders(array $headers){}
 
     /**
+     * @param $username [required]
+     * @param $password [required]
+     * @return mixed
+     */
+    public function setBasicAuth($username, $password){}
+
+    /**
      * @param $cookies [required]
      * @return mixed
      */
@@ -79,6 +86,26 @@ class Client
      * @return mixed
      */
     public function setData($data){}
+
+    /**
+     * @param $path [required]
+     * @param $name [required]
+     * @param $type [optional]
+     * @param $filename [optional]
+     * @param $offset [optional]
+     * @param $length [optional]
+     * @return mixed
+     */
+    public function addFile(string $path, string $name, $type=null, string $filename=null, int $offset=null, int $length=null){}
+
+    /**
+     * @param $path [required]
+     * @param $name [required]
+     * @param $type [optional]
+     * @param $filename [optional]
+     * @return mixed
+     */
+    public function addData(string $path, string $name, $type=null, string $filename=null){}
 
     /**
      * @param $path [required]
@@ -108,36 +135,30 @@ class Client
     public function download(string $path, $file, int $offset=null){}
 
     /**
+     * @return mixed
+     */
+    public function getBody(){}
+
+    /**
+     * @return mixed
+     */
+    public function getHeaders(){}
+
+    /**
+     * @return mixed
+     */
+    public function getCookies(){}
+
+    /**
+     * @return mixed
+     */
+    public function getStatusCode(){}
+
+    /**
      * @param $path [required]
      * @return mixed
      */
     public function upgrade(string $path){}
-
-    /**
-     * @param $path [required]
-     * @param $name [required]
-     * @param $type [optional]
-     * @param $filename [optional]
-     * @param $offset [optional]
-     * @param $length [optional]
-     * @return mixed
-     */
-    public function addFile(string $path, string $name, $type=null, string $filename=null, int $offset=null, int $length=null){}
-
-    /**
-     * @param $path [required]
-     * @param $name [required]
-     * @param $type [optional]
-     * @param $filename [optional]
-     * @return mixed
-     */
-    public function addData(string $path, string $name, $type=null, string $filename=null){}
-
-    /**
-     * @param $timeout [optional]
-     * @return mixed
-     */
-    public function recv(float $timeout=null){}
 
     /**
      * @param $data [required]
@@ -146,6 +167,12 @@ class Client
      * @return mixed
      */
     public function push($data, int $opcode=null, $finish=null){}
+
+    /**
+     * @param $timeout [optional]
+     * @return mixed
+     */
+    public function recv(float $timeout=null){}
 
     /**
      * @return mixed

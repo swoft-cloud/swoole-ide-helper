@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Server
 {
@@ -251,20 +251,6 @@ class Server
      * @param $reactor_id [optional]
      * @return mixed
      */
-    public function connection_info(int $fd, int $reactor_id=null){}
-
-    /**
-     * @param $start_fd [required]
-     * @param $find_count [optional]
-     * @return mixed
-     */
-    public function connection_list(int $start_fd, int $find_count=null){}
-
-    /**
-     * @param $fd [required]
-     * @param $reactor_id [optional]
-     * @return mixed
-     */
     public function getClientInfo(int $fd, int $reactor_id=null){}
 
     /**
@@ -275,31 +261,18 @@ class Server
     public function getClientList(int $start_fd, int $find_count=null){}
 
     /**
-     * @param $ms [required]
-     * @param mixed $callback [required]
-     * @param $param [optional]
+     * @param $fd [required]
+     * @param $reactor_id [optional]
      * @return mixed
      */
-    public function after(int $ms, $callback, $param=null){}
+    public function connection_info(int $fd, int $reactor_id=null){}
 
     /**
-     * @param $ms [required]
-     * @param mixed $callback [required]
+     * @param $start_fd [required]
+     * @param $find_count [optional]
      * @return mixed
      */
-    public function tick(int $ms, $callback){}
-
-    /**
-     * @param $timer_id [required]
-     * @return mixed
-     */
-    public function clearTimer(int $timer_id){}
-
-    /**
-     * @param mixed $callback [required]
-     * @return mixed
-     */
-    public function defer($callback){}
+    public function connection_list(int $start_fd, int $find_count=null){}
 
     /**
      * @param $message [required]
@@ -320,11 +293,43 @@ class Server
     public function stats(){}
 
     /**
+     * @param $port [optional]
+     * @return mixed
+     */
+    public function getSocket(int $port=null){}
+
+    /**
      * @param $fd [required]
      * @param $uid [required]
      * @return mixed
      */
     public function bind(int $fd, int $uid){}
+
+    /**
+     * @param $ms [required]
+     * @param mixed $callback [required]
+     * @return mixed
+     */
+    public function after(int $ms, $callback){}
+
+    /**
+     * @param $ms [required]
+     * @param mixed $callback [required]
+     * @return mixed
+     */
+    public function tick(int $ms, $callback){}
+
+    /**
+     * @param $timer_id [required]
+     * @return mixed
+     */
+    public function clearTimer(int $timer_id){}
+
+    /**
+     * @param mixed $callback [required]
+     * @return mixed
+     */
+    public function defer($callback){}
 
 
 }

@@ -2,14 +2,14 @@
 namespace Swoole;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Client
 {
     const MSG_OOB = 1;
     const MSG_PEEK = 2;
-    const MSG_DONTWAIT = 64;
-    const MSG_WAITALL = 256;
+    const MSG_DONTWAIT = 128;
+    const MSG_WAITALL = 64;
     const SHUT_RDWR = 2;
     const SHUT_RD = 0;
     const SHUT_WR = 1;
@@ -161,6 +161,11 @@ class Client
      * @return mixed
      */
     public function on(string $event_name, $callback){}
+
+    /**
+     * @return mixed
+     */
+    public function getSocket(){}
 
 
 }

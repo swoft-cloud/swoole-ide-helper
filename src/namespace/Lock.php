@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.3.3
+ * @since 4.4.0
  */
 class Lock
 {
@@ -10,7 +10,6 @@ class Lock
     const MUTEX = 3;
     const SEM = 4;
     const RWLOCK = 1;
-    const SPINLOCK = 5;
 
     public $errCode;
 
