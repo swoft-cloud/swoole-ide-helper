@@ -275,11 +275,11 @@ class Server
     public function connection_list(int $start_fd, int $find_count=null){}
 
     /**
-     * @param $message [required]
-     * @param $dst_worker_id [required]
+     * @param mixed $message [required]
+     * @param int $dst_worker_id [required]
      * @return mixed
      */
-    public function sendMessage(string $message, int $dst_worker_id){}
+    public function sendMessage($message, int $dst_worker_id){}
 
     /**
      * @param $process [required]
