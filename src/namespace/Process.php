@@ -1,6 +1,8 @@
 <?php
 namespace Swoole;
 
+use Swoole\Coroutine\Socket;
+
 /**
  * @since 4.4.0
  */
@@ -145,7 +147,7 @@ class Process
     public function exec($exec_file, $args){}
 
     /**
-     * @return mixed
+     * @return Socket
      */
     public function exportSocket(){}
 
