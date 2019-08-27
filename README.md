@@ -1,6 +1,8 @@
-# swoole-ide-helper
+# Swoole IDE Helper
 
-add ide-helper for **swoole**, forked from [swoole/ide-helper](https://github.com/swoole/ide-helper)
+[![Latest Stable Version](http://img.shields.io/packagist/v/swoft/swoole-ide-helper.svg)](https://packagist.org/packages/swoft/swoole-ide-helper)
+
+Add ide-helper for **swoole**, forked from [swoole/ide-helper](https://github.com/swoole/ide-helper)
 
 ## Usage
 
