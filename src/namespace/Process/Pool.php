@@ -6,20 +6,19 @@ namespace Swoole\Process;
  */
 class Pool
 {
-    // constants of the class Pool
 
     // property of the class Pool
     public $master_pid;
     public $workers;
 
     /**
-     * @param int $worker_num [required]
+     * @param int $worker_num
      * @param $ipc_type [optional]
      * @param $msgqueue_key [optional]
-     * @param $enable_coroutine [optional]
+     * @param bool $enable_coroutine [optional]
      * @return mixed
      */
-    public function __construct(int $worker_num, $ipc_type = null, $msgqueue_key = null, $enable_coroutine = null){}
+    public function __construct(int $worker_num, $ipc_type = null, $msgqueue_key = null, bool $enable_coroutine = null){}
 
     /**
      * @return mixed
@@ -27,8 +26,8 @@ class Pool
     public function __destruct(){}
 
     /**
-     * @param string $event_name [required]
-     * @param mixed $callback [required]
+     * @param string $event_name
+     * @param mixed $callback
      * @return mixed
      */
     public function on(string $event_name, $callback){}
@@ -40,7 +39,7 @@ class Pool
     public function getProcess(int $worker_id = null){}
 
     /**
-     * @param string $host [required]
+     * @param string $host
      * @param int $port [optional]
      * @param $backlog [optional]
      * @return mixed
@@ -48,7 +47,7 @@ class Pool
     public function listen(string $host, int $port = null, $backlog = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public function write($data){}
@@ -62,6 +61,4 @@ class Pool
      * @return mixed
      */
     public function shutdown(){}
-
-
 }

@@ -6,9 +6,7 @@ namespace Swoole;
  */
 class Runtime
 {
-    // constants of the class Runtime
 
-    // property of the class Runtime
 
     /**
      * @return mixed
@@ -21,6 +19,4 @@ class Runtime
      * @return mixed
      */
     public static function enableCoroutine($enable = null, $flags = null){}
-
-
 }

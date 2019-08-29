@@ -6,7 +6,6 @@ namespace Swoole\Coroutine\Http2;
  */
 class Client
 {
-    // constants of the class Client
 
     // property of the class Client
     public $errCode;
@@ -20,7 +19,7 @@ class Client
     public $ssl;
 
     /**
-     * @param string $host [required]
+     * @param string $host
      * @param int $port [optional]
      * @param $ssl [optional]
      * @return mixed
@@ -33,7 +32,7 @@ class Client
     public function __destruct(){}
 
     /**
-     * @param array $settings [required]
+     * @param array $settings
      * @return mixed
      */
     public function set(array $settings){}
@@ -50,20 +49,20 @@ class Client
     public function stats($key = null){}
 
     /**
-     * @param $stream_id [required]
+     * @param $stream_id
      * @return mixed
      */
     public function isStreamExist($stream_id){}
 
     /**
-     * @param $request [required]
+     * @param $request
      * @return mixed
      */
     public function send($request){}
 
     /**
-     * @param $stream_id [required]
-     * @param $data [required]
+     * @param $stream_id
+     * @param $data
      * @param $end_stream [optional]
      * @return mixed
      */
@@ -91,6 +90,4 @@ class Client
      * @return mixed
      */
     public function close(){}
-
-
 }

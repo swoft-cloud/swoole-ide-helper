@@ -6,7 +6,6 @@ namespace Swoole\Server;
  */
 class Task
 {
-    // constants of the class Task
 
     // property of the class Task
     public $data;
@@ -15,10 +14,8 @@ class Task
     public $flags;
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public function finish($data){}
-
-
 }

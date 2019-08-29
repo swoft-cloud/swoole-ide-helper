@@ -6,7 +6,6 @@ namespace Swoole\Coroutine\MySQL;
  */
 class Statement
 {
-    // constants of the class Statement
 
     // property of the class Statement
     public $id;
@@ -50,6 +49,4 @@ class Statement
      * @return mixed
      */
     public function close(){}
-
-
 }

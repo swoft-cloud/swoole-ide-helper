@@ -6,9 +6,7 @@ namespace Swoole\Atomic;
  */
 class Long
 {
-    // constants of the class Long
 
-    // property of the class Long
 
     /**
      * @param $value [optional]
@@ -34,17 +32,15 @@ class Long
     public function get(){}
 
     /**
-     * @param $value [required]
+     * @param $value
      * @return mixed
      */
     public function set($value){}
 
     /**
-     * @param $cmp_value [required]
-     * @param $new_value [required]
+     * @param $cmp_value
+     * @param $new_value
      * @return mixed
      */
     public function cmpset($cmp_value, $new_value){}
-
-
 }

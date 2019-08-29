@@ -62,6 +62,4 @@ class Lock
      * @return mixed
      */
     public function destroy(){}
-
-
 }

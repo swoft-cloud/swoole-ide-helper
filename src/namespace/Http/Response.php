@@ -6,7 +6,6 @@ namespace Swoole\Http;
  */
 class Response
 {
-    // constants of the class Response
 
     // property of the class Response
     public $fd;
@@ -21,7 +20,7 @@ class Response
     public function initHeader(){}
 
     /**
-     * @param string $name [required]
+     * @param string $name
      * @param $value [optional]
      * @param $expires [optional]
      * @param string $path [optional]
@@ -33,7 +32,7 @@ class Response
     public function cookie(string $name, $value = null, $expires = null, string $path = null, $domain = null, $secure = null, $httponly = null){}
 
     /**
-     * @param string $name [required]
+     * @param string $name
      * @param $value [optional]
      * @param $expires [optional]
      * @param string $path [optional]
@@ -45,7 +44,7 @@ class Response
     public function setCookie(string $name, $value = null, $expires = null, string $path = null, $domain = null, $secure = null, $httponly = null){}
 
     /**
-     * @param string $name [required]
+     * @param string $name
      * @param $value [optional]
      * @param $expires [optional]
      * @param string $path [optional]
@@ -57,38 +56,38 @@ class Response
     public function rawcookie(string $name, $value = null, $expires = null, string $path = null, $domain = null, $secure = null, $httponly = null){}
 
     /**
-     * @param $http_code [required]
+     * @param $http_code
      * @param string $reason [optional]
      * @return mixed
      */
     public function status($http_code, string $reason = null){}
 
     /**
-     * @param $http_code [required]
+     * @param $http_code
      * @param string $reason [optional]
      * @return mixed
      */
     public function setStatusCode($http_code, string $reason = null){}
 
     /**
-     * @param $key [required]
-     * @param $value [required]
+     * @param $key
+     * @param $value
      * @param $ucwords [optional]
      * @return mixed
      */
     public function header($key, $value, $ucwords = null){}
 
     /**
-     * @param $key [required]
-     * @param $value [required]
+     * @param $key
+     * @param $value
      * @param $ucwords [optional]
      * @return mixed
      */
     public function setHeader($key, $value, $ucwords = null){}
 
     /**
-     * @param $key [required]
-     * @param $value [required]
+     * @param $key
+     * @param $value
      * @return mixed
      */
     public function trailer($key, $value){}
@@ -99,7 +98,7 @@ class Response
     public function ping(){}
 
     /**
-     * @param string $content [required]
+     * @param string $content
      * @return mixed
      */
     public function write(string $content){}
@@ -111,7 +110,7 @@ class Response
     public function end(string $content = null){}
 
     /**
-     * @param string $filename [required]
+     * @param string $filename
      * @param int $offset [optional]
      * @param int $length [optional]
      * @return mixed
@@ -119,7 +118,7 @@ class Response
     public function sendfile(string $filename, int $offset = null, int $length = null){}
 
     /**
-     * @param $location [required]
+     * @param $location
      * @param $http_code [optional]
      * @return mixed
      */
@@ -131,7 +130,7 @@ class Response
     public function detach(){}
 
     /**
-     * @param int $fd [required]
+     * @param int $fd
      * @return mixed
      */
     public static function create(int $fd){}
@@ -155,6 +154,4 @@ class Response
      * @return mixed
      */
     public function __destruct(){}
-
-
 }

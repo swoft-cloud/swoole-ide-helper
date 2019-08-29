@@ -10,7 +10,6 @@ class Context extends \ArrayObject
     public const STD_PROP_LIST = 1;
     public const ARRAY_AS_PROPS = 2;
 
-    // property of the class Context
 
     /**
      * @param $input [optional]
@@ -21,32 +20,32 @@ class Context extends \ArrayObject
     public function __construct($input = null, $flags = null, $iterator_class = null){}
 
     /**
-     * @param $index [required]
+     * @param $index
      * @return mixed
      */
     public function offsetExists($index){}
 
     /**
-     * @param $index [required]
+     * @param $index
      * @return mixed
      */
     public function offsetGet($index){}
 
     /**
-     * @param $index [required]
-     * @param $newval [required]
+     * @param $index
+     * @param $newval
      * @return mixed
      */
     public function offsetSet($index, $newval){}
 
     /**
-     * @param $index [required]
+     * @param $index
      * @return mixed
      */
     public function offsetUnset($index){}
 
     /**
-     * @param $value [required]
+     * @param $value
      * @return mixed
      */
     public function append($value){}
@@ -67,7 +66,7 @@ class Context extends \ArrayObject
     public function getFlags(){}
 
     /**
-     * @param $flags [required]
+     * @param $flags
      * @return mixed
      */
     public function setFlags($flags){}
@@ -83,13 +82,13 @@ class Context extends \ArrayObject
     public function ksort(){}
 
     /**
-     * @param $cmp_function [required]
+     * @param $cmp_function
      * @return mixed
      */
     public function uasort($cmp_function){}
 
     /**
-     * @param $cmp_function [required]
+     * @param $cmp_function
      * @return mixed
      */
     public function uksort($cmp_function){}
@@ -105,7 +104,7 @@ class Context extends \ArrayObject
     public function natcasesort(){}
 
     /**
-     * @param $serialized [required]
+     * @param $serialized
      * @return mixed
      */
     public function unserialize($serialized){}
@@ -121,13 +120,13 @@ class Context extends \ArrayObject
     public function getIterator(){}
 
     /**
-     * @param $array [required]
+     * @param $array
      * @return mixed
      */
     public function exchangeArray($array){}
 
     /**
-     * @param $iteratorClass [required]
+     * @param $iteratorClass
      * @return mixed
      */
     public function setIteratorClass($iteratorClass){}
@@ -136,6 +135,4 @@ class Context extends \ArrayObject
      * @return mixed
      */
     public function getIteratorClass(){}
-
-
 }

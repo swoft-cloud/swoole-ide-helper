@@ -11,18 +11,17 @@ class Table
     public const TYPE_STRING = 7;
     public const TYPE_FLOAT = 6;
 
-    // property of the class Table
 
     /**
-     * @param $table_size [required]
+     * @param $table_size
      * @param $conflict_proportion [optional]
      * @return mixed
      */
     public function __construct($table_size, $conflict_proportion = null){}
 
     /**
-     * @param string $name [required]
-     * @param $type [required]
+     * @param string $name
+     * @param $type
      * @param int $size [optional]
      * @return mixed
      */
@@ -39,14 +38,14 @@ class Table
     public function destroy(){}
 
     /**
-     * @param $key [required]
-     * @param $value [required]
+     * @param $key
+     * @param $value
      * @return mixed
      */
     public function set($key, $value){}
 
     /**
-     * @param $key [required]
+     * @param $key
      * @param $field [optional]
      * @return mixed
      */
@@ -58,34 +57,34 @@ class Table
     public function count(){}
 
     /**
-     * @param $key [required]
+     * @param $key
      * @return mixed
      */
     public function del($key){}
 
     /**
-     * @param $key [required]
+     * @param $key
      * @return mixed
      */
     public function exists($key){}
 
     /**
-     * @param $key [required]
+     * @param $key
      * @return mixed
      */
     public function exist($key){}
 
     /**
-     * @param $key [required]
-     * @param $column [required]
+     * @param $key
+     * @param $column
      * @param $incrby [optional]
      * @return mixed
      */
     public function incr($key, $column, $incrby = null){}
 
     /**
-     * @param $key [required]
-     * @param $column [required]
+     * @param $key
+     * @param $column
      * @param $decrby [optional]
      * @return mixed
      */
@@ -97,26 +96,26 @@ class Table
     public function getMemorySize(){}
 
     /**
-     * @param int $offset [required]
+     * @param int $offset
      * @return mixed
      */
     public function offsetExists(int $offset){}
 
     /**
-     * @param int $offset [required]
+     * @param int $offset
      * @return mixed
      */
     public function offsetGet(int $offset){}
 
     /**
-     * @param int $offset [required]
-     * @param $value [required]
+     * @param int $offset
+     * @param $value
      * @return mixed
      */
     public function offsetSet(int $offset, $value){}
 
     /**
-     * @param int $offset [required]
+     * @param int $offset
      * @return mixed
      */
     public function offsetUnset(int $offset){}
@@ -145,6 +144,4 @@ class Table
      * @return mixed
      */
     public function valid(){}
-
-
 }

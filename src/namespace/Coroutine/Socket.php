@@ -6,7 +6,6 @@ namespace Swoole\Coroutine;
  */
 class Socket
 {
-    // constants of the class Socket
 
     // property of the class Socket
     public $fd;
@@ -14,15 +13,15 @@ class Socket
     public $errMsg;
 
     /**
-     * @param $domain [required]
-     * @param $type [required]
+     * @param $domain
+     * @param $type
      * @param $protocol [optional]
      * @return mixed
      */
     public function __construct($domain, $type, $protocol = null){}
 
     /**
-     * @param $address [required]
+     * @param $address
      * @param int $port [optional]
      * @return mixed
      */
@@ -41,7 +40,7 @@ class Socket
     public function accept(float $timeout = null){}
 
     /**
-     * @param string $host [required]
+     * @param string $host
      * @param int $port [optional]
      * @param float $timeout [optional]
      * @return mixed
@@ -62,14 +61,14 @@ class Socket
     public function recvPacket(float $timeout = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @param float $timeout [optional]
      * @return mixed
      */
     public function send($data, float $timeout = null){}
 
     /**
-     * @param string $filename [required]
+     * @param string $filename
      * @param int $offset [optional]
      * @param int $length [optional]
      * @return mixed
@@ -84,50 +83,50 @@ class Socket
     public function recvAll(int $length = null, float $timeout = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @param float $timeout [optional]
      * @return mixed
      */
     public function sendAll($data, float $timeout = null){}
 
     /**
-     * @param $peername [required]
+     * @param $peername
      * @param float $timeout [optional]
      * @return mixed
      */
     public function recvfrom($peername, float $timeout = null){}
 
     /**
-     * @param $addr [required]
-     * @param int $port [required]
-     * @param $data [required]
+     * @param $addr
+     * @param int $port
+     * @param $data
      * @return mixed
      */
     public function sendto($addr, int $port, $data){}
 
     /**
-     * @param $level [required]
-     * @param $opt_name [required]
+     * @param $level
+     * @param $opt_name
      * @return mixed
      */
     public function getOption($level, $opt_name){}
 
     /**
-     * @param array $settings [required]
+     * @param array $settings
      * @return mixed
      */
     public function setProtocol(array $settings){}
 
     /**
-     * @param $level [required]
-     * @param $opt_name [required]
-     * @param $opt_value [required]
+     * @param $level
+     * @param $opt_name
+     * @param $opt_value
      * @return mixed
      */
     public function setOption($level, $opt_name, $opt_value){}
 
     /**
-     * @param $how [required]
+     * @param $how
      * @return mixed
      */
     public function shutdown($how){}
@@ -152,6 +151,4 @@ class Socket
      * @return mixed
      */
     public function getsockname(){}
-
-
 }

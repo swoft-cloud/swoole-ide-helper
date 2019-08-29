@@ -6,36 +6,34 @@ namespace Swoole;
  */
 class Event
 {
-    // constants of the class Event
 
-    // property of the class Event
 
     /**
-     * @param int $fd [required]
-     * @param $read_callback [required]
-     * @param $write_callback [optional]
+     * @param int $fd
+     * @param mixed $read_callback
+     * @param mixed $write_callback [optional]
      * @param $events [optional]
      * @return mixed
      */
     public static function add(int $fd, $read_callback, $write_callback = null, $events = null){}
 
     /**
-     * @param int $fd [required]
+     * @param int $fd
      * @return mixed
      */
     public static function del(int $fd){}
 
     /**
-     * @param int $fd [required]
-     * @param $read_callback [optional]
-     * @param $write_callback [optional]
+     * @param int $fd
+     * @param mixed $read_callback [optional]
+     * @param mixed $write_callback [optional]
      * @param $events [optional]
      * @return mixed
      */
     public static function set(int $fd, $read_callback = null, $write_callback = null, $events = null){}
 
     /**
-     * @param int $fd [required]
+     * @param int $fd
      * @param $events [optional]
      * @return mixed
      */
@@ -47,21 +45,21 @@ class Event
     public static function dispatch(){}
 
     /**
-     * @param mixed $callback [required]
+     * @param mixed $callback
      * @return mixed
      */
     public static function defer($callback){}
 
     /**
-     * @param mixed $callback [required]
+     * @param mixed $callback
      * @param $before [optional]
      * @return mixed
      */
     public static function cycle($callback, $before = null){}
 
     /**
-     * @param int $fd [required]
-     * @param $data [required]
+     * @param int $fd
+     * @param $data
      * @return mixed
      */
     public static function write(int $fd, $data){}
@@ -80,6 +78,4 @@ class Event
      * @return mixed
      */
     public static function exit(){}
-
-
 }

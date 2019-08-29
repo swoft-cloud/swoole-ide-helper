@@ -6,7 +6,6 @@ namespace Swoole;
  */
 class Error extends \Error
 {
-    // constants of the class Error
 
     // property of the class Error
     protected $message;
@@ -31,6 +30,4 @@ class Error extends \Error
      * @return mixed
      */
     public function __toString(){}
-
-
 }

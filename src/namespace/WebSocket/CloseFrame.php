@@ -6,7 +6,6 @@ namespace Swoole\WebSocket;
  */
 class CloseFrame extends \Swoole\WebSocket\Frame
 {
-    // constants of the class CloseFrame
 
     // property of the class CloseFrame
     public $fd;
@@ -22,7 +21,7 @@ class CloseFrame extends \Swoole\WebSocket\Frame
     public function __toString(){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @param int $opcode [optional]
      * @param $finish [optional]
      * @param $mask [optional]
@@ -31,10 +30,8 @@ class CloseFrame extends \Swoole\WebSocket\Frame
     public static function pack($data, int $opcode = null, $finish = null, $mask = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public static function unpack($data){}
-
-
 }

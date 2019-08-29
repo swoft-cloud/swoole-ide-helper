@@ -10,7 +10,6 @@ class Iterator extends \ArrayIterator
     public const STD_PROP_LIST = 1;
     public const ARRAY_AS_PROPS = 2;
 
-    // property of the class Iterator
 
     /**
      * @param $array [optional]
@@ -20,32 +19,32 @@ class Iterator extends \ArrayIterator
     public function __construct($array = null, $ar_flags = null){}
 
     /**
-     * @param $index [required]
+     * @param $index
      * @return mixed
      */
     public function offsetExists($index){}
 
     /**
-     * @param $index [required]
+     * @param $index
      * @return mixed
      */
     public function offsetGet($index){}
 
     /**
-     * @param $index [required]
-     * @param $newval [required]
+     * @param $index
+     * @param $newval
      * @return mixed
      */
     public function offsetSet($index, $newval){}
 
     /**
-     * @param $index [required]
+     * @param $index
      * @return mixed
      */
     public function offsetUnset($index){}
 
     /**
-     * @param $value [required]
+     * @param $value
      * @return mixed
      */
     public function append($value){}
@@ -66,7 +65,7 @@ class Iterator extends \ArrayIterator
     public function getFlags(){}
 
     /**
-     * @param $flags [required]
+     * @param $flags
      * @return mixed
      */
     public function setFlags($flags){}
@@ -82,13 +81,13 @@ class Iterator extends \ArrayIterator
     public function ksort(){}
 
     /**
-     * @param $cmp_function [required]
+     * @param $cmp_function
      * @return mixed
      */
     public function uasort($cmp_function){}
 
     /**
-     * @param $cmp_function [required]
+     * @param $cmp_function
      * @return mixed
      */
     public function uksort($cmp_function){}
@@ -104,7 +103,7 @@ class Iterator extends \ArrayIterator
     public function natcasesort(){}
 
     /**
-     * @param $serialized [required]
+     * @param $serialized
      * @return mixed
      */
     public function unserialize($serialized){}
@@ -140,10 +139,8 @@ class Iterator extends \ArrayIterator
     public function valid(){}
 
     /**
-     * @param $position [required]
+     * @param $position
      * @return mixed
      */
     public function seek($position){}
-
-
 }

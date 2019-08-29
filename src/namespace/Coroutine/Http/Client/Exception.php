@@ -6,7 +6,6 @@ namespace Swoole\Coroutine\Http\Client;
  */
 class Exception extends \Swoole\Exception
 {
-    // constants of the class Exception
 
     // property of the class Exception
     protected $message;
@@ -31,6 +30,4 @@ class Exception extends \Swoole\Exception
      * @return mixed
      */
     public function __toString(){}
-
-
 }

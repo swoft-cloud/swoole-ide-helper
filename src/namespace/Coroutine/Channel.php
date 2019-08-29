@@ -6,7 +6,6 @@ namespace Swoole\Coroutine;
  */
 class Channel
 {
-    // constants of the class Channel
 
     // property of the class Channel
     public $capacity;
@@ -19,7 +18,7 @@ class Channel
     public function __construct(int $size = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @param float $timeout [optional]
      * @return mixed
      */
@@ -55,6 +54,4 @@ class Channel
      * @return mixed
      */
     public function length(){}
-
-
 }

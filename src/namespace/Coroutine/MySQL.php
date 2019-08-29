@@ -6,7 +6,6 @@ namespace Swoole\Coroutine;
  */
 class MySQL
 {
-    // constants of the class MySQL
 
     // property of the class MySQL
     public $serverInfo;
@@ -47,7 +46,7 @@ class MySQL
     public function connect($server_config = null){}
 
     /**
-     * @param string $sql [required]
+     * @param string $sql
      * @param float $timeout [optional]
      * @return mixed
      */
@@ -69,7 +68,7 @@ class MySQL
     public function nextResult(){}
 
     /**
-     * @param $query [required]
+     * @param $query
      * @param float $timeout [optional]
      * @return mixed
      */
@@ -99,7 +98,7 @@ class MySQL
     public function rollback(float $timeout = null){}
 
     /**
-     * @param string $string [required]
+     * @param string $string
      * @param $flags [optional]
      * @return mixed
      */
@@ -109,6 +108,4 @@ class MySQL
      * @return mixed
      */
     public function close(){}
-
-
 }

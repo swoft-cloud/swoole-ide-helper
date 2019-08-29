@@ -6,7 +6,6 @@ namespace Swoole;
  */
 class Buffer
 {
-    // constants of the class Buffer
 
     // property of the class Buffer
     public $capacity;
@@ -29,7 +28,7 @@ class Buffer
     public function __toString(){}
 
     /**
-     * @param int $offset [required]
+     * @param int $offset
      * @param int $length [optional]
      * @param $remove [optional]
      * @return mixed
@@ -37,27 +36,27 @@ class Buffer
     public function substr(int $offset, int $length = null, $remove = null){}
 
     /**
-     * @param int $offset [required]
-     * @param $data [required]
+     * @param int $offset
+     * @param $data
      * @return mixed
      */
     public function write(int $offset, $data){}
 
     /**
-     * @param int $offset [required]
-     * @param int $length [required]
+     * @param int $offset
+     * @param int $length
      * @return mixed
      */
     public function read(int $offset, int $length){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public function append($data){}
 
     /**
-     * @param int $size [required]
+     * @param int $size
      * @return mixed
      */
     public function expand(int $size){}
@@ -71,6 +70,4 @@ class Buffer
      * @return mixed
      */
     public function clear(){}
-
-
 }

@@ -22,13 +22,13 @@ class Process
     public $id;
 
     /**
-     * @param mixed $callback [required]
-     * @param $redirect_stdin_and_stdout [optional]
-     * @param $pipe_type [optional]
-     * @param $enable_coroutine [optional]
+     * @param mixed $callback
+     * @param bool $redirect_stdin_and_stdout [optional]
+     * @param int $pipe_type [optional]
+     * @param bool $enable_coroutine [optional]
      * @return mixed
      */
-    public function __construct($callback, $redirect_stdin_and_stdout = null, $pipe_type = null, $enable_coroutine = null){}
+    public function __construct($callback, bool $redirect_stdin_and_stdout = null, int $pipe_type = null, bool $enable_coroutine = null){}
 
     /**
      * @return mixed
@@ -36,27 +36,27 @@ class Process
     public function __destruct(){}
 
     /**
-     * @param $blocking [optional]
+     * @param bool $blocking [optional]
      * @return mixed
      */
-    public static function wait($blocking = null){}
+    public static function wait(bool $blocking = null){}
 
     /**
-     * @param int $signal_no [required]
-     * @param mixed $callback [required]
+     * @param int $signal_no
+     * @param mixed $callback
      * @return mixed
      */
     public static function signal(int $signal_no, $callback){}
 
     /**
-     * @param $usec [required]
+     * @param $usec
      * @param $type [optional]
      * @return mixed
      */
     public static function alarm($usec, $type = null){}
 
     /**
-     * @param int $pid [required]
+     * @param int $pid
      * @param int $signal_no [optional]
      * @return mixed
      */
@@ -70,16 +70,16 @@ class Process
     public static function daemon($nochdir = null, $noclose = null){}
 
     /**
-     * @param $seconds [required]
+     * @param $seconds
      * @return mixed
      */
     public function setTimeout($seconds){}
 
     /**
-     * @param $blocking [required]
+     * @param bool $blocking
      * @return mixed
      */
-    public function setBlocking($blocking){}
+    public function setBlocking(bool $blocking){}
 
     /**
      * @param $key [optional]
@@ -105,7 +105,7 @@ class Process
     public function start(){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public function write($data){}
@@ -122,7 +122,7 @@ class Process
     public function read(int $size = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public function push($data){}
@@ -140,8 +140,8 @@ class Process
     public function exit(int $exit_code = null){}
 
     /**
-     * @param $exec_file [required]
-     * @param $args [required]
+     * @param $exec_file
+     * @param $args
      * @return mixed
      */
     public function exec($exec_file, $args){}
@@ -152,10 +152,8 @@ class Process
     public function exportSocket(){}
 
     /**
-     * @param string $process_name [required]
+     * @param string $process_name
      * @return mixed
      */
     public function name(string $process_name){}
-
-
 }

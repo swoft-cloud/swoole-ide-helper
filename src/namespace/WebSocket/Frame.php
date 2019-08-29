@@ -6,7 +6,6 @@ namespace Swoole\WebSocket;
  */
 class Frame
 {
-    // constants of the class Frame
 
     // property of the class Frame
     public $fd;
@@ -20,7 +19,7 @@ class Frame
     public function __toString(){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @param int $opcode [optional]
      * @param $finish [optional]
      * @param $mask [optional]
@@ -29,10 +28,8 @@ class Frame
     public static function pack($data, int $opcode = null, $finish = null, $mask = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public static function unpack($data){}
-
-
 }

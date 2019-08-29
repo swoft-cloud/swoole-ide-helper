@@ -6,33 +6,32 @@ namespace Swoole\Table;
  */
 class Row
 {
-    // constants of the class Row
 
     // property of the class Row
     public $key;
     public $value;
 
     /**
-     * @param int $offset [required]
+     * @param int $offset
      * @return mixed
      */
     public function offsetExists(int $offset){}
 
     /**
-     * @param int $offset [required]
+     * @param int $offset
      * @return mixed
      */
     public function offsetGet(int $offset){}
 
     /**
-     * @param int $offset [required]
-     * @param $value [required]
+     * @param int $offset
+     * @param $value
      * @return mixed
      */
     public function offsetSet(int $offset, $value){}
 
     /**
-     * @param int $offset [required]
+     * @param int $offset
      * @return mixed
      */
     public function offsetUnset(int $offset){}
@@ -41,6 +40,4 @@ class Row
      * @return mixed
      */
     public function __destruct(){}
-
-
 }

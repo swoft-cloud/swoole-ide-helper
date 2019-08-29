@@ -32,7 +32,7 @@ class Client
     private $onSSLReady;
 
     /**
-     * @param $type [required]
+     * @param $type
      * @param $async [optional]
      * @return mixed
      */
@@ -44,13 +44,13 @@ class Client
     public function __destruct(){}
 
     /**
-     * @param array $settings [required]
+     * @param array $settings
      * @return mixed
      */
     public function set(array $settings){}
 
     /**
-     * @param string $host [required]
+     * @param string $host
      * @param int $port [optional]
      * @param float $timeout [optional]
      * @param $sock_flag [optional]
@@ -66,20 +66,20 @@ class Client
     public function recv(int $size = null, $flag = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @param $flag [optional]
      * @return mixed
      */
     public function send($data, $flag = null){}
 
     /**
-     * @param $dst_socket [required]
+     * @param $dst_socket
      * @return mixed
      */
     public function pipe($dst_socket){}
 
     /**
-     * @param string $filename [required]
+     * @param string $filename
      * @param int $offset [optional]
      * @param int $length [optional]
      * @return mixed
@@ -87,12 +87,12 @@ class Client
     public function sendfile(string $filename, int $offset = null, int $length = null){}
 
     /**
-     * @param $ip [required]
-     * @param int $port [required]
-     * @param $data [required]
+     * @param string $ip
+     * @param int $port
+     * @param $data
      * @return mixed
      */
-    public function sendto($ip, int $port, $data){}
+    public function sendto(string $ip, int $port, $data){}
 
     /**
      * @return mixed
@@ -115,7 +115,7 @@ class Client
     public function resume(){}
 
     /**
-     * @param $how [required]
+     * @param $how
      * @return mixed
      */
     public function shutdown($how){}
@@ -158,8 +158,8 @@ class Client
     public function close($force = null){}
 
     /**
-     * @param string $event_name [required]
-     * @param mixed $callback [required]
+     * @param string $event_name
+     * @param mixed $callback
      * @return mixed
      */
     public function on(string $event_name, $callback){}
@@ -168,6 +168,4 @@ class Client
      * @return mixed
      */
     public function getSocket(){}
-
-
 }

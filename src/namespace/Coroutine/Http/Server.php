@@ -6,7 +6,6 @@ namespace Swoole\Coroutine\Http;
  */
 class Server
 {
-    // constants of the class Server
 
     // property of the class Server
     public $fd;
@@ -28,14 +27,14 @@ class Server
     public function __destruct(){}
 
     /**
-     * @param array $settings [required]
+     * @param array $settings
      * @return mixed
      */
     public function set(array $settings){}
 
     /**
-     * @param $pattern [required]
-     * @param mixed $callback [required]
+     * @param $pattern
+     * @param mixed $callback
      * @return mixed
      */
     public function handle($pattern, $callback){}
@@ -54,6 +53,4 @@ class Server
      * @return mixed
      */
     public function shutdown(){}
-
-
 }

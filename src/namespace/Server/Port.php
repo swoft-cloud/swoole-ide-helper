@@ -6,7 +6,6 @@ namespace Swoole\Server;
  */
 class Port
 {
-    // constants of the class Port
 
     // property of the class Port
     private $onConnect;
@@ -37,20 +36,20 @@ class Port
     public function __destruct(){}
 
     /**
-     * @param array $settings [required]
+     * @param array $settings
      * @return mixed
      */
     public function set(array $settings){}
 
     /**
-     * @param string $event_name [required]
-     * @param mixed $callback [required]
+     * @param string $event_name
+     * @param mixed $callback
      * @return mixed
      */
     public function on(string $event_name, $callback){}
 
     /**
-     * @param string $event_name [required]
+     * @param string $event_name
      * @return mixed
      */
     public function getCallback(string $event_name){}
@@ -59,6 +58,4 @@ class Port
      * @return mixed
      */
     public function getSocket(){}
-
-
 }

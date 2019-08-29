@@ -22,7 +22,7 @@ class Client
     public $connected;
 
     /**
-     * @param $type [required]
+     * @param $type
      * @return mixed
      */
     public function __construct($type){}
@@ -33,13 +33,13 @@ class Client
     public function __destruct(){}
 
     /**
-     * @param array $settings [required]
+     * @param array $settings
      * @return mixed
      */
     public function set(array $settings){}
 
     /**
-     * @param string $host [required]
+     * @param string $host
      * @param int $port [optional]
      * @param float $timeout [optional]
      * @param $sock_flag [optional]
@@ -60,13 +60,13 @@ class Client
     public function peek(int $length = null){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public function send($data){}
 
     /**
-     * @param string $filename [required]
+     * @param string $filename
      * @param int $offset [optional]
      * @param int $length [optional]
      * @return mixed
@@ -74,16 +74,16 @@ class Client
     public function sendfile(string $filename, int $offset = null, int $length = null){}
 
     /**
-     * @param $address [required]
-     * @param int $port [required]
-     * @param $data [required]
+     * @param $address
+     * @param int $port
+     * @param $data
      * @return mixed
      */
     public function sendto($address, int $port, $data){}
 
     /**
-     * @param int $length [required]
-     * @param $address [required]
+     * @param int $length
+     * @param $address
      * @param int $port [optional]
      * @return mixed
      */
@@ -128,6 +128,4 @@ class Client
      * @return mixed
      */
     public function exportSocket(){}
-
-
 }

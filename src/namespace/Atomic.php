@@ -6,9 +6,7 @@ namespace Swoole;
  */
 class Atomic
 {
-    // constants of the class Atomic
 
-    // property of the class Atomic
 
     /**
      * @param $value [optional]
@@ -34,7 +32,7 @@ class Atomic
     public function get(){}
 
     /**
-     * @param $value [required]
+     * @param $value
      * @return mixed
      */
     public function set($value){}
@@ -52,11 +50,9 @@ class Atomic
     public function wakeup($count = null){}
 
     /**
-     * @param $cmp_value [required]
-     * @param $new_value [required]
+     * @param $cmp_value
+     * @param $new_value
      * @return mixed
      */
     public function cmpset($cmp_value, $new_value){}
-
-
 }

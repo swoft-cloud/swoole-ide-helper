@@ -6,7 +6,6 @@ namespace Swoole\Coroutine\Http;
  */
 class Client
 {
-    // constants of the class Client
 
     // property of the class Client
     public $errCode;
@@ -29,7 +28,7 @@ class Client
     public $body;
 
     /**
-     * @param string $host [required]
+     * @param string $host
      * @param int $port [optional]
      * @param $ssl [optional]
      * @return mixed
@@ -42,7 +41,7 @@ class Client
     public function __destruct(){}
 
     /**
-     * @param array $settings [required]
+     * @param array $settings
      * @return mixed
      */
     public function set(array $settings){}
@@ -59,39 +58,39 @@ class Client
     public function setDefer($defer = null){}
 
     /**
-     * @param string $method [required]
+     * @param string $method
      * @return mixed
      */
     public function setMethod(string $method){}
 
     /**
-     * @param array $headers [required]
+     * @param array $headers
      * @return mixed
      */
     public function setHeaders(array $headers){}
 
     /**
-     * @param $username [required]
-     * @param $password [required]
+     * @param $username
+     * @param $password
      * @return mixed
      */
     public function setBasicAuth($username, $password){}
 
     /**
-     * @param array $cookies [required]
+     * @param array $cookies
      * @return mixed
      */
     public function setCookies(array $cookies){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @return mixed
      */
     public function setData($data){}
 
     /**
-     * @param string $path [required]
-     * @param string $name [required]
+     * @param string $path
+     * @param string $name
      * @param $type [optional]
      * @param string $filename [optional]
      * @param int $offset [optional]
@@ -101,8 +100,8 @@ class Client
     public function addFile(string $path, string $name, $type = null, string $filename = null, int $offset = null, int $length = null){}
 
     /**
-     * @param string $path [required]
-     * @param string $name [required]
+     * @param string $path
+     * @param string $name
      * @param $type [optional]
      * @param string $filename [optional]
      * @return mixed
@@ -110,27 +109,27 @@ class Client
     public function addData(string $path, string $name, $type = null, string $filename = null){}
 
     /**
-     * @param string $path [required]
+     * @param string $path
      * @return mixed
      */
     public function execute(string $path){}
 
     /**
-     * @param string $path [required]
+     * @param string $path
      * @return mixed
      */
     public function get(string $path){}
 
     /**
-     * @param string $path [required]
-     * @param $data [required]
+     * @param string $path
+     * @param $data
      * @return mixed
      */
     public function post(string $path, $data){}
 
     /**
-     * @param string $path [required]
-     * @param $file [required]
+     * @param string $path
+     * @param $file
      * @param int $offset [optional]
      * @return mixed
      */
@@ -157,13 +156,13 @@ class Client
     public function getStatusCode(){}
 
     /**
-     * @param string $path [required]
+     * @param string $path
      * @return mixed
      */
     public function upgrade(string $path){}
 
     /**
-     * @param $data [required]
+     * @param $data
      * @param int $opcode [optional]
      * @param $finish [optional]
      * @return mixed
@@ -180,6 +179,4 @@ class Client
      * @return mixed
      */
     public function close(){}
-
-
 }

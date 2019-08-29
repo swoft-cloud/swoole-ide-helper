@@ -6,7 +6,6 @@ namespace Swoole;
  */
 class Exception extends \Exception
 {
-    // constants of the class Exception
 
     // property of the class Exception
     protected $message;
@@ -31,6 +30,4 @@ class Exception extends \Exception
      * @return mixed
      */
     public function __toString(){}
-
-
 }

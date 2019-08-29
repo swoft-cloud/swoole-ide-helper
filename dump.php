@@ -8,11 +8,11 @@ define('CONFIG_DIR', __DIR__ . '/config');
 define('LANGUAGE', 'chinese');
 
 /**
- * Class ExtensionDocument - ExtDocsGenerator
+ * Class ExtDocsGenerator - ExtensionDocument, ExtDocsGenerator
  *
  * @noinspection AutoloadingIssuesInspection
  */
-class ExtensionDocument
+class ExtDocsGenerator
 {
     public const EXTENSION_NAME = 'swoole';
 
@@ -50,7 +50,10 @@ class ExtensionDocument
         'private'
     ];
 
-    public static $intVars = [
+    /**
+     * @var array All int arguments name list
+     */
+    public static $intArgs = [
         'port',
         'fd',
         'pid',
@@ -74,18 +77,32 @@ class ExtensionDocument
         'cid',
         'limit',
         'exit_code',
+        'pipe_type',
+        'server_socket',
     ];
 
-    public static $floatVars = [
+    /**
+     * @var array All float arguments name list
+     */
+    public static $floatArgs = [
         'timeout'
     ];
 
-    public static $boolVars = [
+    /**
+     * @var array All bool arguments name list
+     */
+    public static $boolArgs = [
         'is_protected',
         'reset',
+        'blocking',
+        'enable_coroutine',
+        'redirect_stdin_and_stdout',
     ];
 
-    public static $arrVars = [
+    /**
+     * @var array All array arguments name list
+     */
+    public static $arrArgs = [
         'settings',
         'read_array',
         'write_array',
@@ -93,9 +110,13 @@ class ExtensionDocument
         'headers',
         'cookies',
         'params',
+        'options',
     ];
 
-    public static $strVars = [
+    /**
+     * @var array All string arguments name list
+     */
+    public static $strArgs = [
         'host',
         'event_name',
         'reason',
@@ -112,18 +133,25 @@ class ExtensionDocument
         'path',
         'method',
         'name',
+        'ip',
     ];
 
     protected static $mixedArgs = [
         'func',
-        'callback'
+        'callback',
+        'read_callback',
+        'write_callback',
+        'finish_callback',
     ];
 
     protected static $specialArgs = [
         // Server:sendMessage($message)
         'Server:sendMessage' => [
             'message' => 'mixed'
-        ]
+        ],
+        'Server:addProcess' => [
+            'process' => '\\' . Swoole\Process::class
+        ],
     ];
 
     protected static $returnTypes = [
@@ -183,14 +211,14 @@ class ExtensionDocument
             return Channel::class;
         }
 
-        if ($lowerName === 'swoole_websocket_close_frame') {
+        if ($lowerName === 'swoole_websocket_closeframe') {
             return 'Swoole\\Websocket\\CloseFrame';
         }
 
         return str_replace('_', '\\', ucwords($className, '_'));
     }
 
-    public function getConfig($class, $name, $type)
+    public function getConfig(string $class, string $name, int $type)
     {
         switch ($type) {
             case self::C_CONSTANT:
@@ -236,7 +264,7 @@ class ExtensionDocument
                         $comment  .= " [optional]\n";
                         $fnArgs[] = sprintf('%s$%s = null', $canType ? $pType : '', $pName);
                     } else {
-                        $comment  .= " [required]\n";
+                        $comment  .= "\n";
                         $fnArgs[] = ($canType ? $pType : '') . '$' . $pName;
                     }
                 }
@@ -259,6 +287,10 @@ class ExtensionDocument
      */
     public function getPropertyDef(string $classname, array $props): string
     {
+        if (!$props) {
+            return '';
+        }
+
         $propStr = self::SPACE4 . "// property of the class $classname\n";
 
         /** @var $v ReflectionProperty */
@@ -278,6 +310,10 @@ class ExtensionDocument
      */
     public function getConstantsDef(string $classname, array $consts): string
     {
+        if (!$consts) {
+            return '';
+        }
+
         $all = self::SPACE4 . "// constants of the class $classname\n";
         $sp4 = self::SPACE4;
 
@@ -302,8 +338,9 @@ class ExtensionDocument
     public function getMethodsDef(string $classname, array $methods): string
     {
         // var_dump("getMethodsDef: " . $classname);
-        $all = '';
-        $sp4 = str_repeat(' ', 4);
+        $all = [];
+        $sp4 = self::SPACE4;
+        $tpl = "$sp4%s function %s(%s){}";
 
         /** @var $v ReflectionMethod */
         foreach ($methods as $k => $v) {
@@ -338,7 +375,7 @@ class ExtensionDocument
                         $comment     .= " [optional]\n";
                         $arguments[] = sprintf('%s$%s = null', ($canType ? $pType : ''), $pName);
                     } else {
-                        $comment .= " [required]\n";
+                        $comment     .= "\n";
                         $arguments[] = ($canType ? $pType : '') . '$' . $pName;
                     }
                 }
@@ -346,7 +383,7 @@ class ExtensionDocument
 
             if (isset(self::$returnTypes[$methodKey])) {
                 $returnType = self::$returnTypes[$methodKey];
-                $comment .= self::SPACE5 . "* @return {$returnType}\n";
+                $comment    .= self::SPACE5 . "* @return {$returnType}\n";
             } elseif (!isset($config['return'])) {
                 $comment .= self::SPACE5 . "* @return mixed\n";
             } elseif (!empty($config['return'])) {
@@ -355,12 +392,12 @@ class ExtensionDocument
 
             $comment   .= "$sp4 */\n";
             $modifiers = implode(' ', Reflection::getModifierNames($v->getModifiers()));
-            $comment   .= sprintf("$sp4%s function %s(%s){}\n\n", $modifiers, $methodName, implode(', ', $arguments));
+            $comment   .= sprintf($tpl, $modifiers, $methodName, implode(', ', $arguments));
 
-            $all .= $comment;
+            $all[] = $comment;
         }
 
-        return $all;
+        return implode("\n\n", $all);
     }
 
     /**
@@ -401,20 +438,20 @@ class ExtensionDocument
      */
     public function getClassDef(string $classname, $ref): string
     {
-        //获取属性定义
+        // 获取属性定义
         $props = $this->getPropertyDef($classname, $ref->getProperties());
-        //获取常量定义
+        // 获取常量定义
         $consts = $this->getConstantsDef($classname, $ref->getConstants());
-        //获取方法定义
+        // 获取方法定义
         $mdefs = $this->getMethodsDef($classname, $ref->getMethods());
 
         if ($ref->getParentClass()) {
             $classname .= ' extends \\' . $ref->getParentClass()->name;
         }
 
+        $classTpl = "/**\n * @since %s\n */\n%s %s\n{\n%s\n%s\n%s\n}\n";
         $modifier = $ref->isInterface() ? 'interface' : 'class';
-        $classDef = sprintf("/**\n * @since %s\n */\n%s %s\n{\n%s\n%s\n%s\n}\n", $this->version, $modifier, $classname,
-            $consts, $props, $mdefs);
+        $classDef = sprintf($classTpl, $this->version, $modifier, $classname, $consts, $props, $mdefs);
         return $classDef;
     }
 
@@ -430,23 +467,23 @@ class ExtensionDocument
             return self::$specialArgs[$mdKey][$name] . ' ';
         }
 
-        if (in_array($name, self::$intVars, true)) {
+        if (in_array($name, self::$intArgs, true)) {
             return 'int ';
         }
 
-        if (in_array($name, self::$strVars, true)) {
+        if (in_array($name, self::$strArgs, true)) {
             return 'string ';
         }
 
-        if (in_array($name, self::$floatVars, true)) {
+        if (in_array($name, self::$floatArgs, true)) {
             return 'float ';
         }
 
-        if (in_array($name, self::$boolVars, true)) {
+        if (in_array($name, self::$boolArgs, true)) {
             return 'bool ';
         }
 
-        if (in_array($name, self::$arrVars, true)) {
+        if (in_array($name, self::$arrArgs, true)) {
             return 'array ';
         }
 
@@ -460,19 +497,19 @@ class ExtensionDocument
     /**
      * 支持层级目录的创建
      *
-     * @param            $path
+     * @param string $path
      * @param int|string $mode
      * @param bool       $recursive
      *
      * @return bool
      */
-    public function createDir($path, $mode = 0775, $recursive = true): bool
+    public function createDir(string $path, int $mode = 0775, bool $recursive = true): bool
     {
         return (is_dir($path) || !(!@mkdir($path, $mode, $recursive) && !is_dir($path))) && is_writable($path);
     }
 
     /**
-     * ExtensionDocument constructor.
+     * Class constructor.
      *
      * @param string $outDir
      *
@@ -491,9 +528,11 @@ class ExtensionDocument
 
     public function export(): void
     {
-        echo " - Clear old by 'rm -rf src' \n";
+        echo " - Clear old by 'rm -rf src'\n";
         $srcDir = __DIR__ . '/src';
         exec("rm -rf $srcDir");
+
+        echo " - Parse and dump constants\n";
 
         // 获取所有define常量
         $consts  = $this->rftExt->getConstants();
@@ -511,19 +550,19 @@ class ExtensionDocument
 
         file_put_contents($outDir . '/constants.php', "<?php\n" . $defines);
 
-        /**
-         * 获取所有函数
-         */
+        echo " - Parse and dump functions\n";
+
+        // 获取所有函数
         $funcs = $this->rftExt->getFunctions();
-        $fdefs = $this->getFunctionsDef($funcs);
+        $codes = $this->getFunctionsDef($funcs);
 
-        file_put_contents($outDir . '/functions.php', "<?php\n" . $fdefs);
+        file_put_contents($outDir . '/functions.php', "<?php\n" . $codes);
 
-        /**
-         * 获取所有类
-         */
+        // 获取所有类
+        echo " - Parse and dump classes\n";
         $classes    = $this->rftExt->getClasses();
         $classAlias = "<?php\n";
+        $aliasTpl   = "\nclass %s extends %s{}\n";
 
         /**
          * @var string          $className
@@ -538,8 +577,7 @@ class ExtensionDocument
                 $this->exportNamespaceClass($className, $ref);
             } //下划线分割类别名
             else {
-                $classAlias .= sprintf("\nclass %s extends %s\n{\n\n}\n", $className,
-                    self::getNamespaceAlias($className));
+                $classAlias .= sprintf($aliasTpl, $className, self::getNamespaceAlias($className));
             }
         }
 
@@ -547,12 +585,11 @@ class ExtensionDocument
     }
 }
 
-echo "Generate IDE Helper Classes For Swoole Ext\n\n";
-echo 'Swoole Version: ' . swoole_version() . "\n";
+echo "Generate IDE Helper Classes For Swoole Ext\n";
+echo 'Swoole Version: v' . swoole_version() . "\n\n";
 try {
-    (new ExtensionDocument())->export();
-    echo " - Dump successful.\n";
+    (new ExtDocsGenerator())->export();
+    echo "\nDump Successful.\n";
 } catch (Throwable $e) {
-    echo " - Dump failure.\n error:", $e->getMessage();
+    echo "\nDump Failure.\n error:", $e->getMessage();
 }
-
