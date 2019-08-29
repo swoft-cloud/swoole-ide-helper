@@ -23,7 +23,7 @@ function swoole_async_set(array $settings){}
  * @param array $params [optional]
  * @return mixed
  */
-function swoole_coroutine_create(mixed $func, array $params = null){}
+function swoole_coroutine_create($func, array $params = null){}
 
 /**
  * @param string $command [required]
@@ -35,20 +35,20 @@ function swoole_coroutine_exec(string $command){}
  * @param mixed $callback [required]
  * @return mixed
  */
-function swoole_coroutine_defer(mixed $callback){}
+function swoole_coroutine_defer($callback){}
 
 /**
  * @param mixed $func [required]
  * @param array $params [optional]
  * @return mixed
  */
-function go(mixed $func, array $params = null){}
+function go($func, array $params = null){}
 
 /**
  * @param mixed $callback [required]
  * @return mixed
  */
-function defer(mixed $callback){}
+function defer($callback){}
 
 /**
  * @param array $read_array [required]
@@ -141,14 +141,14 @@ function swoole_event_dispatch(){}
  * @param mixed $callback [required]
  * @return mixed
  */
-function swoole_event_defer(mixed $callback){}
+function swoole_event_defer($callback){}
 
 /**
  * @param mixed $callback [required]
  * @param $before [optional]
  * @return mixed
  */
-function swoole_event_cycle(mixed $callback, $before = null){}
+function swoole_event_cycle($callback, $before = null){}
 
 /**
  * @param int $fd [required]
@@ -166,14 +166,14 @@ function swoole_event_exit(){}
  * @param mixed $callback [required]
  * @return mixed
  */
-function swoole_timer_after(int $ms, mixed $callback){}
+function swoole_timer_after(int $ms, $callback){}
 
 /**
  * @param int $ms [required]
  * @param mixed $callback [required]
  * @return mixed
  */
-function swoole_timer_tick(int $ms, mixed $callback){}
+function swoole_timer_tick(int $ms, $callback){}
 
 /**
  * @param int $timer_id [required]

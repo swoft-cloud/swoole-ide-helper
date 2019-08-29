@@ -6,9 +6,11 @@ namespace Swoole\Timer;
  */
 class Iterator extends \ArrayIterator
 {
-    const STD_PROP_LIST = 1;
-    const ARRAY_AS_PROPS = 2;
+    // constants of the class Iterator
+    public const STD_PROP_LIST = 1;
+    public const ARRAY_AS_PROPS = 2;
 
+    // property of the class Iterator
 
     /**
      * @param $array [optional]

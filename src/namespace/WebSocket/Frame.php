@@ -6,7 +6,9 @@ namespace Swoole\WebSocket;
  */
 class Frame
 {
+    // constants of the class Frame
 
+    // property of the class Frame
     public $fd;
     public $data;
     public $opcode;

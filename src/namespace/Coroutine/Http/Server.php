@@ -6,7 +6,9 @@ namespace Swoole\Coroutine\Http;
  */
 class Server
 {
+    // constants of the class Server
 
+    // property of the class Server
     public $fd;
     public $host;
     public $port;

@@ -6,11 +6,13 @@ namespace Swoole;
  */
 class Lock
 {
-    const FILELOCK = 2;
-    const MUTEX = 3;
-    const SEM = 4;
-    const RWLOCK = 1;
+    // constants of the class Lock
+    public const FILELOCK = 2;
+    public const MUTEX = 3;
+    public const SEM = 4;
+    public const RWLOCK = 1;
 
+    // property of the class Lock
     public $errCode;
 
     /**

@@ -6,7 +6,9 @@ namespace Swoole\Http;
  */
 class Request
 {
+    // constants of the class Request
 
+    // property of the class Request
     public $fd;
     public $streamId;
     public $header;

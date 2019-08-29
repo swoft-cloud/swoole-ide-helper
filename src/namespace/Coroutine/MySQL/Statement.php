@@ -6,7 +6,9 @@ namespace Swoole\Coroutine\MySQL;
  */
 class Statement
 {
+    // constants of the class Statement
 
+    // property of the class Statement
     public $id;
     public $affected_rows;
     public $insert_id;

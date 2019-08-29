@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Buffer
 {
+    // constants of the class Buffer
 
+    // property of the class Buffer
     public $capacity;
     public $length;
 

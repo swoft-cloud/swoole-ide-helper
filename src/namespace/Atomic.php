@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Atomic
 {
+    // constants of the class Atomic
 
+    // property of the class Atomic
 
     /**
      * @param $value [optional]

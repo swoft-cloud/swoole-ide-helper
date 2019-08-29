@@ -6,9 +6,11 @@ namespace Swoole\Coroutine;
  */
 class Context extends \ArrayObject
 {
-    const STD_PROP_LIST = 1;
-    const ARRAY_AS_PROPS = 2;
+    // constants of the class Context
+    public const STD_PROP_LIST = 1;
+    public const ARRAY_AS_PROPS = 2;
 
+    // property of the class Context
 
     /**
      * @param $input [optional]

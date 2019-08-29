@@ -6,7 +6,9 @@ namespace Swoole\Atomic;
  */
 class Long
 {
+    // constants of the class Long
 
+    // property of the class Long
 
     /**
      * @param $value [optional]

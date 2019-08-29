@@ -6,7 +6,9 @@ namespace Swoole\Connection;
  */
 class Iterator
 {
+    // constants of the class Iterator
 
+    // property of the class Iterator
 
     /**
      * @return mixed

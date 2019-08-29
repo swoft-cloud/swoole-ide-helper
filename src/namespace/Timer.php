@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Timer
 {
+    // constants of the class Timer
 
+    // property of the class Timer
 
     /**
      * @param int $ms [required]

@@ -6,10 +6,12 @@ namespace Swoole;
  */
 class Table
 {
-    const TYPE_INT = 1;
-    const TYPE_STRING = 7;
-    const TYPE_FLOAT = 6;
+    // constants of the class Table
+    public const TYPE_INT = 1;
+    public const TYPE_STRING = 7;
+    public const TYPE_FLOAT = 6;
 
+    // property of the class Table
 
     /**
      * @param $table_size [required]

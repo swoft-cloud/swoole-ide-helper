@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Runtime
 {
+    // constants of the class Runtime
 
+    // property of the class Runtime
 
     /**
      * @return mixed

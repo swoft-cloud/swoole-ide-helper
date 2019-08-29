@@ -6,12 +6,14 @@ namespace Swoole;
  */
 class Process
 {
-    const IPC_NOWAIT = 256;
-    const PIPE_MASTER = 1;
-    const PIPE_WORKER = 2;
-    const PIPE_READ = 3;
-    const PIPE_WRITE = 4;
+    // constants of the class Process
+    public const IPC_NOWAIT = 256;
+    public const PIPE_MASTER = 1;
+    public const PIPE_WORKER = 2;
+    public const PIPE_READ = 3;
+    public const PIPE_WRITE = 4;
 
+    // property of the class Process
     public $pipe;
     public $callback;
     public $msgQueueId;
@@ -145,7 +147,7 @@ class Process
     public function exec($exec_file, $args){}
 
     /**
-     * @return mixed
+     * @return \Swoole\Coroutine\Socket
      */
     public function exportSocket(){}
 

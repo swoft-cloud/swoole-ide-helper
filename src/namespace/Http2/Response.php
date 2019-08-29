@@ -6,7 +6,9 @@ namespace Swoole\Http2;
  */
 class Response
 {
+    // constants of the class Response
 
+    // property of the class Response
     public $streamId;
     public $errCode;
     public $statusCode;

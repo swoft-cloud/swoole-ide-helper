@@ -6,7 +6,9 @@ namespace Swoole\Coroutine;
  */
 class Redis
 {
+    // constants of the class Redis
 
+    // property of the class Redis
     public $host;
     public $port;
     public $setting;

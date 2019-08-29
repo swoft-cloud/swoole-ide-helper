@@ -6,7 +6,9 @@ namespace Swoole\Http;
  */
 class Server extends \Swoole\Server
 {
+    // constants of the class Server
 
+    // property of the class Server
     public $setting;
     public $connections;
     public $host;

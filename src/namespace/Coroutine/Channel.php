@@ -6,7 +6,9 @@ namespace Swoole\Coroutine;
  */
 class Channel
 {
+    // constants of the class Channel
 
+    // property of the class Channel
     public $capacity;
     public $errCode;
 

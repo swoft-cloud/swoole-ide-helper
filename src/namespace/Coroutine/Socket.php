@@ -6,7 +6,9 @@ namespace Swoole\Coroutine;
  */
 class Socket
 {
+    // constants of the class Socket
 
+    // property of the class Socket
     public $fd;
     public $errCode;
     public $errMsg;

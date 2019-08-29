@@ -6,7 +6,9 @@ namespace Swoole\Http;
  */
 class Response
 {
+    // constants of the class Response
 
+    // property of the class Response
     public $fd;
     public $socket;
     public $header;

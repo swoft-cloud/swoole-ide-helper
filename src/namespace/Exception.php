@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Exception extends \Exception
 {
+    // constants of the class Exception
 
+    // property of the class Exception
     protected $message;
     protected $code;
     protected $file;

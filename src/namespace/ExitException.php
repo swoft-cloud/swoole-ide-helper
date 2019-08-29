@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class ExitException extends \Swoole\Exception
 {
+    // constants of the class ExitException
 
+    // property of the class ExitException
     protected $message;
     protected $code;
     protected $file;

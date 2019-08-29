@@ -6,7 +6,9 @@ namespace Swoole\Server;
  */
 class Task
 {
+    // constants of the class Task
 
+    // property of the class Task
     public $data;
     public $id;
     public $worker_id;

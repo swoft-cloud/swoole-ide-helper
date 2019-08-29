@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Error extends \Error
 {
+    // constants of the class Error
 
+    // property of the class Error
     protected $message;
     protected $code;
     protected $file;

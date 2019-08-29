@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Event
 {
+    // constants of the class Event
 
+    // property of the class Event
 
     /**
      * @param int $fd [required]

@@ -20,6 +20,7 @@ class ExtensionDocument
     public const C_PROPERTY = 2;
     public const C_CONSTANT = 3;
 
+    public const SPACE4 = '    ';
     public const SPACE5 = '     ';
 
     /**
@@ -125,6 +126,10 @@ class ExtensionDocument
         ]
     ];
 
+    protected static $returnTypes = [
+        'Process:exportSocket' => '\\' . Swoole\Coroutine\Socket::class
+    ];
+
     public static function isPHPKeyword(string $word): bool
     {
         return in_array($word, self::$phpKeywords, true);
@@ -225,18 +230,14 @@ class ExtensionDocument
                     $pType = $this->getParameterType($pName);
 
                     $comment .= sprintf(' * @param %s$%s', $pType, $pName);
+                    $canType = $pType && $pType !== 'mixed ';
 
                     if ($v1->isOptional()) {
                         $comment  .= " [optional]\n";
-                        $fnArgs[] = sprintf('%s$%s = null', $pType, $pName);
+                        $fnArgs[] = sprintf('%s$%s = null', $canType ? $pType : '', $pName);
                     } else {
                         $comment  .= " [required]\n";
-
-                        if ($pType && $pType !== 'mixed') {
-                            $fnArgs[] = $pType . '$' . $pName;
-                        } else {
-                            $fnArgs[] = '$' . $pName;
-                        }
+                        $fnArgs[] = ($canType ? $pType : '') . '$' . $pName;
                     }
                 }
 
@@ -258,13 +259,12 @@ class ExtensionDocument
      */
     public function getPropertyDef(string $classname, array $props): string
     {
-        $propStr = '';
-        $sp4     = str_repeat(' ', 4);
+        $propStr = self::SPACE4 . "// property of the class $classname\n";
 
         /** @var $v ReflectionProperty */
         foreach ($props as $k => $v) {
             $modifiers = implode(' ', Reflection::getModifierNames($v->getModifiers()));
-            $propStr   .= "$sp4{$modifiers} $" . $v->name . ";\n";
+            $propStr   .= self::SPACE4 . "{$modifiers} $" . $v->name . ";\n";
         }
 
         return $propStr;
@@ -278,16 +278,18 @@ class ExtensionDocument
      */
     public function getConstantsDef(string $classname, array $consts): string
     {
-        $all = '';
-        $sp4 = str_repeat(' ', 4);
+        $all = self::SPACE4 . "// constants of the class $classname\n";
+        $sp4 = self::SPACE4;
+
         foreach ($consts as $k => $v) {
-            $all .= "{$sp4}const {$k} = ";
+            $all .= "{$sp4}public const {$k} = ";
             if (is_int($v)) {
                 $all .= "{$v};\n";
             } else {
                 $all .= "'{$v}';\n";
             }
         }
+
         return $all;
     }
 
@@ -342,7 +344,10 @@ class ExtensionDocument
                 }
             }
 
-            if (!isset($config['return'])) {
+            if (isset(self::$returnTypes[$methodKey])) {
+                $returnType = self::$returnTypes[$methodKey];
+                $comment .= self::SPACE5 . "* @return {$returnType}\n";
+            } elseif (!isset($config['return'])) {
                 $comment .= self::SPACE5 . "* @return mixed\n";
             } elseif (!empty($config['return'])) {
                 $comment .= self::SPACE5 . "* @return {$config['return']}\n";
@@ -369,7 +374,7 @@ class ExtensionDocument
             return;
         }
 
-        array_walk($ns, function (&$v) use (&$ns) {
+        array_walk($ns, function (&$v) {
             $v = ucfirst($v);
         });
 

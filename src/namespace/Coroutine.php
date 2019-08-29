@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Coroutine
 {
+    // constants of the class Coroutine
 
+    // property of the class Coroutine
 
     /**
      * @param mixed $func [required]

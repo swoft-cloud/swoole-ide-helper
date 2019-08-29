@@ -6,7 +6,9 @@ namespace Swoole\Server;
  */
 class Port
 {
+    // constants of the class Port
 
+    // property of the class Port
     private $onConnect;
     private $onReceive;
     private $onClose;

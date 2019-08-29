@@ -6,7 +6,9 @@ namespace Swoole\WebSocket;
  */
 class Server extends \Swoole\Http\Server
 {
+    // constants of the class Server
 
+    // property of the class Server
     public $setting;
     public $connections;
     public $host;

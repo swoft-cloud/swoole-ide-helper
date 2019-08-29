@@ -6,7 +6,9 @@ namespace Swoole\Coroutine\Socket;
  */
 class Exception extends \Swoole\Exception
 {
+    // constants of the class Exception
 
+    // property of the class Exception
     protected $message;
     protected $code;
     protected $file;

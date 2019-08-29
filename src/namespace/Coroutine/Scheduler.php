@@ -6,7 +6,9 @@ namespace Swoole\Coroutine;
  */
 class Scheduler
 {
+    // constants of the class Scheduler
 
+    // property of the class Scheduler
     private $_list;
 
     /**

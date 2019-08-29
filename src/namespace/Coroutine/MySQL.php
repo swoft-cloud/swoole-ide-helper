@@ -6,7 +6,9 @@ namespace Swoole\Coroutine;
  */
 class MySQL
 {
+    // constants of the class MySQL
 
+    // property of the class MySQL
     public $serverInfo;
     public $sock;
     public $connected;

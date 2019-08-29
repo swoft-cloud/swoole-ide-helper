@@ -6,7 +6,9 @@ namespace Swoole\Process;
  */
 class Pool
 {
+    // constants of the class Pool
 
+    // property of the class Pool
     public $master_pid;
     public $workers;
 

@@ -6,7 +6,9 @@ namespace Swoole;
  */
 class Server
 {
+    // constants of the class Server
 
+    // property of the class Server
     private $onStart;
     private $onShutdown;
     private $onWorkerStart;

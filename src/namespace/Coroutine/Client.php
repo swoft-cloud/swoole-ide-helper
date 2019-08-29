@@ -6,11 +6,13 @@ namespace Swoole\Coroutine;
  */
 class Client
 {
-    const MSG_OOB = 1;
-    const MSG_PEEK = 2;
-    const MSG_DONTWAIT = 128;
-    const MSG_WAITALL = 64;
+    // constants of the class Client
+    public const MSG_OOB = 1;
+    public const MSG_PEEK = 2;
+    public const MSG_DONTWAIT = 128;
+    public const MSG_WAITALL = 64;
 
+    // property of the class Client
     public $errCode;
     public $errMsg;
     public $fd;

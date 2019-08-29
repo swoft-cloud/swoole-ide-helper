@@ -6,7 +6,9 @@ namespace Swoole\Table;
  */
 class Row
 {
+    // constants of the class Row
 
+    // property of the class Row
     public $key;
     public $value;
 

@@ -6,7 +6,9 @@ namespace Swoole\Coroutine\Http;
  */
 class Client
 {
+    // constants of the class Client
 
+    // property of the class Client
     public $errCode;
     public $errMsg;
     public $connected;
