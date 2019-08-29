@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http\Client;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Exception extends \Swoole\Exception
 {
@@ -13,12 +13,12 @@ class Exception extends \Swoole\Exception
     protected $line;
 
     /**
-     * @param $message [optional]
+     * @param string $message [optional]
      * @param $code [optional]
      * @param $previous [optional]
      * @return mixed
      */
-    public function __construct(string $message=null, $code=null, $previous=null){}
+    public function __construct(string $message = null, $code = null, $previous = null){}
 
     /**
      * @return mixed

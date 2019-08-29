@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Client
 {
@@ -31,31 +31,31 @@ class Client
     public function __destruct(){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function set(array $settings){}
 
     /**
-     * @param $host [required]
-     * @param $port [optional]
-     * @param $timeout [optional]
+     * @param string $host [required]
+     * @param int $port [optional]
+     * @param float $timeout [optional]
      * @param $sock_flag [optional]
      * @return mixed
      */
-    public function connect(string $host, int $port=null, float $timeout=null, $sock_flag=null){}
+    public function connect(string $host, int $port = null, float $timeout = null, $sock_flag = null){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function recv(float $timeout=null){}
+    public function recv(float $timeout = null){}
 
     /**
-     * @param $length [optional]
+     * @param int $length [optional]
      * @return mixed
      */
-    public function peek(int $length=null){}
+    public function peek(int $length = null){}
 
     /**
      * @param $data [required]
@@ -64,28 +64,28 @@ class Client
     public function send($data){}
 
     /**
-     * @param $filename [required]
-     * @param $offset [optional]
-     * @param $length [optional]
+     * @param string $filename [required]
+     * @param int $offset [optional]
+     * @param int $length [optional]
      * @return mixed
      */
-    public function sendfile(string $filename, int $offset=null, int $length=null){}
+    public function sendfile(string $filename, int $offset = null, int $length = null){}
 
     /**
      * @param $address [required]
-     * @param $port [required]
+     * @param int $port [required]
      * @param $data [required]
      * @return mixed
      */
     public function sendto($address, int $port, $data){}
 
     /**
-     * @param $length [required]
+     * @param int $length [required]
      * @param $address [required]
-     * @param $port [optional]
+     * @param int $port [optional]
      * @return mixed
      */
-    public function recvfrom(int $length, $address, int $port=null){}
+    public function recvfrom(int $length, $address, int $port = null){}
 
     /**
      * @return mixed

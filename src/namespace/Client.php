@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Client
 {
@@ -34,7 +34,7 @@ class Client
      * @param $async [optional]
      * @return mixed
      */
-    public function __construct($type, $async=null){}
+    public function __construct($type, $async = null){}
 
     /**
      * @return mixed
@@ -42,33 +42,33 @@ class Client
     public function __destruct(){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function set(array $settings){}
 
     /**
-     * @param $host [required]
-     * @param $port [optional]
-     * @param $timeout [optional]
+     * @param string $host [required]
+     * @param int $port [optional]
+     * @param float $timeout [optional]
      * @param $sock_flag [optional]
      * @return mixed
      */
-    public function connect(string $host, int $port=null, float $timeout=null, $sock_flag=null){}
+    public function connect(string $host, int $port = null, float $timeout = null, $sock_flag = null){}
 
     /**
-     * @param $size [optional]
+     * @param int $size [optional]
      * @param $flag [optional]
      * @return mixed
      */
-    public function recv(int $size=null, $flag=null){}
+    public function recv(int $size = null, $flag = null){}
 
     /**
      * @param $data [required]
      * @param $flag [optional]
      * @return mixed
      */
-    public function send($data, $flag=null){}
+    public function send($data, $flag = null){}
 
     /**
      * @param $dst_socket [required]
@@ -77,16 +77,16 @@ class Client
     public function pipe($dst_socket){}
 
     /**
-     * @param $filename [required]
-     * @param $offset [optional]
-     * @param $length [optional]
+     * @param string $filename [required]
+     * @param int $offset [optional]
+     * @param int $length [optional]
      * @return mixed
      */
-    public function sendfile(string $filename, int $offset=null, int $length=null){}
+    public function sendfile(string $filename, int $offset = null, int $length = null){}
 
     /**
      * @param $ip [required]
-     * @param $port [required]
+     * @param int $port [required]
      * @param $data [required]
      * @return mixed
      */
@@ -122,7 +122,7 @@ class Client
      * @param mixed $callback [optional]
      * @return mixed
      */
-    public function enableSSL($callback=null){}
+    public function enableSSL($callback = null){}
 
     /**
      * @return mixed
@@ -153,10 +153,10 @@ class Client
      * @param $force [optional]
      * @return mixed
      */
-    public function close($force=null){}
+    public function close($force = null){}
 
     /**
-     * @param $event_name [required]
+     * @param string $event_name [required]
      * @param mixed $callback [required]
      * @return mixed
      */

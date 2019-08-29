@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Scheduler
 {
@@ -10,22 +10,22 @@ class Scheduler
     private $_list;
 
     /**
-     * @param $func [required]
-     * @param $params [optional]
+     * @param mixed $func [required]
+     * @param array $params [optional]
      * @return mixed
      */
-    public function add($func, array $params=null){}
+    public function add($func, array $params = null){}
 
     /**
      * @param $n [required]
-     * @param $func [optional]
-     * @param $params [optional]
+     * @param mixed $func [optional]
+     * @param array $params [optional]
      * @return mixed
      */
-    public function parallel($n, $func=null, array $params=null){}
+    public function parallel($n, $func = null, array $params = null){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function set(array $settings){}

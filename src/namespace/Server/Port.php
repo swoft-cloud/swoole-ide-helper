@@ -2,7 +2,7 @@
 namespace Swoole\Server;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Port
 {
@@ -35,20 +35,20 @@ class Port
     public function __destruct(){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function set(array $settings){}
 
     /**
-     * @param $event_name [required]
+     * @param string $event_name [required]
      * @param mixed $callback [required]
      * @return mixed
      */
     public function on(string $event_name, $callback){}
 
     /**
-     * @param $event_name [required]
+     * @param string $event_name [required]
      * @return mixed
      */
     public function getCallback(string $event_name){}

@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Runtime
 {
@@ -18,7 +18,7 @@ class Runtime
      * @param $flags [optional]
      * @return mixed
      */
-    public static function enableCoroutine($enable=null, $flags=null){}
+    public static function enableCoroutine($enable = null, $flags = null){}
 
 
 }

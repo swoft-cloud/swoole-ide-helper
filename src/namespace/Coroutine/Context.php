@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Context extends \ArrayObject
 {
@@ -16,7 +16,7 @@ class Context extends \ArrayObject
      * @param $iterator_class [optional]
      * @return mixed
      */
-    public function __construct($input=null, $flags=null, $iterator_class=null){}
+    public function __construct($input = null, $flags = null, $iterator_class = null){}
 
     /**
      * @param $index [required]

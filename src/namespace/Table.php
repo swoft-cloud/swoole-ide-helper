@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Table
 {
@@ -16,15 +16,15 @@ class Table
      * @param $conflict_proportion [optional]
      * @return mixed
      */
-    public function __construct($table_size, $conflict_proportion=null){}
+    public function __construct($table_size, $conflict_proportion = null){}
 
     /**
-     * @param $name [required]
+     * @param string $name [required]
      * @param $type [required]
-     * @param $size [optional]
+     * @param int $size [optional]
      * @return mixed
      */
-    public function column(string $name, $type, int $size=null){}
+    public function column(string $name, $type, int $size = null){}
 
     /**
      * @return mixed
@@ -48,7 +48,7 @@ class Table
      * @param $field [optional]
      * @return mixed
      */
-    public function get($key, $field=null){}
+    public function get($key, $field = null){}
 
     /**
      * @return mixed
@@ -79,7 +79,7 @@ class Table
      * @param $incrby [optional]
      * @return mixed
      */
-    public function incr($key, $column, $incrby=null){}
+    public function incr($key, $column, $incrby = null){}
 
     /**
      * @param $key [required]
@@ -87,7 +87,7 @@ class Table
      * @param $decrby [optional]
      * @return mixed
      */
-    public function decr($key, $column, $decrby=null){}
+    public function decr($key, $column, $decrby = null){}
 
     /**
      * @return mixed
@@ -95,26 +95,26 @@ class Table
     public function getMemorySize(){}
 
     /**
-     * @param $offset [required]
+     * @param int $offset [required]
      * @return mixed
      */
     public function offsetExists(int $offset){}
 
     /**
-     * @param $offset [required]
+     * @param int $offset [required]
      * @return mixed
      */
     public function offsetGet(int $offset){}
 
     /**
-     * @param $offset [required]
+     * @param int $offset [required]
      * @param $value [required]
      * @return mixed
      */
     public function offsetSet(int $offset, $value){}
 
     /**
-     * @param $offset [required]
+     * @param int $offset [required]
      * @return mixed
      */
     public function offsetUnset(int $offset){}

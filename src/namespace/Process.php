@@ -1,10 +1,8 @@
 <?php
 namespace Swoole;
 
-use Swoole\Coroutine\Socket;
-
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Process
 {
@@ -28,7 +26,7 @@ class Process
      * @param $enable_coroutine [optional]
      * @return mixed
      */
-    public function __construct($callback, $redirect_stdin_and_stdout=null, $pipe_type=null, $enable_coroutine=null){}
+    public function __construct($callback, $redirect_stdin_and_stdout = null, $pipe_type = null, $enable_coroutine = null){}
 
     /**
      * @return mixed
@@ -39,10 +37,10 @@ class Process
      * @param $blocking [optional]
      * @return mixed
      */
-    public static function wait($blocking=null){}
+    public static function wait($blocking = null){}
 
     /**
-     * @param $signal_no [required]
+     * @param int $signal_no [required]
      * @param mixed $callback [required]
      * @return mixed
      */
@@ -53,21 +51,21 @@ class Process
      * @param $type [optional]
      * @return mixed
      */
-    public static function alarm($usec, $type=null){}
+    public static function alarm($usec, $type = null){}
 
     /**
-     * @param $pid [required]
-     * @param $signal_no [optional]
+     * @param int $pid [required]
+     * @param int $signal_no [optional]
      * @return mixed
      */
-    public static function kill(int $pid, int $signal_no=null){}
+    public static function kill(int $pid, int $signal_no = null){}
 
     /**
      * @param $nochdir [optional]
      * @param $noclose [optional]
      * @return mixed
      */
-    public static function daemon($nochdir=null, $noclose=null){}
+    public static function daemon($nochdir = null, $noclose = null){}
 
     /**
      * @param $seconds [required]
@@ -87,7 +85,7 @@ class Process
      * @param $capacity [optional]
      * @return mixed
      */
-    public function useQueue($key=null, $mode=null, $capacity=null){}
+    public function useQueue($key = null, $mode = null, $capacity = null){}
 
     /**
      * @return mixed
@@ -116,10 +114,10 @@ class Process
     public function close(){}
 
     /**
-     * @param $size [optional]
+     * @param int $size [optional]
      * @return mixed
      */
-    public function read(int $size=null){}
+    public function read(int $size = null){}
 
     /**
      * @param $data [required]
@@ -128,16 +126,16 @@ class Process
     public function push($data){}
 
     /**
-     * @param $size [optional]
+     * @param int $size [optional]
      * @return mixed
      */
-    public function pop(int $size=null){}
+    public function pop(int $size = null){}
 
     /**
-     * @param $exit_code [optional]
+     * @param int $exit_code [optional]
      * @return mixed
      */
-    public function _exit($exit_code=null){}
+    public function exit(int $exit_code = null){}
 
     /**
      * @param $exec_file [required]
@@ -147,12 +145,12 @@ class Process
     public function exec($exec_file, $args){}
 
     /**
-     * @return Socket
+     * @return mixed
      */
     public function exportSocket(){}
 
     /**
-     * @param $process_name [required]
+     * @param string $process_name [required]
      * @return mixed
      */
     public function name(string $process_name){}

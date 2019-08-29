@@ -2,7 +2,7 @@
 namespace Swoole\Server;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Task
 {

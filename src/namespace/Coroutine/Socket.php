@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Socket
 {
@@ -17,87 +17,87 @@ class Socket
      * @param $protocol [optional]
      * @return mixed
      */
-    public function __construct($domain, $type, $protocol=null){}
+    public function __construct($domain, $type, $protocol = null){}
 
     /**
      * @param $address [required]
-     * @param $port [optional]
+     * @param int $port [optional]
      * @return mixed
      */
-    public function bind($address, int $port=null){}
+    public function bind($address, int $port = null){}
 
     /**
      * @param $backlog [optional]
      * @return mixed
      */
-    public function listen($backlog=null){}
+    public function listen($backlog = null){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function accept(float $timeout=null){}
+    public function accept(float $timeout = null){}
 
     /**
-     * @param $host [required]
-     * @param $port [optional]
-     * @param $timeout [optional]
+     * @param string $host [required]
+     * @param int $port [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function connect(string $host, int $port=null, float $timeout=null){}
+    public function connect(string $host, int $port = null, float $timeout = null){}
 
     /**
-     * @param $length [optional]
-     * @param $timeout [optional]
+     * @param int $length [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function recv(int $length=null, float $timeout=null){}
+    public function recv(int $length = null, float $timeout = null){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function recvPacket(float $timeout=null){}
-
-    /**
-     * @param $data [required]
-     * @param $timeout [optional]
-     * @return mixed
-     */
-    public function send($data, float $timeout=null){}
-
-    /**
-     * @param $filename [required]
-     * @param $offset [optional]
-     * @param $length [optional]
-     * @return mixed
-     */
-    public function sendFile(string $filename, int $offset=null, int $length=null){}
-
-    /**
-     * @param $length [optional]
-     * @param $timeout [optional]
-     * @return mixed
-     */
-    public function recvAll(int $length=null, float $timeout=null){}
+    public function recvPacket(float $timeout = null){}
 
     /**
      * @param $data [required]
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function sendAll($data, float $timeout=null){}
+    public function send($data, float $timeout = null){}
+
+    /**
+     * @param string $filename [required]
+     * @param int $offset [optional]
+     * @param int $length [optional]
+     * @return mixed
+     */
+    public function sendFile(string $filename, int $offset = null, int $length = null){}
+
+    /**
+     * @param int $length [optional]
+     * @param float $timeout [optional]
+     * @return mixed
+     */
+    public function recvAll(int $length = null, float $timeout = null){}
+
+    /**
+     * @param $data [required]
+     * @param float $timeout [optional]
+     * @return mixed
+     */
+    public function sendAll($data, float $timeout = null){}
 
     /**
      * @param $peername [required]
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function recvfrom($peername, float $timeout=null){}
+    public function recvfrom($peername, float $timeout = null){}
 
     /**
      * @param $addr [required]
-     * @param $port [required]
+     * @param int $port [required]
      * @param $data [required]
      * @return mixed
      */
@@ -111,7 +111,7 @@ class Socket
     public function getOption($level, $opt_name){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function setProtocol(array $settings){}
@@ -134,7 +134,7 @@ class Socket
      * @param $event [optional]
      * @return mixed
      */
-    public function cancel($event=null){}
+    public function cancel($event = null){}
 
     /**
      * @return mixed

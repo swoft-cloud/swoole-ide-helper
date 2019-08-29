@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Server
 {
@@ -26,7 +26,7 @@ class Server
     public function __destruct(){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function set(array $settings){}

@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Server
 {
@@ -32,13 +32,13 @@ class Server
     public $worker_pid;
 
     /**
-     * @param $host [required]
-     * @param $port [optional]
+     * @param string $host [required]
+     * @param int $port [optional]
      * @param $mode [optional]
      * @param $sock_type [optional]
      * @return mixed
      */
-    public function __construct(string $host, int $port=null, $mode=null, $sock_type=null){}
+    public function __construct(string $host, int $port = null, $mode = null, $sock_type = null){}
 
     /**
      * @return mixed
@@ -46,36 +46,36 @@ class Server
     public function __destruct(){}
 
     /**
-     * @param $host [required]
-     * @param $port [required]
+     * @param string $host [required]
+     * @param int $port [required]
      * @param $sock_type [required]
      * @return mixed
      */
     public function listen(string $host, int $port, $sock_type){}
 
     /**
-     * @param $host [required]
-     * @param $port [required]
+     * @param string $host [required]
+     * @param int $port [required]
      * @param $sock_type [required]
      * @return mixed
      */
     public function addlistener(string $host, int $port, $sock_type){}
 
     /**
-     * @param $event_name [required]
+     * @param string $event_name [required]
      * @param mixed $callback [required]
      * @return mixed
      */
     public function on(string $event_name, $callback){}
 
     /**
-     * @param $event_name [required]
+     * @param string $event_name [required]
      * @return mixed
      */
     public function getCallback(string $event_name){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function set(array $settings){}
@@ -107,111 +107,111 @@ class Server
      *  * 如果向其他UDP客户端发送数据，必须要传入$reactor_id
      *  * 在外网服务中发送超过64K的数据会分成多个传输单元进行发送，如果其中一个单元丢包，会导致整个包被丢弃。所以外网服务，建议发送1.5K以下的数据包
      *
-     * @param $fd [required]
-     * @param $send_data [required]
+     * @param int $fd [required]
+     * @param string $send_data [required]
      * @param $server_socket [optional]
      * @return bool
      */
-    public function send(int $fd, string $send_data, $server_socket=null){}
+    public function send(int $fd, string $send_data, $server_socket = null){}
 
     /**
      * @param $ip [required]
-     * @param $port [required]
-     * @param $send_data [required]
+     * @param int $port [required]
+     * @param string $send_data [required]
      * @param $server_socket [optional]
      * @return mixed
      */
-    public function sendto($ip, int $port, string $send_data, $server_socket=null){}
+    public function sendto($ip, int $port, string $send_data, $server_socket = null){}
 
     /**
-     * @param $conn_fd [required]
-     * @param $send_data [required]
+     * @param int $conn_fd [required]
+     * @param string $send_data [required]
      * @return mixed
      */
     public function sendwait(int $conn_fd, string $send_data){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @return mixed
      */
     public function exists(int $fd){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @return mixed
      */
     public function exist(int $fd){}
 
     /**
-     * @param $fd [required]
-     * @param $is_protected [optional]
+     * @param int $fd [required]
+     * @param bool $is_protected [optional]
      * @return mixed
      */
-    public function protect(int $fd, bool $is_protected=null){}
+    public function protect(int $fd, bool $is_protected = null){}
 
     /**
-     * @param $conn_fd [required]
-     * @param $filename [required]
-     * @param $offset [optional]
-     * @param $length [optional]
+     * @param int $conn_fd [required]
+     * @param string $filename [required]
+     * @param int $offset [optional]
+     * @param int $length [optional]
      * @return mixed
      */
-    public function sendfile(int $conn_fd, string $filename, int $offset=null, int $length=null){}
+    public function sendfile(int $conn_fd, string $filename, int $offset = null, int $length = null){}
 
     /**
-     * @param $fd [required]
-     * @param $reset [optional]
+     * @param int $fd [required]
+     * @param bool $reset [optional]
      * @return mixed
      */
-    public function close(int $fd, bool $reset=null){}
+    public function close(int $fd, bool $reset = null){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @return mixed
      */
     public function confirm(int $fd){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @return mixed
      */
     public function pause(int $fd){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @return mixed
      */
     public function resume(int $fd){}
 
     /**
      * @param $data [required]
-     * @param $worker_id [optional]
+     * @param int $worker_id [optional]
      * @param $finish_callback [optional]
      * @return mixed
      */
-    public function task($data, int $worker_id=null, $finish_callback=null){}
+    public function task($data, int $worker_id = null, $finish_callback = null){}
 
     /**
      * @param $data [required]
-     * @param $timeout [optional]
-     * @param $worker_id [optional]
+     * @param float $timeout [optional]
+     * @param int $worker_id [optional]
      * @return mixed
      */
-    public function taskwait($data, float $timeout=null, int $worker_id=null){}
+    public function taskwait($data, float $timeout = null, int $worker_id = null){}
 
     /**
      * @param $tasks [required]
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function taskWaitMulti($tasks, float $timeout=null){}
+    public function taskWaitMulti($tasks, float $timeout = null){}
 
     /**
      * @param $tasks [required]
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function taskCo($tasks, float $timeout=null){}
+    public function taskCo($tasks, float $timeout = null){}
 
     /**
      * @param $data [required]
@@ -230,10 +230,10 @@ class Server
     public function shutdown(){}
 
     /**
-     * @param $worker_id [optional]
+     * @param int $worker_id [optional]
      * @return mixed
      */
-    public function stop(int $worker_id=null){}
+    public function stop(int $worker_id = null){}
 
     /**
      * @return mixed
@@ -241,38 +241,38 @@ class Server
     public function getLastError(){}
 
     /**
-     * @param $reactor_id [required]
+     * @param int $reactor_id [required]
      * @return mixed
      */
     public function heartbeat(int $reactor_id){}
 
     /**
-     * @param $fd [required]
-     * @param $reactor_id [optional]
+     * @param int $fd [required]
+     * @param int $reactor_id [optional]
      * @return mixed
      */
-    public function getClientInfo(int $fd, int $reactor_id=null){}
+    public function getClientInfo(int $fd, int $reactor_id = null){}
 
     /**
-     * @param $start_fd [required]
-     * @param $find_count [optional]
+     * @param int $start_fd [required]
+     * @param int $find_count [optional]
      * @return mixed
      */
-    public function getClientList(int $start_fd, int $find_count=null){}
+    public function getClientList(int $start_fd, int $find_count = null){}
 
     /**
-     * @param $fd [required]
-     * @param $reactor_id [optional]
+     * @param int $fd [required]
+     * @param int $reactor_id [optional]
      * @return mixed
      */
-    public function connection_info(int $fd, int $reactor_id=null){}
+    public function connection_info(int $fd, int $reactor_id = null){}
 
     /**
-     * @param $start_fd [required]
-     * @param $find_count [optional]
+     * @param int $start_fd [required]
+     * @param int $find_count [optional]
      * @return mixed
      */
-    public function connection_list(int $start_fd, int $find_count=null){}
+    public function connection_list(int $start_fd, int $find_count = null){}
 
     /**
      * @param mixed $message [required]
@@ -293,34 +293,34 @@ class Server
     public function stats(){}
 
     /**
-     * @param $port [optional]
+     * @param int $port [optional]
      * @return mixed
      */
-    public function getSocket(int $port=null){}
+    public function getSocket(int $port = null){}
 
     /**
-     * @param $fd [required]
-     * @param $uid [required]
+     * @param int $fd [required]
+     * @param int $uid [required]
      * @return mixed
      */
     public function bind(int $fd, int $uid){}
 
     /**
-     * @param $ms [required]
+     * @param int $ms [required]
      * @param mixed $callback [required]
      * @return mixed
      */
     public function after(int $ms, $callback){}
 
     /**
-     * @param $ms [required]
+     * @param int $ms [required]
      * @param mixed $callback [required]
      * @return mixed
      */
     public function tick(int $ms, $callback){}
 
     /**
-     * @param $timer_id [required]
+     * @param int $timer_id [required]
      * @return mixed
      */
     public function clearTimer(int $timer_id){}

@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Client
 {
@@ -27,12 +27,12 @@ class Client
     public $body;
 
     /**
-     * @param $host [required]
-     * @param $port [optional]
+     * @param string $host [required]
+     * @param int $port [optional]
      * @param $ssl [optional]
      * @return mixed
      */
-    public function __construct(string $host, int $port=null, $ssl=null){}
+    public function __construct(string $host, int $port = null, $ssl = null){}
 
     /**
      * @return mixed
@@ -40,7 +40,7 @@ class Client
     public function __destruct(){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function set(array $settings){}
@@ -54,16 +54,16 @@ class Client
      * @param $defer [optional]
      * @return mixed
      */
-    public function setDefer($defer=null){}
+    public function setDefer($defer = null){}
 
     /**
-     * @param $method [required]
+     * @param string $method [required]
      * @return mixed
      */
     public function setMethod(string $method){}
 
     /**
-     * @param $headers [required]
+     * @param array $headers [required]
      * @return mixed
      */
     public function setHeaders(array $headers){}
@@ -76,7 +76,7 @@ class Client
     public function setBasicAuth($username, $password){}
 
     /**
-     * @param $cookies [required]
+     * @param array $cookies [required]
      * @return mixed
      */
     public function setCookies(array $cookies){}
@@ -88,51 +88,51 @@ class Client
     public function setData($data){}
 
     /**
-     * @param $path [required]
-     * @param $name [required]
+     * @param string $path [required]
+     * @param string $name [required]
      * @param $type [optional]
-     * @param $filename [optional]
-     * @param $offset [optional]
-     * @param $length [optional]
+     * @param string $filename [optional]
+     * @param int $offset [optional]
+     * @param int $length [optional]
      * @return mixed
      */
-    public function addFile(string $path, string $name, $type=null, string $filename=null, int $offset=null, int $length=null){}
+    public function addFile(string $path, string $name, $type = null, string $filename = null, int $offset = null, int $length = null){}
 
     /**
-     * @param $path [required]
-     * @param $name [required]
+     * @param string $path [required]
+     * @param string $name [required]
      * @param $type [optional]
-     * @param $filename [optional]
+     * @param string $filename [optional]
      * @return mixed
      */
-    public function addData(string $path, string $name, $type=null, string $filename=null){}
+    public function addData(string $path, string $name, $type = null, string $filename = null){}
 
     /**
-     * @param $path [required]
+     * @param string $path [required]
      * @return mixed
      */
     public function execute(string $path){}
 
     /**
-     * @param $path [required]
+     * @param string $path [required]
      * @return mixed
      */
     public function get(string $path){}
 
     /**
-     * @param $path [required]
+     * @param string $path [required]
      * @param $data [required]
      * @return mixed
      */
     public function post(string $path, $data){}
 
     /**
-     * @param $path [required]
+     * @param string $path [required]
      * @param $file [required]
-     * @param $offset [optional]
+     * @param int $offset [optional]
      * @return mixed
      */
-    public function download(string $path, $file, int $offset=null){}
+    public function download(string $path, $file, int $offset = null){}
 
     /**
      * @return mixed
@@ -155,24 +155,24 @@ class Client
     public function getStatusCode(){}
 
     /**
-     * @param $path [required]
+     * @param string $path [required]
      * @return mixed
      */
     public function upgrade(string $path){}
 
     /**
      * @param $data [required]
-     * @param $opcode [optional]
+     * @param int $opcode [optional]
      * @param $finish [optional]
      * @return mixed
      */
-    public function push($data, int $opcode=null, $finish=null){}
+    public function push($data, int $opcode = null, $finish = null){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function recv(float $timeout=null){}
+    public function recv(float $timeout = null){}
 
     /**
      * @return mixed

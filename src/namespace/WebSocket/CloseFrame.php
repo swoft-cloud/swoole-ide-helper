@@ -2,7 +2,7 @@
 namespace Swoole\WebSocket;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class CloseFrame extends \Swoole\WebSocket\Frame
 {
@@ -21,12 +21,12 @@ class CloseFrame extends \Swoole\WebSocket\Frame
 
     /**
      * @param $data [required]
-     * @param $opcode [optional]
+     * @param int $opcode [optional]
      * @param $finish [optional]
      * @param $mask [optional]
      * @return mixed
      */
-    public static function pack($data, int $opcode=null, $finish=null, $mask=null){}
+    public static function pack($data, int $opcode = null, $finish = null, $mask = null){}
 
     /**
      * @param $data [required]

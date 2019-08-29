@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http2;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Client
 {
@@ -18,12 +18,12 @@ class Client
     public $ssl;
 
     /**
-     * @param $host [required]
-     * @param $port [optional]
+     * @param string $host [required]
+     * @param int $port [optional]
      * @param $ssl [optional]
      * @return mixed
      */
-    public function __construct(string $host, int $port=null, $ssl=null){}
+    public function __construct(string $host, int $port = null, $ssl = null){}
 
     /**
      * @return mixed
@@ -31,7 +31,7 @@ class Client
     public function __destruct(){}
 
     /**
-     * @param $settings [required]
+     * @param array $settings [required]
      * @return mixed
      */
     public function set(array $settings){}
@@ -45,7 +45,7 @@ class Client
      * @param $key [optional]
      * @return mixed
      */
-    public function stats($key=null){}
+    public function stats($key = null){}
 
     /**
      * @param $stream_id [required]
@@ -65,20 +65,20 @@ class Client
      * @param $end_stream [optional]
      * @return mixed
      */
-    public function write($stream_id, $data, $end_stream=null){}
+    public function write($stream_id, $data, $end_stream = null){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function recv(float $timeout=null){}
+    public function recv(float $timeout = null){}
 
     /**
      * @param $error_code [optional]
      * @param $debug_data [optional]
      * @return mixed
      */
-    public function goaway($error_code=null, $debug_data=null){}
+    public function goaway($error_code = null, $debug_data = null){}
 
     /**
      * @return mixed

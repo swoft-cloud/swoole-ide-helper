@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class MySQL
 {
@@ -36,20 +36,20 @@ class MySQL
      * @param $defer [optional]
      * @return mixed
      */
-    public function setDefer($defer=null){}
+    public function setDefer($defer = null){}
 
     /**
      * @param $server_config [optional]
      * @return mixed
      */
-    public function connect($server_config=null){}
+    public function connect($server_config = null){}
 
     /**
-     * @param $sql [required]
-     * @param $timeout [optional]
+     * @param string $sql [required]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function query(string $sql, float $timeout=null){}
+    public function query(string $sql, float $timeout = null){}
 
     /**
      * @return mixed
@@ -68,10 +68,10 @@ class MySQL
 
     /**
      * @param $query [required]
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function prepare($query, float $timeout=null){}
+    public function prepare($query, float $timeout = null){}
 
     /**
      * @return mixed
@@ -79,29 +79,29 @@ class MySQL
     public function recv(){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function begin(float $timeout=null){}
+    public function begin(float $timeout = null){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function commit(float $timeout=null){}
+    public function commit(float $timeout = null){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function rollback(float $timeout=null){}
+    public function rollback(float $timeout = null){}
 
     /**
-     * @param $string [required]
+     * @param string $string [required]
      * @param $flags [optional]
      * @return mixed
      */
-    public function escape(string $string, $flags=null){}
+    public function escape(string $string, $flags = null){}
 
     /**
      * @return mixed

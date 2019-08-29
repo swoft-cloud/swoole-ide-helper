@@ -2,36 +2,36 @@
 namespace Swoole;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Timer
 {
 
 
     /**
-     * @param $ms [required]
+     * @param int $ms [required]
      * @param mixed $callback [required]
-     * @param $params [optional]
+     * @param array $params [optional]
      * @return mixed
      */
-    public static function tick(int $ms, $callback, array $params=null){}
+    public static function tick(int $ms, $callback, array $params = null){}
 
     /**
-     * @param $ms [required]
+     * @param int $ms [required]
      * @param mixed $callback [required]
-     * @param $params [optional]
+     * @param array $params [optional]
      * @return mixed
      */
-    public static function after(int $ms, $callback, array $params=null){}
+    public static function after(int $ms, $callback, array $params = null){}
 
     /**
-     * @param $timer_id [required]
+     * @param int $timer_id [required]
      * @return mixed
      */
     public static function exists(int $timer_id){}
 
     /**
-     * @param $timer_id [required]
+     * @param int $timer_id [required]
      * @return mixed
      */
     public static function info(int $timer_id){}
@@ -47,7 +47,7 @@ class Timer
     public static function list(){}
 
     /**
-     * @param $timer_id [required]
+     * @param int $timer_id [required]
      * @return mixed
      */
     public static function clear(int $timer_id){}

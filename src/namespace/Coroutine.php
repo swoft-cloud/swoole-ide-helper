@@ -2,18 +2,18 @@
 namespace Swoole;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Coroutine
 {
 
 
     /**
-     * @param $func [required]
-     * @param $params [optional]
+     * @param mixed $func [required]
+     * @param array $params [optional]
      * @return mixed
      */
-    public static function create($func, array $params=null){}
+    public static function create($func, array $params = null){}
 
     /**
      * @param mixed $callback [required]
@@ -28,7 +28,7 @@ class Coroutine
     public static function set($options){}
 
     /**
-     * @param $cid [required]
+     * @param int $cid [required]
      * @return mixed
      */
     public static function exists(int $cid){}
@@ -44,7 +44,7 @@ class Coroutine
     public static function suspend(){}
 
     /**
-     * @param $cid [required]
+     * @param int $cid [required]
      * @return mixed
      */
     public static function resume(int $cid){}
@@ -65,23 +65,24 @@ class Coroutine
     public static function getuid(){}
 
     /**
+     * @param int $cid [optional]
      * @return mixed
      */
-    public static function getPcid(){}
+    public static function getPcid(int $cid = null){}
 
     /**
-     * @param $cid [optional]
+     * @param int $cid [optional]
      * @return mixed
      */
-    public static function getContext(int $cid=null){}
+    public static function getContext(int $cid = null){}
 
     /**
-     * @param $cid [optional]
+     * @param int $cid [optional]
      * @param $options [optional]
-     * @param $limit [optional]
+     * @param int $limit [optional]
      * @return mixed
      */
-    public static function getBackTrace(int $cid=null, $options=null, int $limit=null){}
+    public static function getBackTrace(int $cid = null, $options = null, int $limit = null){}
 
     /**
      * @return mixed
@@ -104,19 +105,19 @@ class Coroutine
     public static function disableScheduler(){}
 
     /**
-     * @param $command [required]
+     * @param string $command [required]
      * @param $get_error_stream [optional]
      * @return mixed
      */
-    public static function exec(string $command, $get_error_stream=null){}
+    public static function exec(string $command, $get_error_stream = null){}
 
     /**
-     * @param $domain_name [required]
+     * @param string $domain_name [required]
      * @param $family [optional]
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public static function gethostbyname(string $domain_name, $family=null, float $timeout=null){}
+    public static function gethostbyname(string $domain_name, $family = null, float $timeout = null){}
 
     /**
      * @param $seconds [required]
@@ -126,10 +127,10 @@ class Coroutine
 
     /**
      * @param $handle [required]
-     * @param $length [optional]
+     * @param int $length [optional]
      * @return mixed
      */
-    public static function fread($handle, int $length=null){}
+    public static function fread($handle, int $length = null){}
 
     /**
      * @param $handle [required]
@@ -139,39 +140,39 @@ class Coroutine
 
     /**
      * @param $handle [required]
-     * @param $string [required]
-     * @param $length [optional]
+     * @param string $string [required]
+     * @param int $length [optional]
      * @return mixed
      */
-    public static function fwrite($handle, string $string, int $length=null){}
+    public static function fwrite($handle, string $string, int $length = null){}
 
     /**
-     * @param $filename [required]
+     * @param string $filename [required]
      * @return mixed
      */
     public static function readFile(string $filename){}
 
     /**
-     * @param $filename [required]
+     * @param string $filename [required]
      * @param $data [required]
      * @param $flags [optional]
      * @return mixed
      */
-    public static function writeFile(string $filename, $data, $flags=null){}
+    public static function writeFile(string $filename, $data, $flags = null){}
 
     /**
-     * @param $hostname [required]
+     * @param string $hostname [required]
      * @param $family [optional]
      * @param $socktype [optional]
      * @param $protocol [optional]
      * @param $service [optional]
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public static function getaddrinfo(string $hostname, $family=null, $socktype=null, $protocol=null, $service=null, float $timeout=null){}
+    public static function getaddrinfo(string $hostname, $family = null, $socktype = null, $protocol = null, $service = null, float $timeout = null){}
 
     /**
-     * @param $path [required]
+     * @param string $path [required]
      * @return mixed
      */
     public static function statvfs(string $path){}

@@ -8,11 +8,5 @@
     "ide-helper"
   ],
   "description": "ide helper for Swoft and Swoole",
-  "license": "Apache-2.0",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packagist.phpcomposer.com"
-    }
-  ]
+  "license": "Apache-2.0"
 }

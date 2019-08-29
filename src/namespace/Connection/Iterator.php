@@ -2,7 +2,7 @@
 namespace Swoole\Connection;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Iterator
 {
@@ -49,26 +49,26 @@ class Iterator
     public function count(){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @return mixed
      */
     public function offsetExists(int $fd){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @return mixed
      */
     public function offsetGet(int $fd){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @param $value [required]
      * @return mixed
      */
     public function offsetSet(int $fd, $value){}
 
     /**
-     * @param $fd [required]
+     * @param int $fd [required]
      * @return mixed
      */
     public function offsetUnset(int $fd){}

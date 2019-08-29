@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.0
+ * @since 4.4.2
  */
 class Lock
 {
@@ -15,10 +15,10 @@ class Lock
 
     /**
      * @param $type [optional]
-     * @param $filename [optional]
+     * @param string $filename [optional]
      * @return mixed
      */
-    public function __construct($type=null, string $filename=null){}
+    public function __construct($type = null, string $filename = null){}
 
     /**
      * @return mixed
@@ -31,10 +31,10 @@ class Lock
     public function lock(){}
 
     /**
-     * @param $timeout [optional]
+     * @param float $timeout [optional]
      * @return mixed
      */
-    public function lockwait(float $timeout=null){}
+    public function lockwait(float $timeout = null){}
 
     /**
      * @return mixed
