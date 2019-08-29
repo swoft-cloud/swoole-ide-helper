@@ -2,25 +2,19 @@
 
 [![Latest Stable Version](http://img.shields.io/packagist/v/swoft/swoole-ide-helper.svg)](https://packagist.org/packages/swoft/swoole-ide-helper)
 
-Add ide-helper for **swoole**, forked from [swoole/ide-helper](https://github.com/swoole/ide-helper)
+Add IDE helper for **swoole** extension, forked from [swoole/ide-helper](https://github.com/swoole/ide-helper)
 
 ## Usage
 
-the [swoft](https://github.com/swoft-cloud/swoft) use it as default.
+The [swoft](https://github.com/swoft-cloud/swoft) use it as default.
 
 you can add it by `composer`:
 
 ```bash
-composer require swoft/swoole-ide-helper
+composer require --dev swoft/swoole-ide-helper
 ```
 
-`swoft/swoole-ide-helper` keep the same version of **swoole**
-
-## Generate
-
-```bash
-php dump.php
-```
+> `swoft/swoole-ide-helper` keep the same version of **swoole**
 
 ## Diff With swoole/ide-helper
 
@@ -36,4 +30,10 @@ now:
 
 ```php
 public function send(int $fd, string $send_data, int $reactor_id=null){}
+```
+
+## Build
+
+```bash
+php dump.php
 ```
