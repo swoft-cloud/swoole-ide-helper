@@ -19,7 +19,7 @@ composer require --dev swoft/swoole-ide-helper
 
 ## Diff With swoole/ide-helper
 
-跟源仓库稍微不同的是：给大部分方法参数添加了变量类型。
+跟源仓库不同的是：给大部分方法参数添加了变量类型。
 
 Old：
 

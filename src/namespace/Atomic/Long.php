@@ -2,26 +2,26 @@
 namespace Swoole\Atomic;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Long
 {
 
 
     /**
-     * @param $value [optional]
+     * @param $value
      * @return mixed
      */
     public function __construct($value = null){}
 
     /**
-     * @param $add_value [optional]
+     * @param $add_value
      * @return mixed
      */
     public function add($add_value = null){}
 
     /**
-     * @param $sub_value [optional]
+     * @param $sub_value
      * @return mixed
      */
     public function sub($sub_value = null){}

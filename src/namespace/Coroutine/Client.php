@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Client
 {
@@ -40,54 +40,54 @@ class Client
 
     /**
      * @param string $host
-     * @param int $port [optional]
-     * @param float $timeout [optional]
-     * @param $sock_flag [optional]
+     * @param int $port
+     * @param float $timeout
+     * @param $sock_flag
      * @return mixed
      */
     public function connect(string $host, int $port = null, float $timeout = null, $sock_flag = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function recv(float $timeout = null){}
 
     /**
-     * @param int $length [optional]
+     * @param int $length
      * @return mixed
      */
     public function peek(int $length = null){}
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function send($data){}
 
     /**
      * @param string $filename
-     * @param int $offset [optional]
-     * @param int $length [optional]
+     * @param int $offset
+     * @param int $length
      * @return mixed
      */
     public function sendfile(string $filename, int $offset = null, int $length = null){}
 
     /**
-     * @param $address
+     * @param string $address
      * @param int $port
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
-    public function sendto($address, int $port, $data){}
+    public function sendto(string $address, int $port, $data){}
 
     /**
      * @param int $length
-     * @param $address
-     * @param int $port [optional]
+     * @param string $address
+     * @param int $port
      * @return mixed
      */
-    public function recvfrom(int $length, $address, int $port = null){}
+    public function recvfrom(int $length, string $address, int $port = null){}
 
     /**
      * @return mixed

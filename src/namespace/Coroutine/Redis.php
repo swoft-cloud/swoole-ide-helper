@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Redis
 {
@@ -18,7 +18,7 @@ class Redis
     public $errMsg;
 
     /**
-     * @param $config [optional]
+     * @param $config
      * @return mixed
      */
     public function __construct($config = null){}
@@ -30,8 +30,8 @@ class Redis
 
     /**
      * @param string $host
-     * @param int $port [optional]
-     * @param $serialize [optional]
+     * @param int $port
+     * @param $serialize
      * @return mixed
      */
     public function connect(string $host, int $port = null, $serialize = null){}
@@ -87,8 +87,8 @@ class Redis
     /**
      * @param $key
      * @param $value
-     * @param float $timeout [optional]
-     * @param $opt [optional]
+     * @param float $timeout
+     * @param $opt
      * @return mixed
      */
     public function set($key, $value, float $timeout = null, $opt = null){}
@@ -139,7 +139,7 @@ class Redis
 
     /**
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function del($key, $other_keys = null){}
@@ -147,7 +147,7 @@ class Redis
     /**
      * @param $key
      * @param $member
-     * @param $other_members [optional]
+     * @param $other_members
      * @return mixed
      */
     public function hDel($key, $member, $other_members = null){}
@@ -177,7 +177,7 @@ class Redis
 
     /**
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function delete($key, $other_keys = null){}
@@ -195,20 +195,20 @@ class Redis
     public function mSetNx($pairs){}
 
     /**
-     * @param $pattern
+     * @param string $pattern
      * @return mixed
      */
-    public function getKeys($pattern){}
+    public function getKeys(string $pattern){}
 
     /**
-     * @param $pattern
+     * @param string $pattern
      * @return mixed
      */
-    public function keys($pattern){}
+    public function keys(string $pattern){}
 
     /**
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function exists($key, $other_keys = null){}
@@ -234,7 +234,7 @@ class Redis
     /**
      * @param $key
      * @param $timeout_or_key
-     * @param $extra_args [optional]
+     * @param $extra_args
      * @return mixed
      */
     public function blPop($key, $timeout_or_key, $extra_args = null){}
@@ -248,7 +248,7 @@ class Redis
     /**
      * @param $key
      * @param $timeout_or_key
-     * @param $extra_args [optional]
+     * @param $extra_args
      * @return mixed
      */
     public function brPop($key, $timeout_or_key, $extra_args = null){}
@@ -305,7 +305,7 @@ class Redis
 
     /**
      * @param $key
-     * @param $count [optional]
+     * @param $count
      * @return mixed
      */
     public function sRandMember($key, $count = null){}
@@ -443,10 +443,10 @@ class Redis
     public function ping(){}
 
     /**
-     * @param $password
+     * @param string $password
      * @return mixed
      */
-    public function auth($password){}
+    public function auth(string $password){}
 
     /**
      * @return mixed
@@ -455,7 +455,7 @@ class Redis
 
     /**
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function watch($key, $other_keys = null){}
@@ -643,6 +643,36 @@ class Redis
 
     /**
      * @param $key
+     * @param $count
+     * @return mixed
+     */
+    public function zPopMin($key, $count){}
+
+    /**
+     * @param $key
+     * @param $count
+     * @return mixed
+     */
+    public function zPopMax($key, $count){}
+
+    /**
+     * @param $key
+     * @param $timeout_or_key
+     * @param $extra_args
+     * @return mixed
+     */
+    public function bzPopMin($key, $timeout_or_key, $extra_args = null){}
+
+    /**
+     * @param $key
+     * @param $timeout_or_key
+     * @param $extra_args
+     * @return mixed
+     */
+    public function bzPopMax($key, $timeout_or_key, $extra_args = null){}
+
+    /**
+     * @param $key
      * @param $min
      * @param $max
      * @return mixed
@@ -669,7 +699,7 @@ class Redis
      * @param $key
      * @param $start
      * @param $end
-     * @param $scores [optional]
+     * @param $scores
      * @return mixed
      */
     public function zRange($key, $start, $end, $scores = null){}
@@ -678,7 +708,7 @@ class Redis
      * @param $key
      * @param $start
      * @param $end
-     * @param $scores [optional]
+     * @param $scores
      * @return mixed
      */
     public function zRevRange($key, $start, $end, $scores = null){}
@@ -687,7 +717,7 @@ class Redis
      * @param $key
      * @param $start
      * @param $end
-     * @param array $options [optional]
+     * @param array $options
      * @return mixed
      */
     public function zRangeByScore($key, $start, $end, array $options = null){}
@@ -696,7 +726,7 @@ class Redis
      * @param $key
      * @param $start
      * @param $end
-     * @param array $options [optional]
+     * @param array $options
      * @return mixed
      */
     public function zRevRangeByScore($key, $start, $end, array $options = null){}
@@ -705,8 +735,8 @@ class Redis
      * @param $key
      * @param $min
      * @param $max
-     * @param int $offset [optional]
-     * @param int $limit [optional]
+     * @param int $offset
+     * @param int $limit
      * @return mixed
      */
     public function zRangeByLex($key, $min, $max, int $offset = null, int $limit = null){}
@@ -715,8 +745,8 @@ class Redis
      * @param $key
      * @param $min
      * @param $max
-     * @param int $offset [optional]
-     * @param int $limit [optional]
+     * @param int $offset
+     * @param int $limit
      * @return mixed
      */
     public function zRevRangeByLex($key, $min, $max, int $offset = null, int $limit = null){}
@@ -724,8 +754,8 @@ class Redis
     /**
      * @param $key
      * @param $keys
-     * @param $weights [optional]
-     * @param $aggregate [optional]
+     * @param $weights
+     * @param $aggregate
      * @return mixed
      */
     public function zInter($key, $keys, $weights = null, $aggregate = null){}
@@ -733,8 +763,8 @@ class Redis
     /**
      * @param $key
      * @param $keys
-     * @param $weights [optional]
-     * @param $aggregate [optional]
+     * @param $weights
+     * @param $aggregate
      * @return mixed
      */
     public function zinterstore($key, $keys, $weights = null, $aggregate = null){}
@@ -742,8 +772,8 @@ class Redis
     /**
      * @param $key
      * @param $keys
-     * @param $weights [optional]
-     * @param $aggregate [optional]
+     * @param $weights
+     * @param $aggregate
      * @return mixed
      */
     public function zUnion($key, $keys, $weights = null, $aggregate = null){}
@@ -751,8 +781,8 @@ class Redis
     /**
      * @param $key
      * @param $keys
-     * @param $weights [optional]
-     * @param $aggregate [optional]
+     * @param $weights
+     * @param $aggregate
      * @return mixed
      */
     public function zunionstore($key, $keys, $weights = null, $aggregate = null){}
@@ -966,7 +996,7 @@ class Redis
      * @param $operation
      * @param $ret_key
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function bitOp($operation, $ret_key, $key, $other_keys = null){}
@@ -988,7 +1018,7 @@ class Redis
 
     /**
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function sDiff($key, $other_keys = null){}
@@ -996,14 +1026,14 @@ class Redis
     /**
      * @param $dst
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function sDiffStore($dst, $key, $other_keys = null){}
 
     /**
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function sUnion($key, $other_keys = null){}
@@ -1011,14 +1041,14 @@ class Redis
     /**
      * @param $dst
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function sUnionStore($dst, $key, $other_keys = null){}
 
     /**
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function sInter($key, $other_keys = null){}
@@ -1026,7 +1056,7 @@ class Redis
     /**
      * @param $dst
      * @param $key
-     * @param $other_keys [optional]
+     * @param $other_keys
      * @return mixed
      */
     public function sInterStore($dst, $key, $other_keys = null){}
@@ -1048,7 +1078,7 @@ class Redis
     /**
      * @param $key
      * @param $member
-     * @param $other_members [optional]
+     * @param $other_members
      * @return mixed
      */
     public function zDelete($key, $member, $other_members = null){}
@@ -1056,7 +1086,7 @@ class Redis
     /**
      * @param $key
      * @param $member
-     * @param $other_members [optional]
+     * @param $other_members
      * @return mixed
      */
     public function zRemove($key, $member, $other_members = null){}
@@ -1064,7 +1094,7 @@ class Redis
     /**
      * @param $key
      * @param $member
-     * @param $other_members [optional]
+     * @param $other_members
      * @return mixed
      */
     public function zRem($key, $member, $other_members = null){}
@@ -1105,23 +1135,23 @@ class Redis
 
     /**
      * @param $script
-     * @param $args [optional]
-     * @param $num_keys [optional]
+     * @param $args
+     * @param $num_keys
      * @return mixed
      */
     public function eval($script, $args = null, $num_keys = null){}
 
     /**
      * @param $script_sha
-     * @param $args [optional]
-     * @param $num_keys [optional]
+     * @param $args
+     * @param $num_keys
      * @return mixed
      */
     public function evalSha($script_sha, $args = null, $num_keys = null){}
 
     /**
      * @param $cmd
-     * @param $args [optional]
+     * @param $args
      * @return mixed
      */
     public function script($cmd, $args = null){}

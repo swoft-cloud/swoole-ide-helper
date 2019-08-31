@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Client
 {
@@ -29,8 +29,8 @@ class Client
 
     /**
      * @param string $host
-     * @param int $port [optional]
-     * @param $ssl [optional]
+     * @param int $port
+     * @param $ssl
      * @return mixed
      */
     public function __construct(string $host, int $port = null, $ssl = null){}
@@ -52,7 +52,7 @@ class Client
     public function getDefer(){}
 
     /**
-     * @param $defer [optional]
+     * @param $defer
      * @return mixed
      */
     public function setDefer($defer = null){}
@@ -70,11 +70,11 @@ class Client
     public function setHeaders(array $headers){}
 
     /**
-     * @param $username
-     * @param $password
+     * @param string $username
+     * @param string $password
      * @return mixed
      */
-    public function setBasicAuth($username, $password){}
+    public function setBasicAuth(string $username, string $password){}
 
     /**
      * @param array $cookies
@@ -83,7 +83,7 @@ class Client
     public function setCookies(array $cookies){}
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function setData($data){}
@@ -91,10 +91,10 @@ class Client
     /**
      * @param string $path
      * @param string $name
-     * @param $type [optional]
-     * @param string $filename [optional]
-     * @param int $offset [optional]
-     * @param int $length [optional]
+     * @param $type
+     * @param string $filename
+     * @param int $offset
+     * @param int $length
      * @return mixed
      */
     public function addFile(string $path, string $name, $type = null, string $filename = null, int $offset = null, int $length = null){}
@@ -102,8 +102,8 @@ class Client
     /**
      * @param string $path
      * @param string $name
-     * @param $type [optional]
-     * @param string $filename [optional]
+     * @param $type
+     * @param string $filename
      * @return mixed
      */
     public function addData(string $path, string $name, $type = null, string $filename = null){}
@@ -122,7 +122,7 @@ class Client
 
     /**
      * @param string $path
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function post(string $path, $data){}
@@ -130,7 +130,7 @@ class Client
     /**
      * @param string $path
      * @param $file
-     * @param int $offset [optional]
+     * @param int $offset
      * @return mixed
      */
     public function download(string $path, $file, int $offset = null){}
@@ -162,15 +162,15 @@ class Client
     public function upgrade(string $path){}
 
     /**
-     * @param $data
-     * @param int $opcode [optional]
-     * @param $finish [optional]
+     * @param mixed $data
+     * @param int $opcode
+     * @param $finish
      * @return mixed
      */
     public function push($data, int $opcode = null, $finish = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function recv(float $timeout = null){}

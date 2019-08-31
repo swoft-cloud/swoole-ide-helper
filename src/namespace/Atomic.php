@@ -2,26 +2,26 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Atomic
 {
 
 
     /**
-     * @param $value [optional]
+     * @param $value
      * @return mixed
      */
     public function __construct($value = null){}
 
     /**
-     * @param $add_value [optional]
+     * @param $add_value
      * @return mixed
      */
     public function add($add_value = null){}
 
     /**
-     * @param $sub_value [optional]
+     * @param $sub_value
      * @return mixed
      */
     public function sub($sub_value = null){}
@@ -38,13 +38,13 @@ class Atomic
     public function set($value){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function wait(float $timeout = null){}
 
     /**
-     * @param $count [optional]
+     * @param $count
      * @return mixed
      */
     public function wakeup($count = null){}

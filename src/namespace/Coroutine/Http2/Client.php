@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http2;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Client
 {
@@ -20,8 +20,8 @@ class Client
 
     /**
      * @param string $host
-     * @param int $port [optional]
-     * @param $ssl [optional]
+     * @param int $port
+     * @param $ssl
      * @return mixed
      */
     public function __construct(string $host, int $port = null, $ssl = null){}
@@ -43,7 +43,7 @@ class Client
     public function connect(){}
 
     /**
-     * @param $key [optional]
+     * @param $key
      * @return mixed
      */
     public function stats($key = null){}
@@ -62,21 +62,21 @@ class Client
 
     /**
      * @param $stream_id
-     * @param $data
-     * @param $end_stream [optional]
+     * @param mixed $data
+     * @param $end_stream
      * @return mixed
      */
     public function write($stream_id, $data, $end_stream = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function recv(float $timeout = null){}
 
     /**
-     * @param $error_code [optional]
-     * @param $debug_data [optional]
+     * @param $error_code
+     * @param $debug_data
      * @return mixed
      */
     public function goaway($error_code = null, $debug_data = null){}

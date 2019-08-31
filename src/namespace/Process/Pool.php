@@ -2,7 +2,7 @@
 namespace Swoole\Process;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Pool
 {
@@ -13,17 +13,23 @@ class Pool
 
     /**
      * @param int $worker_num
-     * @param $ipc_type [optional]
-     * @param $msgqueue_key [optional]
-     * @param bool $enable_coroutine [optional]
+     * @param int $ipc_type
+     * @param int $msgqueue_key
+     * @param bool $enable_coroutine
      * @return mixed
      */
-    public function __construct(int $worker_num, $ipc_type = null, $msgqueue_key = null, bool $enable_coroutine = null){}
+    public function __construct(int $worker_num, int $ipc_type = null, int $msgqueue_key = null, bool $enable_coroutine = null){}
 
     /**
      * @return mixed
      */
     public function __destruct(){}
+
+    /**
+     * @param array $settings
+     * @return mixed
+     */
+    public function set(array $settings){}
 
     /**
      * @param string $event_name
@@ -33,21 +39,21 @@ class Pool
     public function on(string $event_name, $callback){}
 
     /**
-     * @param int $worker_id [optional]
+     * @param int $worker_id
      * @return mixed
      */
     public function getProcess(int $worker_id = null){}
 
     /**
      * @param string $host
-     * @param int $port [optional]
-     * @param $backlog [optional]
+     * @param int $port
+     * @param int $backlog
      * @return mixed
      */
-    public function listen(string $host, int $port = null, $backlog = null){}
+    public function listen(string $host, int $port = null, int $backlog = null){}
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function write($data){}

@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Runtime
 {
@@ -14,8 +14,8 @@ class Runtime
     public static function enableStrictMode(){}
 
     /**
-     * @param $enable [optional]
-     * @param $flags [optional]
+     * @param $enable
+     * @param $flags
      * @return mixed
      */
     public static function enableCoroutine($enable = null, $flags = null){}

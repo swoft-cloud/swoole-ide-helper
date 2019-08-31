@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\MySQL;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Exception extends \Swoole\Exception
 {
@@ -14,9 +14,9 @@ class Exception extends \Swoole\Exception
     protected $line;
 
     /**
-     * @param string $message [optional]
-     * @param $code [optional]
-     * @param $previous [optional]
+     * @param string $message
+     * @param $code
+     * @param $previous
      * @return mixed
      */
     public function __construct(string $message = null, $code = null, $previous = null){}

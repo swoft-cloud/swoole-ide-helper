@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Coroutine
 {
@@ -10,7 +10,7 @@ class Coroutine
 
     /**
      * @param mixed $func
-     * @param array $params [optional]
+     * @param array $params
      * @return mixed
      */
     public static function create($func, array $params = null){}
@@ -65,21 +65,21 @@ class Coroutine
     public static function getuid(){}
 
     /**
-     * @param int $cid [optional]
+     * @param int $cid
      * @return mixed
      */
     public static function getPcid(int $cid = null){}
 
     /**
-     * @param int $cid [optional]
+     * @param int $cid
      * @return mixed
      */
     public static function getContext(int $cid = null){}
 
     /**
-     * @param int $cid [optional]
-     * @param array $options [optional]
-     * @param int $limit [optional]
+     * @param int $cid
+     * @param array $options
+     * @param int $limit
      * @return mixed
      */
     public static function getBackTrace(int $cid = null, array $options = null, int $limit = null){}
@@ -105,19 +105,26 @@ class Coroutine
     public static function disableScheduler(){}
 
     /**
-     * @param string $command
-     * @param $get_error_stream [optional]
-     * @return mixed
-     */
-    public static function exec(string $command, $get_error_stream = null){}
-
-    /**
      * @param string $domain_name
-     * @param $family [optional]
-     * @param float $timeout [optional]
+     * @param $family
+     * @param float $timeout
      * @return mixed
      */
     public static function gethostbyname(string $domain_name, $family = null, float $timeout = null){}
+
+    /**
+     * @param string $domain_name
+     * @param float $timeout
+     * @return mixed
+     */
+    public static function dnsLookup(string $domain_name, float $timeout = null){}
+
+    /**
+     * @param string $command
+     * @param $get_error_stream
+     * @return mixed
+     */
+    public static function exec(string $command, $get_error_stream = null){}
 
     /**
      * @param $seconds
@@ -127,7 +134,7 @@ class Coroutine
 
     /**
      * @param $handle
-     * @param int $length [optional]
+     * @param int $length
      * @return mixed
      */
     public static function fread($handle, int $length = null){}
@@ -141,7 +148,7 @@ class Coroutine
     /**
      * @param $handle
      * @param string $string
-     * @param int $length [optional]
+     * @param int $length
      * @return mixed
      */
     public static function fwrite($handle, string $string, int $length = null){}
@@ -154,19 +161,19 @@ class Coroutine
 
     /**
      * @param string $filename
-     * @param $data
-     * @param $flags [optional]
+     * @param mixed $data
+     * @param $flags
      * @return mixed
      */
     public static function writeFile(string $filename, $data, $flags = null){}
 
     /**
      * @param string $hostname
-     * @param $family [optional]
-     * @param $socktype [optional]
-     * @param $protocol [optional]
-     * @param $service [optional]
-     * @param float $timeout [optional]
+     * @param $family
+     * @param $socktype
+     * @param $protocol
+     * @param $service
+     * @param float $timeout
      * @return mixed
      */
     public static function getaddrinfo(string $hostname, $family = null, $socktype = null, $protocol = null, $service = null, float $timeout = null){}

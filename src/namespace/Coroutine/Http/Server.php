@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Server
 {
@@ -17,9 +17,13 @@ class Server
     public $errMsg;
 
     /**
+     * @param string $host
+     * @param int $port
+     * @param $ssl
+     * @param $reuse_port
      * @return mixed
      */
-    public function __construct(){}
+    public function __construct(string $host, int $port = null, $ssl = null, $reuse_port = null){}
 
     /**
      * @return mixed
@@ -33,11 +37,11 @@ class Server
     public function set(array $settings){}
 
     /**
-     * @param $pattern
+     * @param string $pattern
      * @param mixed $callback
      * @return mixed
      */
-    public function handle($pattern, $callback){}
+    public function handle(string $pattern, $callback){}
 
     /**
      * @return mixed

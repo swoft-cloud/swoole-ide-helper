@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Lock
 {
@@ -16,8 +16,8 @@ class Lock
     public $errCode;
 
     /**
-     * @param $type [optional]
-     * @param string $filename [optional]
+     * @param $type
+     * @param string $filename
      * @return mixed
      */
     public function __construct($type = null, string $filename = null){}
@@ -33,7 +33,7 @@ class Lock
     public function lock(){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function lockwait(float $timeout = null){}

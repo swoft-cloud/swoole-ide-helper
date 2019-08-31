@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Buffer
 {
@@ -12,7 +12,7 @@ class Buffer
     public $length;
 
     /**
-     * @param int $size [optional]
+     * @param int $size
      * @return mixed
      */
     public function __construct(int $size = null){}
@@ -29,15 +29,15 @@ class Buffer
 
     /**
      * @param int $offset
-     * @param int $length [optional]
-     * @param $remove [optional]
+     * @param int $length
+     * @param $remove
      * @return mixed
      */
     public function substr(int $offset, int $length = null, $remove = null){}
 
     /**
      * @param int $offset
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function write(int $offset, $data){}
@@ -50,7 +50,7 @@ class Buffer
     public function read(int $offset, int $length){}
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function append($data){}

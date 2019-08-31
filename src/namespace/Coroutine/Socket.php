@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Socket
 {
@@ -13,85 +13,85 @@ class Socket
     public $errMsg;
 
     /**
-     * @param $domain
+     * @param string $domain
      * @param $type
-     * @param $protocol [optional]
+     * @param $protocol
      * @return mixed
      */
-    public function __construct($domain, $type, $protocol = null){}
+    public function __construct(string $domain, $type, $protocol = null){}
 
     /**
-     * @param $address
-     * @param int $port [optional]
+     * @param string $address
+     * @param int $port
      * @return mixed
      */
-    public function bind($address, int $port = null){}
+    public function bind(string $address, int $port = null){}
 
     /**
-     * @param $backlog [optional]
+     * @param int $backlog
      * @return mixed
      */
-    public function listen($backlog = null){}
+    public function listen(int $backlog = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function accept(float $timeout = null){}
 
     /**
      * @param string $host
-     * @param int $port [optional]
-     * @param float $timeout [optional]
+     * @param int $port
+     * @param float $timeout
      * @return mixed
      */
     public function connect(string $host, int $port = null, float $timeout = null){}
 
     /**
-     * @param int $length [optional]
-     * @param float $timeout [optional]
+     * @param int $length
+     * @param float $timeout
      * @return mixed
      */
     public function recv(int $length = null, float $timeout = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function recvPacket(float $timeout = null){}
 
     /**
-     * @param $data
-     * @param float $timeout [optional]
+     * @param mixed $data
+     * @param float $timeout
      * @return mixed
      */
     public function send($data, float $timeout = null){}
 
     /**
      * @param string $filename
-     * @param int $offset [optional]
-     * @param int $length [optional]
+     * @param int $offset
+     * @param int $length
      * @return mixed
      */
     public function sendFile(string $filename, int $offset = null, int $length = null){}
 
     /**
-     * @param int $length [optional]
-     * @param float $timeout [optional]
+     * @param int $length
+     * @param float $timeout
      * @return mixed
      */
     public function recvAll(int $length = null, float $timeout = null){}
 
     /**
-     * @param $data
-     * @param float $timeout [optional]
+     * @param mixed $data
+     * @param float $timeout
      * @return mixed
      */
     public function sendAll($data, float $timeout = null){}
 
     /**
      * @param $peername
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function recvfrom($peername, float $timeout = null){}
@@ -99,7 +99,7 @@ class Socket
     /**
      * @param $addr
      * @param int $port
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function sendto($addr, int $port, $data){}
@@ -129,10 +129,10 @@ class Socket
      * @param $how
      * @return mixed
      */
-    public function shutdown($how){}
+    public function shutdown($how = null){}
 
     /**
-     * @param $event [optional]
+     * @param $event
      * @return mixed
      */
     public function cancel($event = null){}

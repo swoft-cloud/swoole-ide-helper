@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Channel
 {
@@ -12,31 +12,31 @@ class Channel
     public $errCode;
 
     /**
-     * @param int $size [optional]
+     * @param int $size
      * @return mixed
      */
     public function __construct(int $size = null){}
 
     /**
-     * @param $data
-     * @param float $timeout [optional]
+     * @param mixed $data
+     * @param float $timeout
      * @return mixed
      */
     public function push($data, float $timeout = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function pop(float $timeout = null){}
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function isEmpty(){}
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function isFull(){}
 

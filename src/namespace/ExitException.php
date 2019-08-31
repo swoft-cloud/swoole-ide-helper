@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class ExitException extends \Swoole\Exception
 {
@@ -26,9 +26,9 @@ class ExitException extends \Swoole\Exception
     public function getStatus(){}
 
     /**
-     * @param string $message [optional]
-     * @param $code [optional]
-     * @param $previous [optional]
+     * @param string $message
+     * @param $code
+     * @param $previous
      * @return mixed
      */
     public function __construct(string $message = null, $code = null, $previous = null){}

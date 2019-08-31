@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class MySQL
 {
@@ -34,20 +34,20 @@ class MySQL
     public function getDefer(){}
 
     /**
-     * @param $defer [optional]
+     * @param $defer
      * @return mixed
      */
     public function setDefer($defer = null){}
 
     /**
-     * @param $server_config [optional]
+     * @param array $server_config
      * @return mixed
      */
-    public function connect($server_config = null){}
+    public function connect(array $server_config = null){}
 
     /**
      * @param string $sql
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function query(string $sql, float $timeout = null){}
@@ -69,7 +69,7 @@ class MySQL
 
     /**
      * @param $query
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function prepare($query, float $timeout = null){}
@@ -80,26 +80,26 @@ class MySQL
     public function recv(){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function begin(float $timeout = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function commit(float $timeout = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function rollback(float $timeout = null){}
 
     /**
      * @param string $string
-     * @param $flags [optional]
+     * @param $flags
      * @return mixed
      */
     public function escape(string $string, $flags = null){}

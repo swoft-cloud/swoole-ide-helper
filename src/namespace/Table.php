@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Table
 {
@@ -14,7 +14,7 @@ class Table
 
     /**
      * @param $table_size
-     * @param $conflict_proportion [optional]
+     * @param $conflict_proportion
      * @return mixed
      */
     public function __construct($table_size, $conflict_proportion = null){}
@@ -22,7 +22,7 @@ class Table
     /**
      * @param string $name
      * @param $type
-     * @param int $size [optional]
+     * @param int $size
      * @return mixed
      */
     public function column(string $name, $type, int $size = null){}
@@ -46,7 +46,7 @@ class Table
 
     /**
      * @param $key
-     * @param $field [optional]
+     * @param $field
      * @return mixed
      */
     public function get($key, $field = null){}
@@ -77,7 +77,7 @@ class Table
     /**
      * @param $key
      * @param $column
-     * @param $incrby [optional]
+     * @param $incrby
      * @return mixed
      */
     public function incr($key, $column, $incrby = null){}
@@ -85,7 +85,7 @@ class Table
     /**
      * @param $key
      * @param $column
-     * @param $decrby [optional]
+     * @param $decrby
      * @return mixed
      */
     public function decr($key, $column, $decrby = null){}

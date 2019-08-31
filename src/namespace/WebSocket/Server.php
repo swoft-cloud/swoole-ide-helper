@@ -2,7 +2,7 @@
 namespace Swoole\WebSocket;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Server extends \Swoole\Http\Server
 {
@@ -23,17 +23,17 @@ class Server extends \Swoole\Http\Server
 
     /**
      * @param int $fd
-     * @param $data
-     * @param int $opcode [optional]
-     * @param $finish [optional]
+     * @param mixed $data
+     * @param int $opcode
+     * @param $finish
      * @return mixed
      */
     public function push(int $fd, $data, int $opcode = null, $finish = null){}
 
     /**
      * @param int $fd
-     * @param $code [optional]
-     * @param string $reason [optional]
+     * @param $code
+     * @param string $reason
      * @return mixed
      */
     public function disconnect(int $fd, $code = null, string $reason = null){}
@@ -45,25 +45,25 @@ class Server extends \Swoole\Http\Server
     public function isEstablished(int $fd){}
 
     /**
-     * @param $data
-     * @param int $opcode [optional]
-     * @param $finish [optional]
-     * @param $mask [optional]
+     * @param mixed $data
+     * @param int $opcode
+     * @param $finish
+     * @param $mask
      * @return mixed
      */
     public static function pack($data, int $opcode = null, $finish = null, $mask = null){}
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public static function unpack($data){}
 
     /**
      * @param string $host
-     * @param int $port [optional]
-     * @param $mode [optional]
-     * @param $sock_type [optional]
+     * @param int $port
+     * @param $mode
+     * @param $sock_type
      * @return mixed
      */
     public function __construct(string $host, int $port = null, $mode = null, $sock_type = null){}
@@ -137,7 +137,7 @@ class Server extends \Swoole\Http\Server
      *
      * @param int $fd
      * @param string $send_data
-     * @param int $server_socket [optional]
+     * @param int $server_socket
      * @return bool
      */
     public function send(int $fd, string $send_data, int $server_socket = null){}
@@ -146,7 +146,7 @@ class Server extends \Swoole\Http\Server
      * @param string $ip
      * @param int $port
      * @param string $send_data
-     * @param int $server_socket [optional]
+     * @param int $server_socket
      * @return mixed
      */
     public function sendto(string $ip, int $port, string $send_data, int $server_socket = null){}
@@ -172,7 +172,7 @@ class Server extends \Swoole\Http\Server
 
     /**
      * @param int $fd
-     * @param bool $is_protected [optional]
+     * @param bool $is_protected
      * @return mixed
      */
     public function protect(int $fd, bool $is_protected = null){}
@@ -180,15 +180,15 @@ class Server extends \Swoole\Http\Server
     /**
      * @param int $conn_fd
      * @param string $filename
-     * @param int $offset [optional]
-     * @param int $length [optional]
+     * @param int $offset
+     * @param int $length
      * @return mixed
      */
     public function sendfile(int $conn_fd, string $filename, int $offset = null, int $length = null){}
 
     /**
      * @param int $fd
-     * @param bool $reset [optional]
+     * @param bool $reset
      * @return mixed
      */
     public function close(int $fd, bool $reset = null){}
@@ -212,37 +212,37 @@ class Server extends \Swoole\Http\Server
     public function resume(int $fd){}
 
     /**
-     * @param $data
-     * @param int $worker_id [optional]
-     * @param mixed $finish_callback [optional]
+     * @param mixed $data
+     * @param int $worker_id
+     * @param mixed $finish_callback
      * @return mixed
      */
     public function task($data, int $worker_id = null, $finish_callback = null){}
 
     /**
-     * @param $data
-     * @param float $timeout [optional]
-     * @param int $worker_id [optional]
+     * @param mixed $data
+     * @param float $timeout
+     * @param int $worker_id
      * @return mixed
      */
     public function taskwait($data, float $timeout = null, int $worker_id = null){}
 
     /**
      * @param $tasks
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function taskWaitMulti($tasks, float $timeout = null){}
 
     /**
      * @param $tasks
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function taskCo($tasks, float $timeout = null){}
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function finish($data){}
@@ -258,7 +258,7 @@ class Server extends \Swoole\Http\Server
     public function shutdown(){}
 
     /**
-     * @param int $worker_id [optional]
+     * @param int $worker_id
      * @return mixed
      */
     public function stop(int $worker_id = null){}
@@ -276,28 +276,28 @@ class Server extends \Swoole\Http\Server
 
     /**
      * @param int $fd
-     * @param int $reactor_id [optional]
+     * @param int $reactor_id
      * @return mixed
      */
     public function getClientInfo(int $fd, int $reactor_id = null){}
 
     /**
      * @param int $start_fd
-     * @param int $find_count [optional]
+     * @param int $find_count
      * @return mixed
      */
     public function getClientList(int $start_fd, int $find_count = null){}
 
     /**
      * @param int $fd
-     * @param int $reactor_id [optional]
+     * @param int $reactor_id
      * @return mixed
      */
     public function connection_info(int $fd, int $reactor_id = null){}
 
     /**
      * @param int $start_fd
-     * @param int $find_count [optional]
+     * @param int $find_count
      * @return mixed
      */
     public function connection_list(int $start_fd, int $find_count = null){}
@@ -321,7 +321,7 @@ class Server extends \Swoole\Http\Server
     public function stats(){}
 
     /**
-     * @param int $port [optional]
+     * @param int $port
      * @return mixed
      */
     public function getSocket(int $port = null){}

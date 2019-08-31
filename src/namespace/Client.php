@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Client
 {
@@ -33,7 +33,7 @@ class Client
 
     /**
      * @param $type
-     * @param $async [optional]
+     * @param $async
      * @return mixed
      */
     public function __construct($type, $async = null){}
@@ -51,23 +51,23 @@ class Client
 
     /**
      * @param string $host
-     * @param int $port [optional]
-     * @param float $timeout [optional]
-     * @param $sock_flag [optional]
+     * @param int $port
+     * @param float $timeout
+     * @param $sock_flag
      * @return mixed
      */
     public function connect(string $host, int $port = null, float $timeout = null, $sock_flag = null){}
 
     /**
-     * @param int $size [optional]
-     * @param $flag [optional]
+     * @param int $size
+     * @param $flag
      * @return mixed
      */
     public function recv(int $size = null, $flag = null){}
 
     /**
-     * @param $data
-     * @param $flag [optional]
+     * @param mixed $data
+     * @param $flag
      * @return mixed
      */
     public function send($data, $flag = null){}
@@ -80,8 +80,8 @@ class Client
 
     /**
      * @param string $filename
-     * @param int $offset [optional]
-     * @param int $length [optional]
+     * @param int $offset
+     * @param int $length
      * @return mixed
      */
     public function sendfile(string $filename, int $offset = null, int $length = null){}
@@ -89,7 +89,7 @@ class Client
     /**
      * @param string $ip
      * @param int $port
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function sendto(string $ip, int $port, $data){}
@@ -121,7 +121,7 @@ class Client
     public function shutdown($how){}
 
     /**
-     * @param mixed $callback [optional]
+     * @param mixed $callback
      * @return mixed
      */
     public function enableSSL($callback = null){}
@@ -152,7 +152,7 @@ class Client
     public function getpeername(){}
 
     /**
-     * @param $force [optional]
+     * @param $force
      * @return mixed
      */
     public function close($force = null){}

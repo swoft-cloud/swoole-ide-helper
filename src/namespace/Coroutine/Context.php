@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Context extends \ArrayObject
 {
@@ -12,12 +12,12 @@ class Context extends \ArrayObject
 
 
     /**
-     * @param $input [optional]
-     * @param $flags [optional]
-     * @param $iterator_class [optional]
+     * @param $input
+     * @param $flags
+     * @param string $iterator_class
      * @return mixed
      */
-    public function __construct($input = null, $flags = null, $iterator_class = null){}
+    public function __construct($input = null, $flags = null, string $iterator_class = null){}
 
     /**
      * @param $index
@@ -82,13 +82,13 @@ class Context extends \ArrayObject
     public function ksort(){}
 
     /**
-     * @param $cmp_function
+     * @param mixed $cmp_function
      * @return mixed
      */
     public function uasort($cmp_function){}
 
     /**
-     * @param $cmp_function
+     * @param mixed $cmp_function
      * @return mixed
      */
     public function uksort($cmp_function){}

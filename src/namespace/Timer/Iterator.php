@@ -2,7 +2,7 @@
 namespace Swoole\Timer;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Iterator extends \ArrayIterator
 {
@@ -12,8 +12,8 @@ class Iterator extends \ArrayIterator
 
 
     /**
-     * @param $array [optional]
-     * @param $ar_flags [optional]
+     * @param $array
+     * @param $ar_flags
      * @return mixed
      */
     public function __construct($array = null, $ar_flags = null){}
@@ -81,13 +81,13 @@ class Iterator extends \ArrayIterator
     public function ksort(){}
 
     /**
-     * @param $cmp_function
+     * @param mixed $cmp_function
      * @return mixed
      */
     public function uasort($cmp_function){}
 
     /**
-     * @param $cmp_function
+     * @param mixed $cmp_function
      * @return mixed
      */
     public function uksort($cmp_function){}

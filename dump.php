@@ -23,21 +23,6 @@ class ExtDocsGenerator
     public const SPACE4 = '    ';
     public const SPACE5 = '     ';
 
-    /**
-     * @var string
-     */
-    public $outDir;
-
-    /**
-     * @var string
-     */
-    protected $version;
-
-    /**
-     * @var ReflectionExtension
-     */
-    protected $rftExt;
-
     public static $phpKeywords = [
         // 'exit',
         'die',
@@ -79,6 +64,10 @@ class ExtDocsGenerator
         'exit_code',
         'pipe_type',
         'server_socket',
+        'ipc_type',
+        'msgqueue_key',
+        'backlog',
+        'http_code',
     ];
 
     /**
@@ -111,6 +100,7 @@ class ExtDocsGenerator
         'cookies',
         'params',
         'options',
+        'server_config',
     ];
 
     /**
@@ -118,6 +108,8 @@ class ExtDocsGenerator
      */
     public static $strArgs = [
         'host',
+        'domain',
+        'address',
         'event_name',
         'reason',
         'send_data',
@@ -134,14 +126,21 @@ class ExtDocsGenerator
         'method',
         'name',
         'ip',
+        'iterator_class',
+        'username',
+        'password',
+        'pattern',
+        'location',
     ];
 
     protected static $mixedArgs = [
+        'data',
         'func',
         'callback',
         'read_callback',
         'write_callback',
         'finish_callback',
+        'cmp_function',
     ];
 
     protected static $specialArgs = [
@@ -149,13 +148,40 @@ class ExtDocsGenerator
         'Server:sendMessage' => [
             'message' => 'mixed'
         ],
-        'Server:addProcess' => [
+        'Server:addProcess'  => [
             'process' => '\\' . Swoole\Process::class
         ],
     ];
 
     protected static $returnTypes = [
-        'Process:exportSocket' => '\\' . Swoole\Coroutine\Socket::class
+        'Process:exportSocket' => '\\' . Swoole\Coroutine\Socket::class,
+        'Channel:isEmpty'      => 'bool',
+        'Channel:isFull'       => 'bool'
+    ];
+
+    /**
+     * @var string
+     */
+    public $outDir;
+
+    /**
+     * @var string
+     */
+    private $version;
+
+    /**
+     * @var ReflectionExtension
+     */
+    private $rftExt;
+
+    /**
+     * @var array
+     */
+    private $stats = [
+        'class'    => 0,
+        'method'   => 0,
+        'function' => 0,
+        'constant' => 0,
     ];
 
     public static function isPHPKeyword(string $word): bool
@@ -190,7 +216,7 @@ class ExtDocsGenerator
             $ns[$k] = ucfirst($n);
         }
 
-        $path = OUTPUT_DIR . '/alias/' . implode('/', array_slice($ns, 1)) . '.php';
+        $path = $this->outDir . '/alias/' . implode('/', array_slice($ns, 1)) . '.php';
         $this->createDir(dirname($path)); // create dir
 
         // Write to file
@@ -199,7 +225,7 @@ class ExtDocsGenerator
             str_replace('Co\\', 'Swoole\\Coroutine\\', ucwords($className, "\\"))));
     }
 
-    public static function getNamespaceAlias($className)
+    public static function getNamespaceAlias(string $className)
     {
         $lowerName = strtolower($className);
 
@@ -250,6 +276,7 @@ class ExtDocsGenerator
         foreach ($funcs as $name => $v) {
             $comment = '';
             $fnArgs  = [];
+            $this->stats['function']++;
 
             if ($params = $v->getParameters()) {
                 $comment = "/**\n";
@@ -257,14 +284,12 @@ class ExtDocsGenerator
                     $pName = $v1->name;
                     $pType = $this->getParameterType($pName);
 
-                    $comment .= sprintf(' * @param %s$%s', $pType, $pName);
+                    $comment .= sprintf(' * @param %s$%s', $pType, $pName) . "\n";
                     $canType = $pType && $pType !== 'mixed ';
 
                     if ($v1->isOptional()) {
-                        $comment  .= " [optional]\n";
                         $fnArgs[] = sprintf('%s$%s = null', $canType ? $pType : '', $pName);
                     } else {
-                        $comment  .= "\n";
                         $fnArgs[] = ($canType ? $pType : '') . '$' . $pName;
                     }
                 }
@@ -273,7 +298,8 @@ class ExtDocsGenerator
                 $comment .= " */\n";
             }
             $comment .= sprintf("function %s(%s){}\n\n", $name, implode(', ', $fnArgs));
-            $all     .= $comment;
+
+            $all .= $comment;
         }
 
         return $all;
@@ -348,6 +374,7 @@ class ExtDocsGenerator
                 continue;
             }
 
+            $this->stats['method']++;
             $methodName = $v->name;
             $methodKey  = "{$classname}:$methodName";
             if (self::isPHPKeyword($methodName)) {
@@ -368,14 +395,12 @@ class ExtDocsGenerator
                     $pName = $v1->name;
                     $pType = $this->getParameterType($pName, $methodKey);
 
-                    $comment .= sprintf('%s * @param %s$%s', $sp4, $pType, $pName);
+                    $comment .= sprintf('%s * @param %s$%s', $sp4, $pType, $pName) . "\n";
                     $canType = $pType && $pType !== 'mixed ';
 
                     if ($v1->isOptional()) {
-                        $comment     .= " [optional]\n";
                         $arguments[] = sprintf('%s$%s = null', ($canType ? $pType : ''), $pName);
                     } else {
-                        $comment     .= "\n";
                         $arguments[] = ($canType ? $pType : '') . '$' . $pName;
                     }
                 }
@@ -406,27 +431,28 @@ class ExtDocsGenerator
      */
     public function exportNamespaceClass(string $classname, $ref): void
     {
-        $ns = explode('\\', $classname);
-        if (strtolower($ns[0]) !== self::EXTENSION_NAME) {
+        $arr = explode('\\', $classname);
+        if (strtolower($arr[0]) !== self::EXTENSION_NAME) {
             return;
         }
 
-        array_walk($ns, function (&$v) {
+        array_walk($arr, function (&$v) {
             $v = ucfirst($v);
         });
 
-        $path = OUTPUT_DIR . '/namespace/' . implode('/', array_slice($ns, 1));
+        $path = $this->outDir . '/namespace/' . implode('/', array_slice($arr, 1));
 
-        $namespace = implode('\\', array_slice($ns, 0, -1));
-
+        // namespace
+        $ns   = implode('\\', array_slice($arr, 0, -1));
         $dir  = dirname($path);
         $name = basename($path);
 
         // var_dump($classname . '-'. $name);
 
+        $this->stats['class']++;
         $this->createDir($dir); // create dir
 
-        $content = "<?php\nnamespace {$namespace};\n\n" . $this->getClassDef($name, $ref);
+        $content = "<?php\nnamespace {$ns};\n\n" . $this->getClassDef($name, $ref);
         file_put_contents($path . '.php', $content);
     }
 
@@ -497,7 +523,7 @@ class ExtDocsGenerator
     /**
      * 支持层级目录的创建
      *
-     * @param string $path
+     * @param string     $path
      * @param int|string $mode
      * @param bool       $recursive
      *
@@ -542,6 +568,7 @@ class ExtDocsGenerator
                 $ref = "'$ref'";
             }
 
+            $this->stats['constant']++;
             $defines .= "define('$className', $ref);\n";
         }
 
@@ -572,23 +599,33 @@ class ExtDocsGenerator
             // 短命名别名
             if (stripos($className, 'co\\') === 0) {
                 $this->exportShortAlias($className);
-            } // 标准命名空间的类名，如 Swoole\Server
-            elseif (false !== strpos($className, '\\')) {
+                // 标准命名空间的类名，如 Swoole\Server
+            } elseif (false !== strpos($className, '\\')) {
                 $this->exportNamespaceClass($className, $ref);
-            } //下划线分割类别名
-            else {
+                // 下划线分割类别名
+            } else {
                 $classAlias .= sprintf($aliasTpl, $className, self::getNamespaceAlias($className));
             }
         }
 
         file_put_contents($outDir . '/classes.php', $classAlias);
     }
+
+    /**
+     * @return array
+     */
+    public function getStats(): array
+    {
+        return $this->stats;
+    }
 }
 
 echo "Generate IDE Helper Classes For Swoole Ext\n";
 echo 'Swoole Version: v' . swoole_version() . "\n\n";
 try {
-    (new ExtDocsGenerator())->export();
+    $dumper = new ExtDocsGenerator();
+    $dumper->export();
+
     echo "\nDump Successful.\n";
 } catch (Throwable $e) {
     echo "\nDump Failure.\n error:", $e->getMessage();

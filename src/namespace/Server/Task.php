@@ -2,7 +2,7 @@
 namespace Swoole\Server;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Task
 {
@@ -14,7 +14,7 @@ class Task
     public $flags;
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function finish($data){}

@@ -2,7 +2,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Process
 {
@@ -23,9 +23,9 @@ class Process
 
     /**
      * @param mixed $callback
-     * @param bool $redirect_stdin_and_stdout [optional]
-     * @param int $pipe_type [optional]
-     * @param bool $enable_coroutine [optional]
+     * @param bool $redirect_stdin_and_stdout
+     * @param int $pipe_type
+     * @param bool $enable_coroutine
      * @return mixed
      */
     public function __construct($callback, bool $redirect_stdin_and_stdout = null, int $pipe_type = null, bool $enable_coroutine = null){}
@@ -36,7 +36,7 @@ class Process
     public function __destruct(){}
 
     /**
-     * @param bool $blocking [optional]
+     * @param bool $blocking
      * @return mixed
      */
     public static function wait(bool $blocking = null){}
@@ -50,24 +50,30 @@ class Process
 
     /**
      * @param $usec
-     * @param $type [optional]
+     * @param $type
      * @return mixed
      */
     public static function alarm($usec, $type = null){}
 
     /**
      * @param int $pid
-     * @param int $signal_no [optional]
+     * @param int $signal_no
      * @return mixed
      */
     public static function kill(int $pid, int $signal_no = null){}
 
     /**
-     * @param $nochdir [optional]
-     * @param $noclose [optional]
+     * @param $nochdir
+     * @param $noclose
      * @return mixed
      */
     public static function daemon($nochdir = null, $noclose = null){}
+
+    /**
+     * @param array $settings
+     * @return mixed
+     */
+    public function set(array $settings){}
 
     /**
      * @param $seconds
@@ -82,9 +88,9 @@ class Process
     public function setBlocking(bool $blocking){}
 
     /**
-     * @param $key [optional]
-     * @param $mode [optional]
-     * @param $capacity [optional]
+     * @param $key
+     * @param $mode
+     * @param $capacity
      * @return mixed
      */
     public function useQueue($key = null, $mode = null, $capacity = null){}
@@ -105,7 +111,7 @@ class Process
     public function start(){}
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function write($data){}
@@ -116,25 +122,25 @@ class Process
     public function close(){}
 
     /**
-     * @param int $size [optional]
+     * @param int $size
      * @return mixed
      */
     public function read(int $size = null){}
 
     /**
-     * @param $data
+     * @param mixed $data
      * @return mixed
      */
     public function push($data){}
 
     /**
-     * @param int $size [optional]
+     * @param int $size
      * @return mixed
      */
     public function pop(int $size = null){}
 
     /**
-     * @param int $exit_code [optional]
+     * @param int $exit_code
      * @return mixed
      */
     public function exit(int $exit_code = null){}

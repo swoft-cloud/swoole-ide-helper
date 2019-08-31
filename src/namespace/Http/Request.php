@@ -2,7 +2,7 @@
 namespace Swoole\Http;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Request
 {
@@ -12,7 +12,6 @@ class Request
     public $streamId;
     public $header;
     public $server;
-    public $request;
     public $cookie;
     public $get;
     public $files;

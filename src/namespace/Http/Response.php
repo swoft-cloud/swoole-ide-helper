@@ -2,7 +2,7 @@
 namespace Swoole\Http;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Response
 {
@@ -21,58 +21,58 @@ class Response
 
     /**
      * @param string $name
-     * @param $value [optional]
-     * @param $expires [optional]
-     * @param string $path [optional]
-     * @param $domain [optional]
-     * @param $secure [optional]
-     * @param $httponly [optional]
+     * @param $value
+     * @param $expires
+     * @param string $path
+     * @param string $domain
+     * @param $secure
+     * @param $httponly
      * @return mixed
      */
-    public function cookie(string $name, $value = null, $expires = null, string $path = null, $domain = null, $secure = null, $httponly = null){}
+    public function cookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null){}
 
     /**
      * @param string $name
-     * @param $value [optional]
-     * @param $expires [optional]
-     * @param string $path [optional]
-     * @param $domain [optional]
-     * @param $secure [optional]
-     * @param $httponly [optional]
+     * @param $value
+     * @param $expires
+     * @param string $path
+     * @param string $domain
+     * @param $secure
+     * @param $httponly
      * @return mixed
      */
-    public function setCookie(string $name, $value = null, $expires = null, string $path = null, $domain = null, $secure = null, $httponly = null){}
+    public function setCookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null){}
 
     /**
      * @param string $name
-     * @param $value [optional]
-     * @param $expires [optional]
-     * @param string $path [optional]
-     * @param $domain [optional]
-     * @param $secure [optional]
-     * @param $httponly [optional]
+     * @param $value
+     * @param $expires
+     * @param string $path
+     * @param string $domain
+     * @param $secure
+     * @param $httponly
      * @return mixed
      */
-    public function rawcookie(string $name, $value = null, $expires = null, string $path = null, $domain = null, $secure = null, $httponly = null){}
+    public function rawcookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null){}
 
     /**
-     * @param $http_code
-     * @param string $reason [optional]
+     * @param int $http_code
+     * @param string $reason
      * @return mixed
      */
-    public function status($http_code, string $reason = null){}
+    public function status(int $http_code, string $reason = null){}
 
     /**
-     * @param $http_code
-     * @param string $reason [optional]
+     * @param int $http_code
+     * @param string $reason
      * @return mixed
      */
-    public function setStatusCode($http_code, string $reason = null){}
+    public function setStatusCode(int $http_code, string $reason = null){}
 
     /**
      * @param $key
      * @param $value
-     * @param $ucwords [optional]
+     * @param $ucwords
      * @return mixed
      */
     public function header($key, $value, $ucwords = null){}
@@ -80,7 +80,7 @@ class Response
     /**
      * @param $key
      * @param $value
-     * @param $ucwords [optional]
+     * @param $ucwords
      * @return mixed
      */
     public function setHeader($key, $value, $ucwords = null){}
@@ -104,25 +104,25 @@ class Response
     public function write(string $content){}
 
     /**
-     * @param string $content [optional]
+     * @param string $content
      * @return mixed
      */
     public function end(string $content = null){}
 
     /**
      * @param string $filename
-     * @param int $offset [optional]
-     * @param int $length [optional]
+     * @param int $offset
+     * @param int $length
      * @return mixed
      */
     public function sendfile(string $filename, int $offset = null, int $length = null){}
 
     /**
-     * @param $location
-     * @param $http_code [optional]
+     * @param string $location
+     * @param int $http_code
      * @return mixed
      */
-    public function redirect($location, $http_code = null){}
+    public function redirect(string $location, int $http_code = null){}
 
     /**
      * @return mixed

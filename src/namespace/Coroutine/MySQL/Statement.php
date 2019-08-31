@@ -2,7 +2,7 @@
 namespace Swoole\Coroutine\MySQL;
 
 /**
- * @since 4.4.2
+ * @since 4.4.5
  */
 class Statement
 {
@@ -15,32 +15,32 @@ class Statement
     public $errno;
 
     /**
-     * @param array $params [optional]
-     * @param float $timeout [optional]
+     * @param array $params
+     * @param float $timeout
      * @return mixed
      */
     public function execute(array $params = null, float $timeout = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function fetch(float $timeout = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function fetchAll(float $timeout = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function nextResult(float $timeout = null){}
 
     /**
-     * @param float $timeout [optional]
+     * @param float $timeout
      * @return mixed
      */
     public function recv(float $timeout = null){}
