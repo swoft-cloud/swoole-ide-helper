@@ -33,10 +33,10 @@ class Pool
 
     /**
      * @param string $event_name
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public function on(string $event_name, $callback){}
+    public function on(string $event_name, callable $callback){}
 
     /**
      * @param int $worker_id

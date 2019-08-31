@@ -19,30 +19,30 @@ function swoole_async_dns_lookup_coro(string $domain_name, float $timeout = null
 function swoole_async_set(array $settings){}
 
 /**
- * @param mixed $func
+ * @param callable $func
  * @param array $params
  * @return mixed
  */
-function swoole_coroutine_create($func, array $params = null){}
+function swoole_coroutine_create(callable $func, array $params = null){}
 
 /**
- * @param mixed $callback
+ * @param callable $callback
  * @return mixed
  */
-function swoole_coroutine_defer($callback){}
+function swoole_coroutine_defer(callable $callback){}
 
 /**
- * @param mixed $func
+ * @param callable $func
  * @param array $params
  * @return mixed
  */
-function go($func, array $params = null){}
+function go(callable $func, array $params = null){}
 
 /**
- * @param mixed $callback
+ * @param callable $callback
  * @return mixed
  */
-function defer($callback){}
+function defer(callable $callback){}
 
 /**
  * @param array $read_array
@@ -100,12 +100,12 @@ function swoole_internal_call_user_shutdown_begin(){}
 
 /**
  * @param int $fd
- * @param mixed $read_callback
- * @param mixed $write_callback
+ * @param callable $read_callback
+ * @param callable $write_callback
  * @param $events
  * @return mixed
  */
-function swoole_event_add(int $fd, $read_callback, $write_callback = null, $events = null){}
+function swoole_event_add(int $fd, callable $read_callback, callable $write_callback = null, $events = null){}
 
 /**
  * @param int $fd
@@ -115,12 +115,12 @@ function swoole_event_del(int $fd){}
 
 /**
  * @param int $fd
- * @param mixed $read_callback
- * @param mixed $write_callback
+ * @param callable $read_callback
+ * @param callable $write_callback
  * @param $events
  * @return mixed
  */
-function swoole_event_set(int $fd, $read_callback = null, $write_callback = null, $events = null){}
+function swoole_event_set(int $fd, callable $read_callback = null, callable $write_callback = null, $events = null){}
 
 /**
  * @param int $fd
@@ -132,17 +132,17 @@ function swoole_event_isset(int $fd, $events = null){}
 function swoole_event_dispatch(){}
 
 /**
- * @param mixed $callback
+ * @param callable $callback
  * @return mixed
  */
-function swoole_event_defer($callback){}
+function swoole_event_defer(callable $callback){}
 
 /**
- * @param mixed $callback
+ * @param callable $callback
  * @param $before
  * @return mixed
  */
-function swoole_event_cycle($callback, $before = null){}
+function swoole_event_cycle(callable $callback, $before = null){}
 
 /**
  * @param int $fd
@@ -163,17 +163,17 @@ function swoole_timer_set(array $settings){}
 
 /**
  * @param int $ms
- * @param mixed $callback
+ * @param callable $callback
  * @return mixed
  */
-function swoole_timer_after(int $ms, $callback){}
+function swoole_timer_after(int $ms, callable $callback){}
 
 /**
  * @param int $ms
- * @param mixed $callback
+ * @param callable $callback
  * @return mixed
  */
-function swoole_timer_tick(int $ms, $callback){}
+function swoole_timer_tick(int $ms, callable $callback){}
 
 /**
  * @param int $timer_id

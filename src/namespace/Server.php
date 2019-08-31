@@ -64,10 +64,10 @@ class Server
 
     /**
      * @param string $event_name
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public function on(string $event_name, $callback){}
+    public function on(string $event_name, callable $callback){}
 
     /**
      * @param string $event_name
@@ -187,10 +187,10 @@ class Server
     /**
      * @param mixed $data
      * @param int $worker_id
-     * @param mixed $finish_callback
+     * @param callable $finish_callback
      * @return mixed
      */
-    public function task($data, int $worker_id = null, $finish_callback = null){}
+    public function task($data, int $worker_id = null, callable $finish_callback = null){}
 
     /**
      * @param mixed $data
@@ -201,18 +201,18 @@ class Server
     public function taskwait($data, float $timeout = null, int $worker_id = null){}
 
     /**
-     * @param $tasks
+     * @param array $tasks
      * @param float $timeout
      * @return mixed
      */
-    public function taskWaitMulti($tasks, float $timeout = null){}
+    public function taskWaitMulti(array $tasks, float $timeout = null){}
 
     /**
-     * @param $tasks
+     * @param array $tasks
      * @param float $timeout
      * @return mixed
      */
-    public function taskCo($tasks, float $timeout = null){}
+    public function taskCo(array $tasks, float $timeout = null){}
 
     /**
      * @param mixed $data
@@ -308,17 +308,17 @@ class Server
 
     /**
      * @param int $ms
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public function after(int $ms, $callback){}
+    public function after(int $ms, callable $callback){}
 
     /**
      * @param int $ms
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public function tick(int $ms, $callback){}
+    public function tick(int $ms, callable $callback){}
 
     /**
      * @param int $timer_id
@@ -327,8 +327,8 @@ class Server
     public function clearTimer(int $timer_id){}
 
     /**
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public function defer($callback){}
+    public function defer(callable $callback){}
 }

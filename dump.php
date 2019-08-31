@@ -270,25 +270,25 @@ class ExtDocsGenerator
         return [];
     }
 
-    public function getFunctionsDef(array $funcs): string
+    public function getFunctionsDef(): string
     {
         $all = '';
         /** @var $v ReflectionFunction */
-        foreach ($funcs as $name => $v) {
+        foreach ($this->rftExt->getFunctions() as $name => $v) {
             $comment = '';
             $fnArgs  = [];
             $this->stats['function']++;
 
             if ($params = $v->getParameters()) {
                 $comment = "/**\n";
-                foreach ($params as $k1 => $v1) {
-                    $pName = $v1->name;
-                    $pType = $this->getParameterType($pName);
+                foreach ($params as $k1 => $p) {
+                    $pName = $p->name;
+                    $pType = $this->getParameterType($p, $pName);
 
                     $comment .= sprintf(' * @param %s$%s', $pType, $pName) . "\n";
                     $canType = $pType && $pType !== 'mixed ';
 
-                    if ($v1->isOptional()) {
+                    if ($p->isOptional()) {
                         $fnArgs[] = sprintf('%s$%s = null', $canType ? $pType : '', $pName);
                     } else {
                         $fnArgs[] = ($canType ? $pType : '') . '$' . $pName;
@@ -369,14 +369,17 @@ class ExtDocsGenerator
         $sp4 = self::SPACE4;
         $tpl = "$sp4%s function %s(%s){}";
 
-        /** @var $v ReflectionMethod */
-        foreach ($methods as $k => $v) {
-            if ($v->isFinal()) {
+        /**
+         * @var string           $k The method name
+         * @var ReflectionMethod $m
+         */
+        foreach ($methods as $k => $m) {
+            if ($m->isFinal()) {
                 continue;
             }
 
             $this->stats['method']++;
-            $methodName = $v->name;
+            $methodName = $m->name;
             $methodKey  = "{$classname}:$methodName";
             if (self::isPHPKeyword($methodName)) {
                 $methodName = '_' . $methodName;
@@ -390,16 +393,19 @@ class ExtDocsGenerator
                 $comment .= self::formatComment($config['comment']);
             }
 
-            $params = $v->getParameters();
-            if ($params) {
-                foreach ($params as $k1 => $v1) {
-                    $pName = $v1->name;
-                    $pType = $this->getParameterType($pName, $methodKey);
+            if ($params = $m->getParameters()) {
+                foreach ($params as $k1 => $p) {
+                    $pName = $p->name;
+                    $pType = $this->getParameterType($p, $pName, $methodKey);
 
                     $comment .= sprintf('%s * @param %s$%s', $sp4, $pType, $pName) . "\n";
                     $canType = $pType && $pType !== 'mixed ';
 
-                    if ($v1->isOptional()) {
+                    if ($p->isOptional()) {
+                        // var_dump('--------' . $methodName . ':' . $pName);
+                        // if ($p->isDefaultValueAvailable()) {
+                        //     var_dump($p->getDefaultValue());
+                        // }
                         $arguments[] = sprintf('%s$%s = null', ($canType ? $pType : ''), $pName);
                     } else {
                         $arguments[] = ($canType ? $pType : '') . '$' . $pName;
@@ -417,7 +423,7 @@ class ExtDocsGenerator
             }
 
             $comment   .= "$sp4 */\n";
-            $modifiers = implode(' ', Reflection::getModifierNames($v->getModifiers()));
+            $modifiers = implode(' ', Reflection::getModifierNames($m->getModifiers()));
             $comment   .= sprintf($tpl, $modifiers, $methodName, implode(', ', $arguments));
 
             $all[] = $comment;
@@ -449,12 +455,13 @@ class ExtDocsGenerator
         $name = basename($path);
 
         // var_dump($classname . '-'. $name);
-
         $this->stats['class']++;
-        $this->createDir($dir); // create dir
+        // create dir
+        $this->createDir($dir);
+        // var_dump($classname);
 
-        $content = "<?php\nnamespace {$ns};\n\n" . $this->getClassDef($name, $ref);
-        file_put_contents($path . '.php', $content);
+        $content = "namespace {$ns};\n\n" . $this->getClassDef($name, $ref);
+        $this->writePhpFile($path . '.php', $content);
     }
 
     /**
@@ -472,24 +479,41 @@ class ExtDocsGenerator
         // 获取方法定义
         $mdefs = $this->getMethodsDef($classname, $ref->getMethods());
 
+        $classLine = $classname;
         if ($ref->getParentClass()) {
-            $classname .= ' extends \\' . $ref->getParentClass()->name;
+            $classLine .= ' extends \\' . $ref->getParentClass()->name;
         }
 
         $classTpl = "/**\n * @since %s\n */\n%s %s\n{\n%s\n%s\n%s\n}\n";
         $modifier = $ref->isInterface() ? 'interface' : 'class';
-        $classDef = sprintf($classTpl, $this->version, $modifier, $classname, $consts, $props, $mdefs);
-        return $classDef;
+
+        return sprintf($classTpl, $this->version, $modifier, $classLine, $consts, $props, $mdefs);
     }
 
     /**
-     * @param string $name
-     * @param string $mdKey method key
+     * @param ReflectionParameter $p
+     * @param string              $name
+     * @param string              $mdKey method key
      *
      * @return string
      */
-    private function getParameterType(string $name, string $mdKey = ''): string
+    private function getParameterType(ReflectionParameter $p, string $name, string $mdKey = ''): string
     {
+        // has type
+        if ($pt = $p->getType()) {
+            $name = $pt->getName();
+            if ($name === 'swoole_process') {
+                $name = Swoole\Process::class;
+            }
+
+            // is class
+            if (strpos($name, '\\') > 0) {
+                $name = '\\' . $name;
+            }
+
+            return $name . ' ';
+        }
+
         if ($mdKey && isset(self::$specialArgs[$mdKey][$name])) {
             return self::$specialArgs[$mdKey][$name] . ' ';
         }
@@ -558,38 +582,34 @@ class ExtDocsGenerator
         echo " - Clear old by 'rm -rf src'\n";
         $srcDir = __DIR__ . '/src';
         exec("rm -rf $srcDir");
+        // create dir
+        $this->createDir($outDir = $this->outDir);
 
         echo " - Parse and dump constants\n";
 
         // 获取所有define常量
-        $consts  = $this->rftExt->getConstants();
         $defines = '';
-        foreach ($consts as $className => $ref) {
-            if (!is_numeric($ref)) {
-                $ref = "'$ref'";
+        foreach ($this->rftExt->getConstants() as $name => $value) {
+            if (!is_numeric($value)) {
+                $value = "'$value'";
             }
 
             $this->stats['constant']++;
-            $defines .= "define('$className', $ref);\n";
+            $defines .= "define('$name', $value);\n";
         }
 
-        $outDir = $this->outDir;
-        $this->createDir($outDir); // create dir
-
-        file_put_contents($outDir . '/constants.php', "<?php\n" . $defines);
+        $this->writePhpFile($outDir . '/constants.php', $defines);
 
         echo " - Parse and dump functions\n";
 
-        // 获取所有函数
-        $funcs = $this->rftExt->getFunctions();
-        $codes = $this->getFunctionsDef($funcs);
+        // Get all functions
+        $funcCodes = $this->getFunctionsDef();
+        $this->writePhpFile($outDir . '/functions.php', $funcCodes);
 
-        file_put_contents($outDir . '/functions.php', "<?php\n" . $codes);
-
-        // 获取所有类
+        // Get all classes
         echo " - Parse and dump classes\n";
         $classes    = $this->rftExt->getClasses();
-        $classAlias = "<?php\n";
+        $classAlias = '';
         $aliasTpl   = "\nclass %s extends %s{}\n";
 
         /**
@@ -609,7 +629,12 @@ class ExtDocsGenerator
             }
         }
 
-        file_put_contents($outDir . '/classes.php', $classAlias);
+        $this->writePhpFile($outDir . '/classes.php', $classAlias);
+    }
+
+    private function writePhpFile(string $filepath, string $content): void
+    {
+        file_put_contents($filepath, "<?php\n" . $content);
     }
 
     /**
@@ -629,5 +654,5 @@ try {
 
     echo "\nDump Successful.\n";
 } catch (Throwable $e) {
-    echo "\nDump Failure.\n error:", $e->getMessage();
+    echo "\nDump Failure.\nException: ", $e->getMessage(), "\n";
 }

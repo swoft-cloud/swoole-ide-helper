@@ -10,12 +10,12 @@ class Event
 
     /**
      * @param int $fd
-     * @param mixed $read_callback
-     * @param mixed $write_callback
+     * @param callable $read_callback
+     * @param callable $write_callback
      * @param $events
      * @return mixed
      */
-    public static function add(int $fd, $read_callback, $write_callback = null, $events = null){}
+    public static function add(int $fd, callable $read_callback, callable $write_callback = null, $events = null){}
 
     /**
      * @param int $fd
@@ -25,12 +25,12 @@ class Event
 
     /**
      * @param int $fd
-     * @param mixed $read_callback
-     * @param mixed $write_callback
+     * @param callable $read_callback
+     * @param callable $write_callback
      * @param $events
      * @return mixed
      */
-    public static function set(int $fd, $read_callback = null, $write_callback = null, $events = null){}
+    public static function set(int $fd, callable $read_callback = null, callable $write_callback = null, $events = null){}
 
     /**
      * @param int $fd
@@ -45,17 +45,17 @@ class Event
     public static function dispatch(){}
 
     /**
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public static function defer($callback){}
+    public static function defer(callable $callback){}
 
     /**
-     * @param mixed $callback
+     * @param callable $callback
      * @param $before
      * @return mixed
      */
-    public static function cycle($callback, $before = null){}
+    public static function cycle(callable $callback, $before = null){}
 
     /**
      * @param int $fd

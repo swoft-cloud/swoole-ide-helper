@@ -38,10 +38,10 @@ class Server
 
     /**
      * @param string $pattern
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public function handle(string $pattern, $callback){}
+    public function handle(string $pattern, callable $callback){}
 
     /**
      * @return mixed

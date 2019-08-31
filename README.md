@@ -16,27 +16,27 @@ Different from the source repository: variable types are added to most method pa
 Old：
 
 ```php
-    /**
-     * @param $fd
-     * @param $data
-     * @param $opcode
-     * @param $finish
-     * @return mixed
-     */
-    public function push($fd, $data, $opcode = null, $finish = null){}
+/**
+ * @param $fd
+ * @param $data
+ * @param $opcode
+ * @param $finish
+ * @return mixed
+ */
+public function push($fd, $data, $opcode = null, $finish = null){}
 ```
 
 **Now**:
 
 ```php
-    /**
-     * @param int $fd
-     * @param mixed $data
-     * @param int $opcode
-     * @param bool $finish
-     * @return mixed
-     */
-    public function push(int $fd, $data, int $opcode = null, bool $finish = null){}
+/**
+ * @param int $fd
+ * @param mixed $data
+ * @param int $opcode
+ * @param bool $finish
+ * @return mixed
+ */
+public function push(int $fd, $data, int $opcode = null, bool $finish = null){}
 ```
 
 ## Install
@@ -52,7 +52,7 @@ composer require --dev swoft/swoole-ide-helper
 composer require --dev swoft/swoole-ide-helper@dev-master
 
 # for specific version
-composer require --dev swoft/swoole-ide-helper:~4.3.3
+composer require --dev swoft/swoole-ide-helper:~4.4.2
 ```
 
 ## Build

@@ -16,19 +16,19 @@ class Timer
 
     /**
      * @param int $ms
-     * @param mixed $callback
+     * @param callable $callback
      * @param array $params
      * @return mixed
      */
-    public static function tick(int $ms, $callback, array $params = null){}
+    public static function tick(int $ms, callable $callback, array $params = null){}
 
     /**
      * @param int $ms
-     * @param mixed $callback
+     * @param callable $callback
      * @param array $params
      * @return mixed
      */
-    public static function after(int $ms, $callback, array $params = null){}
+    public static function after(int $ms, callable $callback, array $params = null){}
 
     /**
      * @param int $timer_id

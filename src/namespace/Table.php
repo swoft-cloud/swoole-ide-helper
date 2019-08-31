@@ -39,10 +39,10 @@ class Table
 
     /**
      * @param $key
-     * @param $value
+     * @param array $value
      * @return mixed
      */
-    public function set($key, $value){}
+    public function set($key, array $value){}
 
     /**
      * @param $key

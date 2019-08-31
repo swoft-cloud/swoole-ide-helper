@@ -11,19 +11,19 @@ class Scheduler
     private $_list;
 
     /**
-     * @param mixed $func
+     * @param callable $func
      * @param array $params
      * @return mixed
      */
-    public function add($func, array $params = null){}
+    public function add(callable $func, array $params = null){}
 
     /**
      * @param $n
-     * @param mixed $func
+     * @param callable $func
      * @param array $params
      * @return mixed
      */
-    public function parallel($n, $func = null, array $params = null){}
+    public function parallel($n, callable $func = null, array $params = null){}
 
     /**
      * @param array $settings

@@ -22,13 +22,13 @@ class Process
     public $id;
 
     /**
-     * @param mixed $callback
+     * @param callable $callback
      * @param bool $redirect_stdin_and_stdout
      * @param int $pipe_type
      * @param bool $enable_coroutine
      * @return mixed
      */
-    public function __construct($callback, bool $redirect_stdin_and_stdout = null, int $pipe_type = null, bool $enable_coroutine = null){}
+    public function __construct(callable $callback, bool $redirect_stdin_and_stdout = null, int $pipe_type = null, bool $enable_coroutine = null){}
 
     /**
      * @return mixed

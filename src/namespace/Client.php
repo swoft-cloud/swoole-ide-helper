@@ -121,10 +121,10 @@ class Client
     public function shutdown($how){}
 
     /**
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public function enableSSL($callback = null){}
+    public function enableSSL(callable $callback = null){}
 
     /**
      * @return mixed
@@ -159,10 +159,10 @@ class Client
 
     /**
      * @param string $event_name
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public function on(string $event_name, $callback){}
+    public function on(string $event_name, callable $callback){}
 
     /**
      * @return mixed
