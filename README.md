@@ -15,6 +15,13 @@ Different from the source repository: variable types are added to most method pa
 Old：
 
 ```php
+    /**
+     * @param $fd
+     * @param $data
+     * @param $opcode
+     * @param $finish
+     * @return mixed
+     */
     public function push($fd, $data, $opcode = null, $finish = null){}
 ```
 
