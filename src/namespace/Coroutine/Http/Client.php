@@ -164,10 +164,10 @@ class Client
     /**
      * @param mixed $data
      * @param int $opcode
-     * @param $finish
+     * @param bool $finish
      * @return mixed
      */
-    public function push($data, int $opcode = null, $finish = null){}
+    public function push($data, int $opcode = null, bool $finish = null){}
 
     /**
      * @param float $timeout

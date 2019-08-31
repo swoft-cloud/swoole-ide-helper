@@ -81,9 +81,10 @@ class ExtDocsGenerator
      * @var array All bool arguments name list
      */
     public static $boolArgs = [
-        'is_protected',
+        'finish',
         'reset',
         'blocking',
+        'is_protected',
         'enable_coroutine',
         'redirect_stdin_and_stdout',
     ];
