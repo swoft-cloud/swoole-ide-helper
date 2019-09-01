@@ -1,7 +1,6 @@
 # Swoole IDE Helper
 
 [![Latest Stable Version](http://img.shields.io/packagist/v/swoft/swoole-ide-helper.svg)](https://packagist.org/packages/swoft/swoole-ide-helper)
-[![For Swoole Version](https://img.shields.io/badge/swoole--version-v4.4.2-yellowgreen)](https://packagist.org/packages/swoft/swoole-ide-helper)
 [![Packagist](https://img.shields.io/packagist/dt/swoft/swoole-ide-helper)](https://packagist.org/packages/swoft/swoole-ide-helper)
 [![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)](https://github.com/swoft-cloud/swoole-ide-helper/blob/master/LICENSE)
 
