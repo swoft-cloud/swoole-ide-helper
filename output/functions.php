@@ -1,9 +1,18 @@
 <?php
 
+/**
+ * @return string
+ */
 function swoole_version(){}
 
+/**
+ * @return int
+ */
 function swoole_cpu_num(){}
 
+/**
+ * @return string
+ */
 function swoole_last_error(){}
 
 /**
