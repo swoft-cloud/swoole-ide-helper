@@ -77,12 +77,11 @@ class Server extends \Swoole\Server
     public function start(){}
 
     /**
-     * Send data to the
-     * client
+     * Send data to the client
      * @param int $fd
      * @param string $send_data
      * @param int $server_socket
-     * @return mixed
+     * @return bool If success return True, fail return False
      */
     public function send(int $fd, string $send_data, int $server_socket = null){}
 

@@ -18,6 +18,8 @@ class ExtStubExporter
     public const PROPERTY = 2;
     public const CONSTANT = 3;
 
+    public const FUNC_PREFIX = 'Func:';
+
     public const SPACE4 = '    ';
     public const SPACE5 = '     ';
 
@@ -124,10 +126,13 @@ class ExtStubExporter
         $this->rftExt  = new ReflectionExtension($this->extName);
         $this->version = $this->rftExt->getVersion();
 
+        $this->println('> Swoole Version: v' . $this->version . "\n");
+
         // load config data
         $confFile = dirname(__DIR__) . "/config/{$this->lang}.meta.php";
         if (file_exists($confFile)) {
             $this->config = require $confFile;
+            $this->println(" - Load config data(lang:{$this->lang})");
         }
     }
 
@@ -141,11 +146,9 @@ class ExtStubExporter
         try {
             $this->prepare();
 
-            $this->println('Swoole Version: v' . $this->version . "\n");
-
             $this->doExport($outDir);
 
-            $this->println("\nExport Successful");
+            $this->println("\nExport Successful :)");
         } catch (Throwable $e) {
             $this->println("\nExport Failure!\nException:", $e->getMessage());
         }
@@ -312,9 +315,11 @@ class ExtStubExporter
         $all = '';
         /** @var $v ReflectionFunction */
         foreach ($this->rftExt->getFunctions() as $name => $v) {
+            $this->stats['function']++;
+
             $fnArgs  = [];
             $comment = "/**\n";
-            $this->stats['function']++;
+            $comment .= $this->getDescription($name, true);
 
             if ($params = $v->getParameters()) {
                 foreach ($params as $k1 => $p) {
@@ -332,7 +337,7 @@ class ExtStubExporter
                 }
             }
 
-            $comment .= $this->getReturnType($name, true);
+            $comment .= $this->getReturnLine($name, true);
             $comment .= " */\n";
             $comment .= sprintf("function %s(%s){}\n\n", $name, implode(', ', $fnArgs));
 
@@ -464,7 +469,7 @@ class ExtStubExporter
             if (!empty($config['return'])) {
                 $comment .= self::SPACE5 . "* @return {$config['return']}\n";
             } else {
-                $comment .= $this->getReturnType($methodKey);
+                $comment .= $this->getReturnLine($methodKey);
             }
 
             $comment   .= "$sp4 */\n";
@@ -535,6 +540,13 @@ class ExtStubExporter
         return sprintf($classTpl, $this->version, $modifier, $classLine, $consts, $props, $mdefs);
     }
 
+    /***************************************************************************
+     * Build function,method's comments
+     * - description
+     * - params
+     * - return
+     **************************************************************************/
+
     /**
      * @param ReflectionParameter $p
      * @param string              $name
@@ -591,26 +603,6 @@ class ExtStubExporter
     }
 
     /**
-     * @param string $pathKey
-     * @param bool   $isFunc
-     *
-     * @return string
-     */
-    private function getReturnType(string $pathKey, bool $isFunc = false): string
-    {
-        $indent = self::SPACE5;
-
-        if ($isFunc) {
-            $indent  = ' ';
-            $pathKey = 'Func:' . $pathKey;
-        }
-
-        $returnType = TypeMeta::$returnTypes[$pathKey] ?? 'mixed';
-
-        return "{$indent}* @return {$returnType}\n";
-    }
-
-    /**
      * @param string $key
      * @param bool   $isFunc
      *
@@ -619,12 +611,41 @@ class ExtStubExporter
     private function getDescription(string $key, bool $isFunc = false): string
     {
         $desc = '';
+        if ($isFunc) {
+            $key = self::FUNC_PREFIX . $key;
+        }
+
         if (isset($this->config[$key]['_desc'])) {
             $str  = $this->config[$key]['_desc'];
             $desc = self::formatComment(ucfirst($str), $isFunc);
         }
 
         return $desc;
+    }
+
+    /**
+     * Get return comment line
+     *
+     * @param string $pathKey
+     * @param bool   $isFunc
+     *
+     * @return string
+     */
+    private function getReturnLine(string $pathKey, bool $isFunc = false): string
+    {
+        $indent = self::SPACE5;
+        if ($isFunc) {
+            $indent  = ' ';
+            $pathKey = self::FUNC_PREFIX . $pathKey;
+        }
+
+        if (isset($this->config[$pathKey]['_return'])) {
+            $returnText = trim($this->config[$pathKey]['_return']);
+        } else {
+            $returnText = TypeMeta::$returnTypes[$pathKey] ?? 'mixed';
+        }
+
+        return "{$indent}* @return {$returnText}\n";
     }
 
     /**
@@ -639,12 +660,9 @@ class ExtStubExporter
             return '';
         }
 
-        $indent = self::SPACE5;
-        if ($isFunc) {
-            $indent = ' ';
-        }
+        $indent = $isFunc ? ' ' : self::SPACE5;
+        $lines  = explode("\n", $comment);
 
-        $lines = explode("\n", $comment);
         foreach ($lines as &$li) {
             // $li = $indent . '* '. ltrim($li, '*');
             $li = $indent . '* '. ltrim($li);
@@ -665,8 +683,13 @@ class ExtStubExporter
             return '';
         }
 
+        // TODO ...
         return $comment;
     }
+
+    /***************************************************************************
+     * Helper methods
+     **************************************************************************/
 
     /**
      * 支持层级目录的创建

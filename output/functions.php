@@ -4,6 +4,7 @@
  */
 
 /**
+ * Return swoole version. eg: 4.4.1
  * @return string
  */
 function swoole_version(){}
