@@ -1,9 +1,12 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.5
+ * @since 4.4.6
  */
 class System
 {
@@ -29,20 +32,20 @@ class System
      * @param $get_error_stream
      * @return mixed
      */
-    public function exec(string $command, $get_error_stream = null){}
+    public static function exec(string $command, $get_error_stream = null){}
 
     /**
      * @param $seconds
      * @return mixed
      */
-    public function sleep($seconds){}
+    public static function sleep($seconds){}
 
     /**
      * @param $handle
      * @param int $length
      * @return mixed
      */
-    public function fread($handle, int $length = null){}
+    public static function fread($handle, int $length = null){}
 
     /**
      * @param $handle
@@ -50,13 +53,13 @@ class System
      * @param int $length
      * @return mixed
      */
-    public function fwrite($handle, string $string, int $length = null){}
+    public static function fwrite($handle, string $string, int $length = null){}
 
     /**
      * @param $handle
      * @return mixed
      */
-    public function fgets($handle){}
+    public static function fgets($handle){}
 
     /**
      * @param string $hostname
@@ -67,13 +70,13 @@ class System
      * @param float $timeout
      * @return mixed
      */
-    public function getaddrinfo(string $hostname, $family = null, $socktype = null, $protocol = null, $service = null, float $timeout = null){}
+    public static function getaddrinfo(string $hostname, $family = null, $socktype = null, $protocol = null, $service = null, float $timeout = null){}
 
     /**
      * @param string $filename
      * @return mixed
      */
-    public function readFile(string $filename){}
+    public static function readFile(string $filename){}
 
     /**
      * @param string $filename
@@ -81,11 +84,11 @@ class System
      * @param $flags
      * @return mixed
      */
-    public function writeFile(string $filename, $data, $flags = null){}
+    public static function writeFile(string $filename, $data, $flags = null){}
 
     /**
      * @param string $path
      * @return mixed
      */
-    public function statvfs(string $path){}
+    public static function statvfs(string $path){}
 }

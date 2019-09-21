@@ -1,9 +1,12 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 namespace Swoole\WebSocket;
 
 /**
- * @since 4.4.5
+ * @since 4.4.6
  */
 class Server extends \Swoole\Http\Server
 {
@@ -110,6 +113,8 @@ class Server extends \Swoole\Http\Server
     public function start(){}
 
     /**
+     * Send data to the
+     * client
      * @param int $fd
      * @param string $send_data
      * @param int $server_socket

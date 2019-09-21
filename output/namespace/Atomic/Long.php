@@ -1,9 +1,12 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 namespace Swoole\Atomic;
 
 /**
- * @since 4.4.5
+ * @since 4.4.6
  */
 class Long
 {

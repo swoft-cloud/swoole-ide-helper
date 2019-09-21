@@ -64,6 +64,19 @@ class ExtStubExporter
     private $rftExt;
 
     /**
+     * [
+     *  'Server:send' => [
+     *      'desc' => '',
+     *      'var0' => 'int Description',
+     *      'var1' => 'string Description',
+     *  ],
+     * ]
+     *
+     * @var array
+     */
+    private $config = [];
+
+    /**
      * @var array
      */
     private $stats = [
@@ -89,24 +102,110 @@ class ExtStubExporter
     }
 
     /**
-     * @param string $comment
+     * Class constructor
      *
-     * @return string
+     * @param string $lang
      */
-    public static function formatComment(string $comment): string
+    public function __construct(string $lang = 'en')
     {
-        $lines = explode("\n", $comment);
+        $this->lang    = $lang ?: 'en';
+        $this->extName = 'swoole';
+    }
 
-        foreach ($lines as &$li) {
-            $li = ltrim($li);
-            if (isset($li[0]) && $li[0] !== '*') {
-                $li = self::SPACE5 . '*' . $li;
+    /**
+     * @throws ReflectionException
+     */
+    private function prepare(): void
+    {
+        if (!extension_loaded($this->extName)) {
+            throw new RuntimeException("no '{$this->extName}' extension.");
+        }
+
+        $this->rftExt  = new ReflectionExtension($this->extName);
+        $this->version = $this->rftExt->getVersion();
+
+        // load config data
+        $confFile = dirname(__DIR__) . "/config/{$this->lang}.meta.php";
+        if (file_exists($confFile)) {
+            $this->config = require $confFile;
+        }
+    }
+
+    /**
+     * @param string $outDir
+     */
+    public function export(string $outDir = ''): void
+    {
+        $this->println('Generate IDE Helper Classes For Swoole Ext');
+
+        try {
+            $this->prepare();
+
+            $this->println('Swoole Version: v' . $this->version . "\n");
+
+            $this->doExport($outDir);
+
+            $this->println("\nExport Successful");
+        } catch (Throwable $e) {
+            $this->println("\nExport Failure!\nException:", $e->getMessage());
+        }
+    }
+
+    /**
+     * @param string $outDir
+     */
+    public function doExport(string $outDir = ''): void
+    {
+        $this->outDir = $outDir = $outDir ?: dirname(__DIR__) . '/output';
+        if (file_exists($outDir)) {
+            $this->println(' - Clear old files ...');
+            exec("rm -rf {$outDir}");
+        }
+
+        // create output directory
+        $this->createDir($outDir);
+        $this->println(' - Parse and export constants');
+
+        // Get all the global constants
+        $defines = $this->getGlobalConstants();
+        $this->writePhpFile($outDir . '/constants.php', $defines);
+        $this->println(' - Parse and export functions');
+
+        // Get all functions defines
+        $funcCodes = $this->getFunctionsDef();
+        $this->writePhpFile($outDir . '/functions.php', $funcCodes);
+
+        // Get all classes defines
+        $this->println(' - Parse and export classes');
+        $classes  = '';
+        $aliasTpl = "\nclass %s extends %s{}\n";
+
+        /**
+         * @var string          $className
+         * @var ReflectionClass $ref
+         */
+        foreach ($this->rftExt->getClasses() as $className => $ref) {
+            // 短命名别名
+            if (stripos($className, 'co\\') === 0) {
+                $this->exportShortAlias($className);
+                // 标准命名空间的类名，如 Swoole\Server
+            } elseif (false !== strpos($className, '\\')) {
+                $this->exportNamespaceClass($className, $ref);
+                // 下划线分割类别名
             } else {
-                $li = self::SPACE5 . $li;
+                $classes .= sprintf($aliasTpl, $className, self::getNamespaceAlias($className));
             }
         }
 
-        return implode("\n", $lines) . "\n";
+        $this->writePhpFile($outDir . '/classes.php', $classes);
+
+        $shortAliases  = '';
+        $shortClassTpl = "namespace %s\n{\n%s\n}\n\n";
+        foreach ($this->shortAliases as $np => $aliases) {
+            $shortAliases .= sprintf($shortClassTpl, $np, implode("\n", $aliases));
+        }
+
+        $this->writePhpFile($outDir . '/aliases.php', $shortAliases);
     }
 
     /**
@@ -179,6 +278,10 @@ class ExtStubExporter
         return [];
     }
 
+    /***************************************************************************
+     * Parse Global Constants Definition
+     **************************************************************************/
+
     /**
      * @return string
      */
@@ -197,17 +300,23 @@ class ExtStubExporter
         return $defines;
     }
 
+    /***************************************************************************
+     * Parse Functions Definition
+     **************************************************************************/
+
+    /**
+     * @return string
+     */
     public function getFunctionsDef(): string
     {
         $all = '';
         /** @var $v ReflectionFunction */
         foreach ($this->rftExt->getFunctions() as $name => $v) {
-            $comment = '';
             $fnArgs  = [];
+            $comment = "/**\n";
             $this->stats['function']++;
 
             if ($params = $v->getParameters()) {
-                $comment = "/**\n";
                 foreach ($params as $k1 => $p) {
                     $pName = $p->name;
                     $pType = $this->getParameterType($p, $pName);
@@ -221,10 +330,10 @@ class ExtStubExporter
                         $fnArgs[] = ($canType ? $pType : '') . '$' . $pName;
                     }
                 }
-
-                $comment .= " * @return mixed\n";
-                $comment .= " */\n";
             }
+
+            $comment .= $this->getReturnType($name, true);
+            $comment .= " */\n";
             $comment .= sprintf("function %s(%s){}\n\n", $name, implode(', ', $fnArgs));
 
             $all .= $comment;
@@ -233,9 +342,14 @@ class ExtStubExporter
         return $all;
     }
 
+    /***************************************************************************
+     * Parse Class
+     * - Property Definition
+     **************************************************************************/
+
     /**
      * @param string $classname
-     * @param array $props
+     * @param array  $props
      *
      * @return string
      */
@@ -255,6 +369,11 @@ class ExtStubExporter
 
         return $propStr;
     }
+
+    /***************************************************************************
+     * Parse Class
+     * - Constant Definition
+     **************************************************************************/
 
     /**
      * @param string $classname
@@ -282,6 +401,11 @@ class ExtStubExporter
 
         return $all;
     }
+
+    /***************************************************************************
+     * Parse Class
+     * - Method Definition
+     **************************************************************************/
 
     /**
      * @param string $classname
@@ -313,12 +437,9 @@ class ExtStubExporter
             }
 
             $arguments = [];
-            $comment   = "$sp4/**\n";
 
-            $config = $this->getConfig($classname, $methodName, self::METHOD);
-            if (!empty($config['comment'])) {
-                $comment .= self::formatComment($config['comment']);
-            }
+            $comment  = "$sp4/**\n";
+            $comment .= $this->getDescription($methodKey);
 
             if ($params = $m->getParameters()) {
                 foreach ($params as $k1 => $p) {
@@ -340,13 +461,10 @@ class ExtStubExporter
                 }
             }
 
-            if (isset(ArgTypes::$returnTypes[$methodKey])) {
-                $returnType = ArgTypes::$returnTypes[$methodKey];
-                $comment    .= self::SPACE5 . "* @return {$returnType}\n";
-            } elseif (!isset($config['return'])) {
-                $comment .= self::SPACE5 . "* @return mixed\n";
-            } elseif (!empty($config['return'])) {
+            if (!empty($config['return'])) {
                 $comment .= self::SPACE5 . "* @return {$config['return']}\n";
+            } else {
+                $comment .= $this->getReturnType($methodKey);
             }
 
             $comment   .= "$sp4 */\n";
@@ -420,11 +538,11 @@ class ExtStubExporter
     /**
      * @param ReflectionParameter $p
      * @param string              $name
-     * @param string              $mdKey method key
+     * @param string              $mthKey method key
      *
      * @return string
      */
-    private function getParameterType(ReflectionParameter $p, string $name, string $mdKey = ''): string
+    private function getParameterType(ReflectionParameter $p, string $name, string $mthKey = ''): string
     {
         // has type
         if ($pt = $p->getType()) {
@@ -441,35 +559,113 @@ class ExtStubExporter
             return $name . ' ';
         }
 
-        if ($mdKey && isset(ArgTypes::$special[$mdKey][$name])) {
-            return ArgTypes::$special[$mdKey][$name] . ' ';
+        if ($mthKey && isset(TypeMeta::$special[$mthKey][$name])) {
+            return TypeMeta::$special[$mthKey][$name] . ' ';
         }
 
-        if (in_array($name, ArgTypes::INT, true)) {
+        if (in_array($name, TypeMeta::INT, true)) {
             return 'int ';
         }
 
-        if (in_array($name, ArgTypes::STRING, true)) {
+        if (in_array($name, TypeMeta::STRING, true)) {
             return 'string ';
         }
 
-        if (in_array($name, ArgTypes::FLOAT, true)) {
+        if (in_array($name, TypeMeta::FLOAT, true)) {
             return 'float ';
         }
 
-        if (in_array($name, ArgTypes::BOOL, true)) {
+        if (in_array($name, TypeMeta::BOOL, true)) {
             return 'bool ';
         }
 
-        if (in_array($name, ArgTypes::ARRAY, true)) {
+        if (in_array($name, TypeMeta::ARRAY, true)) {
             return 'array ';
         }
 
-        if (in_array($name, ArgTypes::MIXED, true)) {
+        if (in_array($name, TypeMeta::MIXED, true)) {
             return 'mixed ';
         }
 
         return '';
+    }
+
+    /**
+     * @param string $pathKey
+     * @param bool   $isFunc
+     *
+     * @return string
+     */
+    private function getReturnType(string $pathKey, bool $isFunc = false): string
+    {
+        $indent = self::SPACE5;
+
+        if ($isFunc) {
+            $indent  = ' ';
+            $pathKey = 'Func:' . $pathKey;
+        }
+
+        $returnType = TypeMeta::$returnTypes[$pathKey] ?? 'mixed';
+
+        return "{$indent}* @return {$returnType}\n";
+    }
+
+    /**
+     * @param string $key
+     * @param bool   $isFunc
+     *
+     * @return string
+     */
+    private function getDescription(string $key, bool $isFunc = false): string
+    {
+        $desc = '';
+        if (isset($this->config[$key]['_desc'])) {
+            $str  = $this->config[$key]['_desc'];
+            $desc = self::formatComment(ucfirst($str), $isFunc);
+        }
+
+        return $desc;
+    }
+
+    /**
+     * @param string $comment
+     * @param bool   $isFunc
+     *
+     * @return string
+     */
+    public static function formatComment(string $comment, bool $isFunc = false): string
+    {
+        if (!$comment = trim($comment)) {
+            return '';
+        }
+
+        $indent = self::SPACE5;
+        if ($isFunc) {
+            $indent = ' ';
+        }
+
+        $lines = explode("\n", $comment);
+        foreach ($lines as &$li) {
+            // $li = $indent . '* '. ltrim($li, '*');
+            $li = $indent . '* '. ltrim($li);
+        }
+
+        return implode("\n", $lines) . "\n";
+    }
+
+    /**
+     * @param string $comment
+     * @param bool   $isFunc
+     *
+     * @return string
+     */
+    public static function formatArgComment(string $comment, bool $isFunc = false): string
+    {
+        if (!$comment = trim($comment)) {
+            return '';
+        }
+
+        return $comment;
     }
 
     /**
@@ -487,86 +683,21 @@ class ExtStubExporter
     }
 
     /**
-     * Class constructor.
-     *
-     * @throws ReflectionException
-     */
-    public function __construct()
-    {
-        $this->extName = 'swoole';
-
-        if (!extension_loaded($this->extName)) {
-            throw new RuntimeException("no '{$this->extName}' extension.");
-        }
-
-        $this->rftExt  = new ReflectionExtension($this->extName);
-        $this->version = $this->rftExt->getVersion();
-    }
-
-    /**
-     * @param string $outDir
-     */
-    public function export(string $outDir = ''): void
-    {
-        $this->outDir = $outDir = $outDir ?: dirname(__DIR__) . '/output';
-        if (file_exists($outDir)) {
-            $this->println(' - Clear old files ...');
-            exec("rm -rf {$outDir}");
-        }
-
-        // create output directory
-        $this->createDir($outDir);
-        $this->println(' - Parse and export constants');
-
-        // Get all the global constants
-        $defines = $this->getGlobalConstants();
-        $this->writePhpFile($outDir . '/constants.php', $defines);
-        $this->println(' - Parse and export functions');
-
-        // Get all functions defines
-        $funcCodes = $this->getFunctionsDef();
-        $this->writePhpFile($outDir . '/functions.php', $funcCodes);
-
-        // Get all classes defines
-        $this->println(' - Parse and export classes');
-        $classes  = '';
-        $aliasTpl = "\nclass %s extends %s{}\n";
-
-        /**
-         * @var string          $className
-         * @var ReflectionClass $ref
-         */
-        foreach ($this->rftExt->getClasses() as $className => $ref) {
-            // 短命名别名
-            if (stripos($className, 'co\\') === 0) {
-                $this->exportShortAlias($className);
-                // 标准命名空间的类名，如 Swoole\Server
-            } elseif (false !== strpos($className, '\\')) {
-                $this->exportNamespaceClass($className, $ref);
-                // 下划线分割类别名
-            } else {
-                $classes .= sprintf($aliasTpl, $className, self::getNamespaceAlias($className));
-            }
-        }
-
-        $this->writePhpFile($outDir . '/classes.php', $classes);
-
-        $shortAliases  = '';
-        $shortClassTpl = "namespace %s\n{\n%s\n}\n\n";
-        foreach ($this->shortAliases as $np => $aliases) {
-            $shortAliases .= sprintf($shortClassTpl, $np, implode("\n", $aliases));
-        }
-
-        $this->writePhpFile($outDir . '/aliases.php', $shortAliases);
-    }
-
-    /**
      * @param string $filepath
      * @param string $content
      */
     private function writePhpFile(string $filepath, string $content): void
     {
-        file_put_contents($filepath, "<?php\n\n" . $content);
+        $phpText = <<<PHP
+<?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
+
+$content
+PHP;
+
+        file_put_contents($filepath, $phpText);
     }
 
     /**

@@ -1,9 +1,12 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 namespace Swoole\Redis;
 
 /**
- * @since 4.4.5
+ * @since 4.4.6
  */
 class Server extends \Swoole\Server
 {
@@ -100,6 +103,8 @@ class Server extends \Swoole\Server
     public function set(array $settings){}
 
     /**
+     * Send data to the
+     * client
      * @param int $fd
      * @param string $send_data
      * @param int $server_socket

@@ -1,9 +1,12 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 namespace Swoole;
 
 /**
- * @since 4.4.5
+ * @since 4.4.6
  */
 class Coroutine
 {
@@ -86,7 +89,7 @@ class Coroutine
     public static function getBackTrace(int $cid = null, array $options = null, int $limit = null){}
 
     /**
-     * @return mixed
+     * @return \Swoole\Coroutine\Iterator
      */
     public static function list(){}
 

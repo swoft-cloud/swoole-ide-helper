@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
 /**
- * Class ArgTypes
+ * Class TypeMeta
  */
-final class ArgTypes
+final class TypeMeta
 {
     /**
      * @var array All int arguments name list
@@ -50,7 +50,7 @@ final class ArgTypes
     /**
      * @var array All bool arguments name list
      */
-    public const BOOL = [
+    public const BOOL  = [
         'finish',
         'reset',
         'blocking',
@@ -121,9 +121,18 @@ final class ArgTypes
         ],
     ];
 
+    /**
+     * @var array
+     */
     public static $returnTypes = [
-        'Process:exportSocket' => '\\' . Swoole\Coroutine\Socket::class,
-        'Channel:isEmpty'      => 'bool',
-        'Channel:isFull'       => 'bool'
+        'Process:exportSocket'   => '\\' . Swoole\Coroutine\Socket::class,
+        'Channel:isEmpty'        => 'bool',
+        'Channel:isFull'         => 'bool',
+        'Coroutine:list'         => '\\' . Swoole\Coroutine\Iterator::class,
+        // functions
+        'Func:swoole_cpu_num'    => 'int',
+        'Func:swoole_version'    => 'string',
+        'Func:swoole_last_error' => 'string',
+        'Func:swoole_strerror'   => 'string',
     ];
 }

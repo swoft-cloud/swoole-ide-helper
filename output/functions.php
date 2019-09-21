@@ -1,4 +1,7 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 /**
  * @return string
@@ -78,17 +81,26 @@ function swoole_select(array $read_array, array $write_array, array $error_array
  */
 function swoole_set_process_name(string $process_name){}
 
+/**
+ * @return mixed
+ */
 function swoole_get_local_ip(){}
 
+/**
+ * @return mixed
+ */
 function swoole_get_local_mac(){}
 
 /**
  * @param $errno
  * @param $error_type
- * @return mixed
+ * @return string
  */
 function swoole_strerror($errno, $error_type = null){}
 
+/**
+ * @return mixed
+ */
 function swoole_errno(){}
 
 /**
@@ -104,8 +116,14 @@ function swoole_hashcode($data, $type = null){}
  */
 function swoole_get_mime_type(string $filename){}
 
+/**
+ * @return mixed
+ */
 function swoole_clear_dns_cache(){}
 
+/**
+ * @return mixed
+ */
 function swoole_internal_call_user_shutdown_begin(){}
 
 /**
@@ -139,6 +157,9 @@ function swoole_event_set(int $fd, callable $read_callback = null, callable $wri
  */
 function swoole_event_isset(int $fd, $events = null){}
 
+/**
+ * @return mixed
+ */
 function swoole_event_dispatch(){}
 
 /**
@@ -161,8 +182,14 @@ function swoole_event_cycle(callable $callback, $before = null){}
  */
 function swoole_event_write(int $fd, $data){}
 
+/**
+ * @return mixed
+ */
 function swoole_event_wait(){}
 
+/**
+ * @return mixed
+ */
 function swoole_event_exit(){}
 
 /**
@@ -197,8 +224,14 @@ function swoole_timer_exists(int $timer_id){}
  */
 function swoole_timer_info(int $timer_id){}
 
+/**
+ * @return mixed
+ */
 function swoole_timer_stats(){}
 
+/**
+ * @return mixed
+ */
 function swoole_timer_list(){}
 
 /**
@@ -207,5 +240,8 @@ function swoole_timer_list(){}
  */
 function swoole_timer_clear(int $timer_id){}
 
+/**
+ * @return mixed
+ */
 function swoole_timer_clear_all(){}
 

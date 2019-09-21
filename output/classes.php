@@ -1,4 +1,7 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 
 class swoole_exception extends Swoole\Exception{}

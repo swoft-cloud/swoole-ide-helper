@@ -1,9 +1,12 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.4.5
+ * @since 4.4.6
  */
 class Client
 {
@@ -150,6 +153,11 @@ class Client
      * @return mixed
      */
     public function getStatusCode(){}
+
+    /**
+     * @return mixed
+     */
+    public function getHeaderOut(){}
 
     /**
      * @param string $path

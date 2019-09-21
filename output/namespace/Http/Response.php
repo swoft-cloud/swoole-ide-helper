@@ -1,9 +1,12 @@
 <?php
+/**
+ * @noinspection ALL - For disable PhpStorm check
+ */
 
 namespace Swoole\Http;
 
 /**
- * @since 4.4.5
+ * @since 4.4.6
  */
 class Response
 {
@@ -28,9 +31,10 @@ class Response
      * @param string $domain
      * @param $secure
      * @param $httponly
+     * @param $samesite
      * @return mixed
      */
-    public function cookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null){}
+    public function cookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null, $samesite = null){}
 
     /**
      * @param string $name
@@ -40,9 +44,10 @@ class Response
      * @param string $domain
      * @param $secure
      * @param $httponly
+     * @param $samesite
      * @return mixed
      */
-    public function setCookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null){}
+    public function setCookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null, $samesite = null){}
 
     /**
      * @param string $name
@@ -52,9 +57,10 @@ class Response
      * @param string $domain
      * @param $secure
      * @param $httponly
+     * @param $samesite
      * @return mixed
      */
-    public function rawcookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null){}
+    public function rawcookie(string $name, $value = null, $expires = null, string $path = null, string $domain = null, $secure = null, $httponly = null, $samesite = null){}
 
     /**
      * @param int $http_code
