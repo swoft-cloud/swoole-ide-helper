@@ -1,7 +1,4 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole;
 
@@ -87,12 +84,12 @@ class Process
     public function setBlocking(bool $blocking){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $mode
      * @param $capacity
      * @return mixed
      */
-    public function useQueue($key = null, $mode = null, $capacity = null){}
+    public function useQueue(string $key = null, $mode = null, $capacity = null){}
 
     /**
      * @return mixed

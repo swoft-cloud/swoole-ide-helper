@@ -80,9 +80,11 @@ final class TypeMeta
     public const STRING = [
         'ip',
         'sql',
+        'key',
         'host',
         'path',
         'name',
+        'field',
         'domain',
         'string',
         'method',

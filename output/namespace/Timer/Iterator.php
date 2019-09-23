@@ -1,14 +1,11 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole\Timer;
 
 /**
  * @since 4.4.6
  */
-class Iterator extends \ArrayIterator
+class Iterator extends \ArrayIterator implements \Countable, \Serializable, \SeekableIterator, \ArrayAccess, \Iterator
 {
     // constants of the class Iterator
     public const STD_PROP_LIST = 1;

@@ -1,14 +1,11 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole;
 
 /**
  * @since 4.4.6
  */
-class Exception extends \Exception
+class Exception extends \Exception implements \Throwable
 {
 
     // property of the class Exception

@@ -1,7 +1,4 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole\Coroutine;
 
@@ -84,51 +81,51 @@ class Redis
     public function close(){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @param float $timeout
      * @param $opt
      * @return mixed
      */
-    public function set($key, $value, float $timeout = null, $opt = null){}
+    public function set(string $key, $value, float $timeout = null, $opt = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param int $offset
      * @param $value
      * @return mixed
      */
-    public function setBit($key, int $offset, $value){}
+    public function setBit(string $key, int $offset, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $expire
      * @param $value
      * @return mixed
      */
-    public function setEx($key, $expire, $value){}
+    public function setEx(string $key, $expire, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $expire
      * @param $value
      * @return mixed
      */
-    public function psetEx($key, $expire, $value){}
+    public function psetEx(string $key, $expire, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $index
      * @param $value
      * @return mixed
      */
-    public function lSet($key, $index, $value){}
+    public function lSet(string $key, $index, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function get($key){}
+    public function get(string $key){}
 
     /**
      * @param $keys
@@ -137,49 +134,49 @@ class Redis
     public function mGet($keys){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function del($key, $other_keys = null){}
+    public function del(string $key, $other_keys = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @param $other_members
      * @return mixed
      */
-    public function hDel($key, $member, $other_members = null){}
+    public function hDel(string $key, $member, $other_members = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @param $value
      * @return mixed
      */
-    public function hSet($key, $member, $value){}
+    public function hSet(string $key, $member, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $pairs
      * @return mixed
      */
-    public function hMSet($key, $pairs){}
+    public function hMSet(string $key, $pairs){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @param $value
      * @return mixed
      */
-    public function hSetNx($key, $member, $value){}
+    public function hSetNx(string $key, $member, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function delete($key, $other_keys = null){}
+    public function delete(string $key, $other_keys = null){}
 
     /**
      * @param $pairs
@@ -206,51 +203,51 @@ class Redis
     public function keys(string $pattern){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function exists($key, $other_keys = null){}
+    public function exists(string $key, $other_keys = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function type($key){}
+    public function type(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function strLen($key){}
+    public function strLen(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function lPop($key){}
+    public function lPop(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $timeout_or_key
      * @param $extra_args
      * @return mixed
      */
-    public function blPop($key, $timeout_or_key, $extra_args = null){}
+    public function blPop(string $key, $timeout_or_key, $extra_args = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function rPop($key){}
+    public function rPop(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $timeout_or_key
      * @param $extra_args
      * @return mixed
      */
-    public function brPop($key, $timeout_or_key, $extra_args = null){}
+    public function brPop(string $key, $timeout_or_key, $extra_args = null){}
 
     /**
      * @param $src
@@ -261,148 +258,148 @@ class Redis
     public function bRPopLPush($src, $dst, float $timeout){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function lSize($key){}
+    public function lSize(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function lLen($key){}
+    public function lLen(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function sSize($key){}
+    public function sSize(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function scard($key){}
+    public function scard(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function sPop($key){}
+    public function sPop(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function sMembers($key){}
+    public function sMembers(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function sGetMembers($key){}
+    public function sGetMembers(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $count
      * @return mixed
      */
-    public function sRandMember($key, $count = null){}
+    public function sRandMember(string $key, $count = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function persist($key){}
+    public function persist(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function ttl($key){}
+    public function ttl(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function pttl($key){}
+    public function pttl(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function zCard($key){}
+    public function zCard(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function zSize($key){}
+    public function zSize(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function hLen($key){}
+    public function hLen(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function hKeys($key){}
+    public function hKeys(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function hVals($key){}
+    public function hVals(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function hGetAll($key){}
+    public function hGetAll(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function debug($key){}
+    public function debug(string $key){}
 
     /**
      * @param $ttl
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function restore($ttl, $key, $value){}
+    public function restore($ttl, string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function dump($key){}
+    public function dump(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $newkey
      * @return mixed
      */
-    public function renameKey($key, $newkey){}
+    public function renameKey(string $key, $newkey){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $newkey
      * @return mixed
      */
-    public function rename($key, $newkey){}
+    public function rename(string $key, $newkey){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $newkey
      * @return mixed
      */
-    public function renameNx($key, $newkey){}
+    public function renameNx(string $key, $newkey){}
 
     /**
      * @param $src
@@ -417,17 +414,17 @@ class Redis
     public function randomKey(){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $elements
      * @return mixed
      */
-    public function pfadd($key, $elements){}
+    public function pfadd(string $key, $elements){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function pfcount($key){}
+    public function pfcount(string $key){}
 
     /**
      * @param $dstkey
@@ -453,11 +450,11 @@ class Redis
     public function unwatch(){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function watch($key, $other_keys = null){}
+    public function watch(string $key, $other_keys = null){}
 
     /**
      * @return mixed
@@ -505,117 +502,117 @@ class Redis
     public function role(){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param int $offset
      * @param $value
      * @return mixed
      */
-    public function setRange($key, int $offset, $value){}
+    public function setRange(string $key, int $offset, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function setNx($key, $value){}
+    public function setNx(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function getSet($key, $value){}
+    public function getSet(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function append($key, $value){}
+    public function append(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function lPushx($key, $value){}
+    public function lPushx(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function lPush($key, $value){}
+    public function lPush(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function rPush($key, $value){}
+    public function rPush(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function rPushx($key, $value){}
+    public function rPushx(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function sContains($key, $value){}
+    public function sContains(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function sismember($key, $value){}
+    public function sismember(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @return mixed
      */
-    public function zScore($key, $member){}
+    public function zScore(string $key, $member){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @return mixed
      */
-    public function zRank($key, $member){}
+    public function zRank(string $key, $member){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @return mixed
      */
-    public function zRevRank($key, $member){}
+    public function zRevRank(string $key, $member){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @return mixed
      */
-    public function hGet($key, $member){}
+    public function hGet(string $key, $member){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $keys
      * @return mixed
      */
-    public function hMGet($key, $keys){}
+    public function hMGet(string $key, $keys){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @return mixed
      */
-    public function hExists($key, $member){}
+    public function hExists(string $key, $member){}
 
     /**
      * @param $channel
@@ -625,272 +622,272 @@ class Redis
     public function publish($channel, string $message){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @param $member
      * @return mixed
      */
-    public function zIncrBy($key, $value, $member){}
+    public function zIncrBy(string $key, $value, $member){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $score
      * @param $value
      * @return mixed
      */
-    public function zAdd($key, $score, $value){}
+    public function zAdd(string $key, $score, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $count
      * @return mixed
      */
-    public function zPopMin($key, $count){}
+    public function zPopMin(string $key, $count){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $count
      * @return mixed
      */
-    public function zPopMax($key, $count){}
+    public function zPopMax(string $key, $count){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $timeout_or_key
      * @param $extra_args
      * @return mixed
      */
-    public function bzPopMin($key, $timeout_or_key, $extra_args = null){}
+    public function bzPopMin(string $key, $timeout_or_key, $extra_args = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $timeout_or_key
      * @param $extra_args
      * @return mixed
      */
-    public function bzPopMax($key, $timeout_or_key, $extra_args = null){}
+    public function bzPopMax(string $key, $timeout_or_key, $extra_args = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $min
      * @param $max
      * @return mixed
      */
-    public function zDeleteRangeByScore($key, $min, $max){}
+    public function zDeleteRangeByScore(string $key, $min, $max){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $min
      * @param $max
      * @return mixed
      */
-    public function zRemRangeByScore($key, $min, $max){}
+    public function zRemRangeByScore(string $key, $min, $max){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $min
      * @param $max
      * @return mixed
      */
-    public function zCount($key, $min, $max){}
+    public function zCount(string $key, $min, $max){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $end
      * @param $scores
      * @return mixed
      */
-    public function zRange($key, $start, $end, $scores = null){}
+    public function zRange(string $key, $start, $end, $scores = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $end
      * @param $scores
      * @return mixed
      */
-    public function zRevRange($key, $start, $end, $scores = null){}
+    public function zRevRange(string $key, $start, $end, $scores = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $end
      * @param array $options
      * @return mixed
      */
-    public function zRangeByScore($key, $start, $end, array $options = null){}
+    public function zRangeByScore(string $key, $start, $end, array $options = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $end
      * @param array $options
      * @return mixed
      */
-    public function zRevRangeByScore($key, $start, $end, array $options = null){}
+    public function zRevRangeByScore(string $key, $start, $end, array $options = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $min
      * @param $max
      * @param int $offset
      * @param int $limit
      * @return mixed
      */
-    public function zRangeByLex($key, $min, $max, int $offset = null, int $limit = null){}
+    public function zRangeByLex(string $key, $min, $max, int $offset = null, int $limit = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $min
      * @param $max
      * @param int $offset
      * @param int $limit
      * @return mixed
      */
-    public function zRevRangeByLex($key, $min, $max, int $offset = null, int $limit = null){}
+    public function zRevRangeByLex(string $key, $min, $max, int $offset = null, int $limit = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $keys
      * @param $weights
      * @param $aggregate
      * @return mixed
      */
-    public function zInter($key, $keys, $weights = null, $aggregate = null){}
+    public function zInter(string $key, $keys, $weights = null, $aggregate = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $keys
      * @param $weights
      * @param $aggregate
      * @return mixed
      */
-    public function zinterstore($key, $keys, $weights = null, $aggregate = null){}
+    public function zinterstore(string $key, $keys, $weights = null, $aggregate = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $keys
      * @param $weights
      * @param $aggregate
      * @return mixed
      */
-    public function zUnion($key, $keys, $weights = null, $aggregate = null){}
+    public function zUnion(string $key, $keys, $weights = null, $aggregate = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $keys
      * @param $weights
      * @param $aggregate
      * @return mixed
      */
-    public function zunionstore($key, $keys, $weights = null, $aggregate = null){}
+    public function zunionstore(string $key, $keys, $weights = null, $aggregate = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function incrBy($key, $value){}
+    public function incrBy(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @param $value
      * @return mixed
      */
-    public function hIncrBy($key, $member, $value){}
+    public function hIncrBy(string $key, $member, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function incr($key){}
+    public function incr(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function decrBy($key, $value){}
+    public function decrBy(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function decr($key){}
+    public function decr(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param int $offset
      * @return mixed
      */
-    public function getBit($key, int $offset){}
+    public function getBit(string $key, int $offset){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $position
      * @param $pivot
      * @param $value
      * @return mixed
      */
-    public function lInsert($key, $position, $pivot, $value){}
+    public function lInsert(string $key, $position, $pivot, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $index
      * @return mixed
      */
-    public function lGet($key, $index){}
+    public function lGet(string $key, $index){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $integer
      * @return mixed
      */
-    public function lIndex($key, $integer){}
+    public function lIndex(string $key, $integer){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param float $timeout
      * @return mixed
      */
-    public function setTimeout($key, float $timeout){}
+    public function setTimeout(string $key, float $timeout){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $integer
      * @return mixed
      */
-    public function expire($key, $integer){}
+    public function expire(string $key, $integer){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $timestamp
      * @return mixed
      */
-    public function pexpire($key, $timestamp){}
+    public function pexpire(string $key, $timestamp){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $timestamp
      * @return mixed
      */
-    public function expireAt($key, $timestamp){}
+    public function expireAt(string $key, $timestamp){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $timestamp
      * @return mixed
      */
-    public function pexpireAt($key, $timestamp){}
+    public function pexpireAt(string $key, $timestamp){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $dbindex
      * @return mixed
      */
-    public function move($key, $dbindex){}
+    public function move(string $key, $dbindex){}
 
     /**
      * @param $dbindex
@@ -899,113 +896,113 @@ class Redis
     public function select($dbindex){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $end
      * @return mixed
      */
-    public function getRange($key, $start, $end){}
+    public function getRange(string $key, $start, $end){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $stop
      * @return mixed
      */
-    public function listTrim($key, $start, $stop){}
+    public function listTrim(string $key, $start, $stop){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $stop
      * @return mixed
      */
-    public function ltrim($key, $start, $stop){}
+    public function ltrim(string $key, $start, $stop){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $end
      * @return mixed
      */
-    public function lGetRange($key, $start, $end){}
+    public function lGetRange(string $key, $start, $end){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $end
      * @return mixed
      */
-    public function lRange($key, $start, $end){}
+    public function lRange(string $key, $start, $end){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @param $count
      * @return mixed
      */
-    public function lRem($key, $value, $count){}
+    public function lRem(string $key, $value, $count){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @param $count
      * @return mixed
      */
-    public function lRemove($key, $value, $count){}
+    public function lRemove(string $key, $value, $count){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $start
      * @param $end
      * @return mixed
      */
-    public function zDeleteRangeByRank($key, $start, $end){}
+    public function zDeleteRangeByRank(string $key, $start, $end){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $min
      * @param $max
      * @return mixed
      */
-    public function zRemRangeByRank($key, $min, $max){}
+    public function zRemRangeByRank(string $key, $min, $max){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function incrByFloat($key, $value){}
+    public function incrByFloat(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @param $value
      * @return mixed
      */
-    public function hIncrByFloat($key, $member, $value){}
+    public function hIncrByFloat(string $key, $member, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function bitCount($key){}
+    public function bitCount(string $key){}
 
     /**
      * @param $operation
      * @param $ret_key
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function bitOp($operation, $ret_key, $key, $other_keys = null){}
+    public function bitOp($operation, $ret_key, string $key, $other_keys = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function sAdd($key, $value){}
+    public function sAdd(string $key, $value){}
 
     /**
      * @param $src
@@ -1016,87 +1013,87 @@ class Redis
     public function sMove($src, $dst, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function sDiff($key, $other_keys = null){}
+    public function sDiff(string $key, $other_keys = null){}
 
     /**
      * @param $dst
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function sDiffStore($dst, $key, $other_keys = null){}
+    public function sDiffStore($dst, string $key, $other_keys = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function sUnion($key, $other_keys = null){}
-
-    /**
-     * @param $dst
-     * @param $key
-     * @param $other_keys
-     * @return mixed
-     */
-    public function sUnionStore($dst, $key, $other_keys = null){}
-
-    /**
-     * @param $key
-     * @param $other_keys
-     * @return mixed
-     */
-    public function sInter($key, $other_keys = null){}
+    public function sUnion(string $key, $other_keys = null){}
 
     /**
      * @param $dst
-     * @param $key
+     * @param string $key
      * @param $other_keys
      * @return mixed
      */
-    public function sInterStore($dst, $key, $other_keys = null){}
+    public function sUnionStore($dst, string $key, $other_keys = null){}
 
     /**
-     * @param $key
+     * @param string $key
+     * @param $other_keys
+     * @return mixed
+     */
+    public function sInter(string $key, $other_keys = null){}
+
+    /**
+     * @param $dst
+     * @param string $key
+     * @param $other_keys
+     * @return mixed
+     */
+    public function sInterStore($dst, string $key, $other_keys = null){}
+
+    /**
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function sRemove($key, $value){}
+    public function sRemove(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function srem($key, $value){}
+    public function srem(string $key, $value){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @param $other_members
      * @return mixed
      */
-    public function zDelete($key, $member, $other_members = null){}
+    public function zDelete(string $key, $member, $other_members = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @param $other_members
      * @return mixed
      */
-    public function zRemove($key, $member, $other_members = null){}
+    public function zRemove(string $key, $member, $other_members = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $member
      * @param $other_members
      * @return mixed
      */
-    public function zRem($key, $member, $other_members = null){}
+    public function zRem(string $key, $member, $other_members = null){}
 
     /**
      * @param $patterns

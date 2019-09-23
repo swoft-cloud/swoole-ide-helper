@@ -1,14 +1,11 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole\Table;
 
 /**
  * @since 4.4.6
  */
-class Row
+class Row implements \ArrayAccess
 {
 
     // property of the class Row

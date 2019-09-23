@@ -1,7 +1,4 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 /**
  * Return swoole version. eg: 4.4.1

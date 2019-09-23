@@ -1,14 +1,11 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole\Connection;
 
 /**
  * @since 4.4.6
  */
-class Iterator
+class Iterator implements \Iterator, \ArrayAccess, \Countable
 {
 
 

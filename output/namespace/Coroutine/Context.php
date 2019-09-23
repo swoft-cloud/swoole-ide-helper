@@ -1,14 +1,11 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole\Coroutine;
 
 /**
  * @since 4.4.6
  */
-class Context extends \ArrayObject
+class Context extends \ArrayObject implements \Countable, \Serializable, \ArrayAccess, \IteratorAggregate
 {
     // constants of the class Context
     public const STD_PROP_LIST = 1;

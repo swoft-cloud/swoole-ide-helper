@@ -18,12 +18,11 @@ class ExtStubExporter
     public const PROPERTY = 2;
     public const CONSTANT = 3;
 
-    public const FUNC_PREFIX = 'Func:';
-
     public const SPACE4 = '    ';
     public const SPACE5 = '     ';
 
-    public static $phpKeywords = [
+    public const FUNC_PREFIX  = 'Func:';
+    public const PHP_KEYWORDS = [
         // 'exit',
         'die',
         'echo',
@@ -38,7 +37,7 @@ class ExtStubExporter
     /**
      * @var string
      */
-    private $extName;
+    public $lang = 'zh-CN';
 
     /**
      * @var string
@@ -48,17 +47,12 @@ class ExtStubExporter
     /**
      * @var string
      */
-    public $lang = 'zh-CN';
-
-    /**
-     * @var string
-     */
-    public $confDir;
-
-    /**
-     * @var string
-     */
     private $version;
+
+    /**
+     * @var string
+     */
+    private $extName;
 
     /**
      * @var ReflectionExtension
@@ -100,7 +94,7 @@ class ExtStubExporter
      */
     public static function isPHPKeyword(string $word): bool
     {
-        return in_array($word, self::$phpKeywords, true);
+        return in_array($word, self::PHP_KEYWORDS, true);
     }
 
     /**
@@ -112,6 +106,26 @@ class ExtStubExporter
     {
         $this->lang    = $lang ?: 'en';
         $this->extName = 'swoole';
+    }
+
+    /**
+     * @param string $outDir
+     */
+    public function export(string $outDir = ''): void
+    {
+        $this->println('Generate IDE Helper Classes For Swoole Extension');
+
+        try {
+            $this->prepare();
+            $this->doExport($outDir);
+
+            $this->config = [];
+            $this->rftExt = null;
+
+            $this->println("\nExport Successful :)");
+        } catch (Throwable $e) {
+            $this->println("\nExport Failure!\nException:", $e->getMessage());
+        }
     }
 
     /**
@@ -131,26 +145,9 @@ class ExtStubExporter
         // load config data
         $confFile = dirname(__DIR__) . "/config/{$this->lang}.meta.php";
         if (file_exists($confFile)) {
+            /** @noinspection PhpIncludeInspection */
             $this->config = require $confFile;
             $this->println(" - Load config data(lang:{$this->lang})");
-        }
-    }
-
-    /**
-     * @param string $outDir
-     */
-    public function export(string $outDir = ''): void
-    {
-        $this->println('Generate IDE Helper Classes For Swoole Ext');
-
-        try {
-            $this->prepare();
-
-            $this->doExport($outDir);
-
-            $this->println("\nExport Successful :)");
-        } catch (Throwable $e) {
-            $this->println("\nExport Failure!\nException:", $e->getMessage());
         }
     }
 
@@ -249,38 +246,6 @@ class ExtStubExporter
         return str_replace('_', '\\', ucwords($className, '_'));
     }
 
-    /**
-     * @param string $class
-     * @param string $name
-     * @param int    $type
-     *
-     * @return array|mixed
-     */
-    public function getConfig(string $class, string $name, int $type)
-    {
-        switch ($type) {
-            case self::CONSTANT:
-                $dir = 'constant';
-                break;
-            case self::METHOD:
-                $dir = 'method';
-                break;
-            case self::PROPERTY:
-                $dir = 'property';
-                break;
-            default:
-                return false;
-        }
-
-        $file = $this->confDir . '/' . $this->lang . '/' . strtolower($class) . '/' . $dir . '/' . $name . '.php';
-
-        if (is_file($file)) {
-            return include $file;
-        }
-
-        return [];
-    }
-
     /***************************************************************************
      * Parse Global Constants Definition
      **************************************************************************/
@@ -364,15 +329,15 @@ class ExtStubExporter
             return '';
         }
 
-        $propStr = self::SPACE4 . "// property of the class $classname\n";
+        $propString = self::SPACE4 . "// property of the class $classname\n";
 
-        /** @var $v ReflectionProperty */
-        foreach ($props as $k => $v) {
-            $modifiers = implode(' ', Reflection::getModifierNames($v->getModifiers()));
-            $propStr   .= self::SPACE4 . "{$modifiers} $" . $v->name . ";\n";
+        /** @var $prop ReflectionProperty */
+        foreach ($props as $k => $prop) {
+            $modifiers  = implode(' ', Reflection::getModifierNames($prop->getModifiers()));
+            $propString .= self::SPACE4 . "{$modifiers} $" . $prop->name . ";\n";
         }
 
-        return $propStr;
+        return $propString;
     }
 
     /***************************************************************************
@@ -443,7 +408,7 @@ class ExtStubExporter
 
             $arguments = [];
 
-            $comment  = "$sp4/**\n";
+            $comment = "$sp4/**\n";
             $comment .= $this->getDescription($methodKey);
 
             if ($params = $m->getParameters()) {
@@ -516,28 +481,52 @@ class ExtStubExporter
 
     /**
      * @param string          $classname
-     * @param ReflectionClass $ref
+     * @param ReflectionClass $rftClass
      *
      * @return string
      */
-    public function getClassDef(string $classname, $ref): string
+    public function getClassDef(string $classname, $rftClass): string
     {
         // 获取属性定义
-        $props = $this->getPropertyDef($classname, $ref->getProperties());
-        // 获取常量定义
-        $consts = $this->getConstantsDef($classname, $ref->getConstants());
-        // 获取方法定义
-        $mdefs = $this->getMethodsDef($classname, $ref->getMethods());
+        $propString = $this->getPropertyDef($classname, $rftClass->getProperties());
 
+        // 获取常量定义
+        $constString = $this->getConstantsDef($classname, $rftClass->getConstants());
+
+        // 获取方法定义
+        $methodString = $this->getMethodsDef($classname, $rftClass->getMethods());
+
+        // build class line
         $classLine = $classname;
-        if ($ref->getParentClass()) {
-            $classLine .= ' extends \\' . $ref->getParentClass()->name;
+
+        // parent class
+        if ($pClass = $rftClass->getParentClass()) {
+            $classLine .= ' extends \\' . $pClass->name;
         }
 
-        $classTpl = "/**\n * @since %s\n */\n%s %s\n{\n%s\n%s\n%s\n}\n";
-        $modifier = $ref->isInterface() ? 'interface' : 'class';
+        // interface classes
+        if ($faceNames = $rftClass->getInterfaceNames()) {
+            $faceNames = array_filter($faceNames, function ($name) {
+                return $name !== 'Traversable';
+            });
 
-        return sprintf($classTpl, $this->version, $modifier, $classLine, $consts, $props, $mdefs);
+            $classLine .= ' implements \\' . implode(', \\', $faceNames);
+        }
+
+        $version   = $this->version;
+        $modifier  = $rftClass->isInterface() ? 'interface' : 'class';
+        $classBody = <<<PHP
+/**
+ * @since $version
+ */
+$modifier $classLine
+{
+$constString
+$propString
+$methodString
+}
+PHP;
+        return $classBody;
     }
 
     /***************************************************************************
@@ -665,7 +654,7 @@ class ExtStubExporter
 
         foreach ($lines as &$li) {
             // $li = $indent . '* '. ltrim($li, '*');
-            $li = $indent . '* '. ltrim($li);
+            $li = $indent . '* ' . ltrim($li);
         }
 
         return implode("\n", $lines) . "\n";
@@ -712,10 +701,7 @@ class ExtStubExporter
     private function writePhpFile(string $filepath, string $content): void
     {
         $phpText = <<<PHP
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 $content
 PHP;

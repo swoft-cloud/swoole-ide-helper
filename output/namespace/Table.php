@@ -1,14 +1,11 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole;
 
 /**
  * @since 4.4.6
  */
-class Table
+class Table implements \Iterator, \ArrayAccess, \Countable
 {
     // constants of the class Table
     public const TYPE_INT = 1;
@@ -42,18 +39,18 @@ class Table
     public function destroy(){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param array $value
      * @return mixed
      */
-    public function set($key, array $value){}
+    public function set(string $key, array $value){}
 
     /**
-     * @param $key
-     * @param $field
+     * @param string $key
+     * @param string $field
      * @return mixed
      */
-    public function get($key, $field = null){}
+    public function get(string $key, string $field = null){}
 
     /**
      * @return mixed
@@ -61,38 +58,38 @@ class Table
     public function count(){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function del($key){}
+    public function del(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function exists($key){}
+    public function exists(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function exist($key){}
+    public function exist(string $key){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $column
      * @param $incrby
      * @return mixed
      */
-    public function incr($key, $column, $incrby = null){}
+    public function incr(string $key, $column, $incrby = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $column
      * @param $decrby
      * @return mixed
      */
-    public function decr($key, $column, $decrby = null){}
+    public function decr(string $key, $column, $decrby = null){}
 
     /**
      * @return mixed

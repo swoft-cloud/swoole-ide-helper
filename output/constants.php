@@ -1,7 +1,4 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 define('SWOOLE_VERSION', '4.4.6');
 define('SWOOLE_VERSION_ID', 40406);

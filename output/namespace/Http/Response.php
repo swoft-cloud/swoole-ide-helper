@@ -1,7 +1,4 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole\Http;
 
@@ -77,27 +74,27 @@ class Response
     public function setStatusCode(int $http_code, string $reason = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @param $ucwords
      * @return mixed
      */
-    public function header($key, $value, $ucwords = null){}
+    public function header(string $key, $value, $ucwords = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @param $ucwords
      * @return mixed
      */
-    public function setHeader($key, $value, $ucwords = null){}
+    public function setHeader(string $key, $value, $ucwords = null){}
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return mixed
      */
-    public function trailer($key, $value){}
+    public function trailer(string $key, $value){}
 
     /**
      * @return mixed

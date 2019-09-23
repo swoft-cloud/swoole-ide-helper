@@ -1,7 +1,4 @@
-<?php
-/**
- * @noinspection ALL - For disable PhpStorm check
- */
+<?php /** @noinspection ALL - For disable PhpStorm check */
 
 namespace Swoole\Coroutine\Http2;
 
@@ -42,10 +39,10 @@ class Client
     public function connect(){}
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function stats($key = null){}
+    public function stats(string $key = null){}
 
     /**
      * @param $stream_id
