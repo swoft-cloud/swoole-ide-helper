@@ -512,8 +512,8 @@ class ExtStubExporter
         // 获取属性定义
         $propString = $this->getPropertyDef($classname, $rftClass->getProperties(
             \ReflectionProperty::IS_PUBLIC |
-            ReflectionProperty::IS_PROTECTED |
-            ReflectionProperty::IS_STATIC
+            \ReflectionProperty::IS_PROTECTED |
+            \ReflectionProperty::IS_STATIC
         ));
 
         // 获取常量定义
@@ -522,10 +522,10 @@ class ExtStubExporter
         // 获取方法定义
         $methodString = $this->getMethodsDef($classname, $rftClass->getMethods(
             \ReflectionMethod::IS_PUBLIC |
-            ReflectionMethod::IS_PROTECTED |
-            ReflectionMethod::IS_STATIC |
-            ReflectionMethod::IS_ABSTRACT |
-            ReflectionMethod::IS_FINAL
+            \ReflectionMethod::IS_PROTECTED |
+            \ReflectionMethod::IS_STATIC |
+            \ReflectionMethod::IS_ABSTRACT |
+            \ReflectionMethod::IS_FINAL
         ));
 
         // build class line
