@@ -9,27 +9,12 @@ class Port
 {
 
     // property of the class Port
-    private $onConnect;
-    private $onReceive;
-    private $onClose;
-    private $onPacket;
-    private $onBufferFull;
-    private $onBufferEmpty;
-    private $onRequest;
-    private $onHandShake;
-    private $onOpen;
-    private $onMessage;
     public $host;
     public $port;
     public $type;
     public $sock;
     public $setting;
     public $connections;
-
-    /**
-     * @return mixed
-     */
-    private function __construct(){}
 
     /**
      * @param array $settings

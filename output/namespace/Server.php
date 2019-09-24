@@ -9,17 +9,6 @@ class Server
 {
 
     // property of the class Server
-    private $onStart;
-    private $onShutdown;
-    private $onWorkerStart;
-    private $onWorkerStop;
-    private $onWorkerExit;
-    private $onWorkerError;
-    private $onTask;
-    private $onFinish;
-    private $onManagerStart;
-    private $onManagerStop;
-    private $onPipeMessage;
     public $setting;
     public $connections;
     public $host;

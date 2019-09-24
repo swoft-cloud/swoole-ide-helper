@@ -21,8 +21,6 @@ class Server extends \Swoole\Server
     public $worker_id;
     public $taskworker;
     public $worker_pid;
-    private $onRequest;
-    private $onHandshake;
 
     /**
      * @param string $host

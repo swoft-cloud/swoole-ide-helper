@@ -510,13 +510,23 @@ class ExtStubExporter
     public function getClassDef(string $classname, $rftClass): string
     {
         // 获取属性定义
-        $propString = $this->getPropertyDef($classname, $rftClass->getProperties());
+        $propString = $this->getPropertyDef($classname, $rftClass->getProperties(
+            \ReflectionProperty::IS_PUBLIC |
+            ReflectionProperty::IS_PROTECTED |
+            ReflectionProperty::IS_STATIC
+        ));
 
         // 获取常量定义
         $constString = $this->getConstantsDef($classname, $rftClass->getConstants());
 
         // 获取方法定义
-        $methodString = $this->getMethodsDef($classname, $rftClass->getMethods());
+        $methodString = $this->getMethodsDef($classname, $rftClass->getMethods(
+            \ReflectionMethod::IS_PUBLIC |
+            ReflectionMethod::IS_PROTECTED |
+            ReflectionMethod::IS_STATIC |
+            ReflectionMethod::IS_ABSTRACT |
+            ReflectionMethod::IS_FINAL
+        ));
 
         // build class line
         $classLine = $classname;

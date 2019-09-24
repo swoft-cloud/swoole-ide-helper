@@ -17,7 +17,6 @@ class Client
     public $errCode;
     public $errMsg;
     public $fd;
-    private $socket;
     public $type;
     public $setting;
     public $connected;

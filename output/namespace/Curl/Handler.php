@@ -13,24 +13,6 @@ class Handler
 );
 
     // property of the class Handler
-    private $client;
-    private $info;
-    private $withHeaderOut;
-    private $withFileTime;
-    private $urlInfo;
-    private $postData;
-    private $outputStream;
-    private $proxy;
-    private $clientOptions;
-    private $followLocation;
-    private $autoReferer;
-    private $maxRedirs;
-    private $withHeader;
-    private $nobody;
-    private $headerFunction;
-    private $readFunction;
-    private $writeFunction;
-    private $progressFunction;
     public $returnTransfer;
     public $method;
     public $headers;
@@ -45,12 +27,6 @@ class Handler
     public function __construct($url = null){}
 
     /**
-     * @param string $url
-     * @return mixed
-     */
-    private function create(string $url){}
-
-    /**
      * @return mixed
      */
     public function execute(){}
@@ -59,18 +35,6 @@ class Handler
      * @return mixed
      */
     public function close(){}
-
-    /**
-     * @param $code
-     * @param $msg
-     * @return mixed
-     */
-    private function setError($code, $msg = null){}
-
-    /**
-     * @return mixed
-     */
-    private function getUrl(){}
 
     /**
      * @param int $opt
@@ -88,16 +52,4 @@ class Handler
      * @return mixed
      */
     public function getInfo(){}
-
-    /**
-     * @param array $parsedUrl
-     * @return mixed
-     */
-    private function unparseUrl(array $parsedUrl){}
-
-    /**
-     * @param string $location
-     * @return mixed
-     */
-    private function getRedirectUrl(string $location){}
 }

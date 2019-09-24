@@ -13,8 +13,6 @@ class ExitException extends \Swoole\Exception implements \Throwable
     protected $code;
     protected $file;
     protected $line;
-    private $flags;
-    private $status;
 
     /**
      * @return mixed
