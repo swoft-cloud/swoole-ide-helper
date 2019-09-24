@@ -116,10 +116,13 @@ final class TypeMeta
     public static $special = [
         // Server:sendMessage($message)
         'Server:sendMessage' => [
-            'message' => 'mixed'
+            'message' => 'mixed',
         ],
         'Server:addProcess'  => [
-            'process' => '\\' . Swoole\Process::class
+            'process' => '\\' . Swoole\Process::class,
+        ],
+        'Coroutine:getBackTrace'  => [
+            'options' => 'int',
         ],
     ];
 

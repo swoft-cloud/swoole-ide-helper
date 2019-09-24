@@ -31,7 +31,7 @@ class ExtStubExporter
         'function',
         'public',
         'protected',
-        'private'
+        'private',
     ];
 
     /**
@@ -289,12 +289,14 @@ class ExtStubExporter
             if ($params = $v->getParameters()) {
                 foreach ($params as $k1 => $p) {
                     $pName = $p->name;
-                    $pType = $this->getParameterType($p, $pName);
+                    $pType = $this->getParameterType($p, $pName, self::FUNC_PREFIX . $name);
 
                     $comment .= sprintf(' * @param %s$%s', $pType, $pName) . "\n";
                     $canType = $pType && $pType !== 'mixed ';
 
-                    if ($p->isOptional()) {
+                    if ($p->isVariadic()) {
+                        $fnArgs[] = sprintf('%s$%s', $canType ? $pType : '', $pName);
+                    } elseif ($p->isOptional()) {
                         $fnArgs[] = sprintf('%s$%s = null', $canType ? $pType : '', $pName);
                     } else {
                         $fnArgs[] = ($canType ? $pType : '') . '$' . $pName;
@@ -419,7 +421,9 @@ class ExtStubExporter
                     $comment .= sprintf('%s * @param %s$%s', $sp4, $pType, $pName) . "\n";
                     $canType = $pType && $pType !== 'mixed ';
 
-                    if ($p->isOptional()) {
+                    if ($p->isVariadic()) {
+                        $arguments[] = sprintf('%s$%s', ($canType ? $pType : ''), $pName);
+                    } elseif ($p->isOptional()) {
                         // var_dump('--------' . $methodName . ':' . $pName);
                         // if ($p->isDefaultValueAvailable()) {
                         //     var_dump($p->getDefaultValue());
@@ -545,6 +549,9 @@ PHP;
      */
     private function getParameterType(ReflectionParameter $p, string $name, string $mthKey = ''): string
     {
+        if ($p->isVariadic()) {
+            return '...';
+        }
         // has type
         if ($pt = $p->getType()) {
             $name = $pt->getName();
