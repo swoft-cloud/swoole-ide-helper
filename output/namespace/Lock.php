@@ -12,6 +12,7 @@ class Lock
     public const MUTEX = 3;
     public const SEM = 4;
     public const RWLOCK = 1;
+    public const SPINLOCK = 5;
 
     // property of the class Lock
     public $errCode;

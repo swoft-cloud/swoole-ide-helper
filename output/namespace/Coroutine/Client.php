@@ -10,8 +10,8 @@ class Client
     // constants of the class Client
     public const MSG_OOB = 1;
     public const MSG_PEEK = 2;
-    public const MSG_DONTWAIT = 128;
-    public const MSG_WAITALL = 64;
+    public const MSG_DONTWAIT = 64;
+    public const MSG_WAITALL = 256;
 
     // property of the class Client
     public $errCode;

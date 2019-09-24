@@ -66,6 +66,12 @@ class Process
     public static function daemon($nochdir = null, $noclose = null){}
 
     /**
+     * @param array $cpu_settings
+     * @return mixed
+     */
+    public static function setaffinity(array $cpu_settings){}
+
+    /**
      * @param array $settings
      * @return mixed
      */

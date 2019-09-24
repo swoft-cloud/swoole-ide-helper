@@ -10,8 +10,8 @@ class Client
     // constants of the class Client
     public const MSG_OOB = 1;
     public const MSG_PEEK = 2;
-    public const MSG_DONTWAIT = 128;
-    public const MSG_WAITALL = 64;
+    public const MSG_DONTWAIT = 64;
+    public const MSG_WAITALL = 256;
     public const SHUT_RDWR = 2;
     public const SHUT_RD = 0;
     public const SHUT_WR = 1;
