@@ -184,7 +184,7 @@ class ExtStubExporter
          * @var string          $className
          * @var ReflectionClass $ref
          */
-        foreach ($this->rftExt->getClasses() as $className => $ref) {
+        foreach ($this->rftExt->getClasses() + SwooleLibrary::loadLibClass() as $className => $ref) {
             // 短命名别名
             if (stripos($className, 'co\\') === 0) {
                 $this->exportShortAlias($className);
@@ -277,16 +277,17 @@ class ExtStubExporter
      */
     public function getFunctionsDef(): string
     {
-        $all = '';
+        $all = [];
         /** @var $v ReflectionFunction */
-        foreach ($this->rftExt->getFunctions() as $name => $v) {
+        foreach ($this->rftExt->getFunctions() + SwooleLibrary::loadLibFun() as $function) {
             $this->stats['function']++;
 
+            $inNamespace = $function->inNamespace();
+            $name = $inNamespace ? $function->getShortName() : $function->getName();
             $fnArgs  = [];
             $comment = "/**\n";
             $comment .= $this->getDescription($name, true);
-
-            if ($params = $v->getParameters()) {
+            if ($params = $function->getParameters()) {
                 foreach ($params as $k1 => $p) {
                     $pName = $p->name;
                     $pType = $this->getParameterType($p, $pName, self::FUNC_PREFIX . $name);
@@ -308,10 +309,29 @@ class ExtStubExporter
             $comment .= " */\n";
             $comment .= sprintf("function %s(%s){}\n\n", $name, implode(', ', $fnArgs));
 
-            $all .= $comment;
+            if ($inNamespace) {
+                $ns = $function->getNamespaceName();
+                $all[$ns] = ($all[$ns] ?? '') . $comment;
+            } else {
+                $all['_'] = ($all['_'] ?? '') . $comment;
+            }
+
         }
 
-        return $all;
+        $code = '';
+        foreach ($all as $ns => $funcCode) {
+            if ('_' === $ns) {
+                continue;
+            }
+            $funcCode = preg_replace('/\n/m', "\n" . self::SPACE4, $funcCode);
+            $code .= "namespace {$ns} {\n\n    {$funcCode}\n}\n\n";
+        }
+
+        if (isset($all['_'])) {
+            $code .= $all['_'];
+        }
+
+        return $code;
     }
 
     /***************************************************************************
@@ -364,11 +384,8 @@ class ExtStubExporter
 
         foreach ($consts as $k => $v) {
             $all .= "{$sp4}public const {$k} = ";
-            if (is_int($v)) {
-                $all .= "{$v};\n";
-            } else {
-                $all .= "'{$v}';\n";
-            }
+            $v = var_export($v, true);
+            $all .= "{$v};\n";
         }
 
         return $all;
@@ -390,7 +407,7 @@ class ExtStubExporter
         // var_dump("getMethodsDef: " . $classname);
         $all = [];
         $sp4 = self::SPACE4;
-        $tpl = "$sp4%s function %s(%s){}";
+        $tpl = "$sp4%s function %s(%s)";
 
         /**
          * @var string           $k The method name
@@ -444,6 +461,7 @@ class ExtStubExporter
             $comment   .= "$sp4 */\n";
             $modifiers = implode(' ', Reflection::getModifierNames($m->getModifiers()));
             $comment   .= sprintf($tpl, $modifiers, $methodName, implode(', ', $arguments));
+            $comment   .= $m->isAbstract() ? ';' : '{}';
 
             $all[] = $comment;
         }
@@ -518,7 +536,7 @@ class ExtStubExporter
         }
 
         $version   = $this->version;
-        $modifier  = $rftClass->isInterface() ? 'interface' : 'class';
+        $modifier  = $rftClass->isInterface() ? 'interface' : ($rftClass->isAbstract() ? 'abstract class' : 'class');
         $classBody = <<<PHP
 /**
  * @since $version

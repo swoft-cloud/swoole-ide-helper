@@ -2,6 +2,7 @@
 
 require __DIR__ . '/src/TypeMeta.php';
 require __DIR__ . '/src/ExtStubExporter.php';
+require __DIR__ . '/src/SwooleLibrary.php';
 
 // Create exporter
 $dumper = new ExtStubExporter();
