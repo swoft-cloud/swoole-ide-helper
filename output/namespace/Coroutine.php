@@ -79,11 +79,11 @@ class Coroutine
 
     /**
      * @param int $cid
-     * @param array $options
+     * @param int $options
      * @param int $limit
      * @return mixed
      */
-    public static function getBackTrace(int $cid = null, array $options = null, int $limit = null){}
+    public static function getBackTrace(int $cid = null, int $options = null, int $limit = null){}
 
     /**
      * @return \Swoole\Coroutine\Iterator
