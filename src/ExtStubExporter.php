@@ -14,14 +14,14 @@ use Swoole\Coroutine\Channel;
  */
 class ExtStubExporter
 {
-    public const METHOD   = 1;
+    public const METHOD = 1;
     public const PROPERTY = 2;
     public const CONSTANT = 3;
 
     public const SPACE4 = '    ';
     public const SPACE5 = '     ';
 
-    public const FUNC_PREFIX  = 'Func:';
+    public const FUNC_PREFIX = 'Func:';
     public const PHP_KEYWORDS = [
         // 'exit',
         'die',
@@ -31,7 +31,7 @@ class ExtStubExporter
         'function',
         'public',
         'protected',
-        'private'
+        'private',
     ];
 
     /**
@@ -296,7 +296,7 @@ class ExtStubExporter
 
                     if ($p->isVariadic()) {
                         $fnArgs[] = sprintf('%s$%s', $canType ? $pType : '', $pName);
-                    } elseif($p->isOptional()) {
+                    } elseif ($p->isOptional()) {
                         $fnArgs[] = sprintf('%s$%s = null', $canType ? $pType : '', $pName);
                     } else {
                         $fnArgs[] = ($canType ? $pType : '') . '$' . $pName;
