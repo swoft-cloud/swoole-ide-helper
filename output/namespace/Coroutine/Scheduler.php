@@ -13,18 +13,18 @@ class Scheduler
 
     /**
      * @param callable $func
-     * @param array $params
+     * @param ...$params
      * @return mixed
      */
-    public function add(callable $func, array $params = null){}
+    public function add(callable $func, ...$params){}
 
     /**
      * @param $n
      * @param callable $func
-     * @param array $params
+     * @param ...$params
      * @return mixed
      */
-    public function parallel($n, callable $func = null, array $params = null){}
+    public function parallel($n, callable $func = null, ...$params){}
 
     /**
      * @param array $settings

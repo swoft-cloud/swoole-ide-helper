@@ -31,10 +31,10 @@ function swoole_async_set(array $settings){}
 
 /**
  * @param callable $func
- * @param array $params
+ * @param ...$params
  * @return mixed
  */
-function swoole_coroutine_create(callable $func, array $params = null){}
+function swoole_coroutine_create(callable $func, ...$params){}
 
 /**
  * @param callable $callback
@@ -44,10 +44,10 @@ function swoole_coroutine_defer(callable $callback){}
 
 /**
  * @param callable $func
- * @param array $params
+ * @param ...$params
  * @return mixed
  */
-function go(callable $func, array $params = null){}
+function go(callable $func, ...$params){}
 
 /**
  * @param callable $callback

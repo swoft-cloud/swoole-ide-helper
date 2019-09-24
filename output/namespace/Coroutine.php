@@ -11,10 +11,10 @@ class Coroutine
 
     /**
      * @param callable $func
-     * @param array $params
+     * @param ...$params
      * @return mixed
      */
-    public static function create(callable $func, array $params = null){}
+    public static function create(callable $func, ...$params){}
 
     /**
      * @param mixed $callback
