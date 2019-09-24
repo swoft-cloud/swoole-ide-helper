@@ -528,8 +528,21 @@ class ExtStubExporter
 
         // interface classes
         if ($faceNames = $rftClass->getInterfaceNames()) {
-            $faceNames = array_filter($faceNames, function ($name) {
-                return $name !== 'Traversable';
+            $ignoreInterfaces = [];
+            foreach ($faceNames as $faceName) {
+                try {
+                    $ifRef = new ReflectionClass($faceName);
+                } catch (ReflectionException $e) {
+                    continue;
+                }
+                foreach ($faceNames as $subi => $subFaceName) {
+                    if ($ifRef->isSubclassOf($subFaceName)) {
+                        $ignoreInterfaces[] = $subFaceName;
+                    }
+                }
+            }
+            $faceNames = array_filter($faceNames, function ($name) use ($ignoreInterfaces) {
+                return !in_array($name, $ignoreInterfaces);
             });
 
             $classLine .= ' implements \\' . implode(', \\', $faceNames);
