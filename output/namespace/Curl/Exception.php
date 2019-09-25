@@ -1,28 +1,18 @@
 <?php /** @noinspection ALL - For disable PhpStorm check */
 
-namespace Swoole;
+namespace Swoole\Curl;
 
 /**
  * @since 4.4.6
  */
-class ExitException extends \Swoole\Exception implements \Throwable
+class Exception extends \Swoole\Exception implements \Throwable
 {
 
-    // property of the class ExitException
+    // property of the class Exception
     protected $message;
     protected $code;
     protected $file;
     protected $line;
-
-    /**
-     * @return mixed
-     */
-    public function getFlags(){}
-
-    /**
-     * @return mixed
-     */
-    public function getStatus(){}
 
     /**
      * @param string $message

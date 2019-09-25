@@ -24,13 +24,6 @@ class Client
     public $type;
     public $id;
     public $setting;
-    private $onConnect;
-    private $onError;
-    private $onReceive;
-    private $onClose;
-    private $onBufferFull;
-    private $onBufferEmpty;
-    private $onSSLReady;
 
     /**
      * @param $type

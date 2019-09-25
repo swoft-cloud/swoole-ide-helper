@@ -1,5 +1,29 @@
 <?php /** @noinspection ALL - For disable PhpStorm check */
 
+namespace Swoole\Coroutine {
+
+    /**
+     * @param callable $fn
+     * @param ...$args
+     * @return mixed
+     */
+    function run(callable $fn, ...$args){}
+    
+    
+}
+
+namespace Co {
+
+    /**
+     * @param callable $fn
+     * @param ...$args
+     * @return mixed
+     */
+    function run(callable $fn, ...$args){}
+    
+    
+}
+
 /**
  * Return swoole version. eg: 4.4.1
  * @return string
@@ -242,4 +266,114 @@ function swoole_timer_clear(int $timer_id){}
  * @return mixed
  */
 function swoole_timer_clear_all(){}
+
+/**
+ * @param string $string
+ * @return mixed
+ */
+function _string(string $string = null){}
+
+/**
+ * @param array $array
+ * @return mixed
+ */
+function _array(array $array = null){}
+
+/**
+ * @param string $string
+ * @return mixed
+ */
+function swoole_string(string $string = null){}
+
+/**
+ * @param array $array
+ * @return mixed
+ */
+function swoole_array(array $array = null){}
+
+/**
+ * @param array $array
+ * @param string $key
+ * @param $default_value
+ * @return mixed
+ */
+function swoole_array_default_value(array $array, string $key, $default_value = null){}
+
+/**
+ * @param string $command
+ * @param $output
+ * @param $returnVar
+ * @return mixed
+ */
+function swoole_exec(string $command, $output = null, $returnVar = null){}
+
+/**
+ * @param string $cmd
+ * @return mixed
+ */
+function swoole_shell_exec(string $cmd){}
+
+/**
+ * @param $url
+ * @return mixed
+ */
+function swoole_curl_init($url = null){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @param $opt
+ * @param $value
+ * @return mixed
+ */
+function swoole_curl_setopt(\Swoole\Curl\Handler $obj, $opt, $value){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @param $array
+ * @return mixed
+ */
+function swoole_curl_setopt_array(\Swoole\Curl\Handler $obj, $array){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @return mixed
+ */
+function swoole_curl_exec(\Swoole\Curl\Handler $obj){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @return mixed
+ */
+function swoole_curl_multi_getcontent(\Swoole\Curl\Handler $obj){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @return mixed
+ */
+function swoole_curl_close(\Swoole\Curl\Handler $obj){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @return mixed
+ */
+function swoole_curl_error(\Swoole\Curl\Handler $obj){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @return mixed
+ */
+function swoole_curl_errno(\Swoole\Curl\Handler $obj){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @return mixed
+ */
+function swoole_curl_reset(\Swoole\Curl\Handler $obj){}
+
+/**
+ * @param \Swoole\Curl\Handler $obj
+ * @param int $opt
+ * @return mixed
+ */
+function swoole_curl_getinfo(\Swoole\Curl\Handler $obj, int $opt = null){}
 

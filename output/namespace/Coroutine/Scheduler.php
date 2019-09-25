@@ -8,8 +8,6 @@ namespace Swoole\Coroutine;
 class Scheduler
 {
 
-    // property of the class Scheduler
-    private $_list;
 
     /**
      * @param callable $func
