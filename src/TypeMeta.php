@@ -1,5 +1,11 @@
 <?php declare(strict_types=1);
 
+namespace IDEHelper;
+
+use Swoole\Coroutine\Iterator;
+use Swoole\Coroutine\Socket;
+use Swoole\Process;
+
 /**
  * Class TypeMeta
  */
@@ -119,7 +125,7 @@ final class TypeMeta
             'message' => 'mixed',
         ],
         'Server:addProcess'  => [
-            'process' => '\\' . Swoole\Process::class,
+            'process' => '\\' . Process::class,
         ],
         'Coroutine:getBackTrace'  => [
             'options' => 'int',
@@ -130,10 +136,10 @@ final class TypeMeta
      * @var array
      */
     public static $returnTypes = [
-        'Process:exportSocket'   => '\\' . Swoole\Coroutine\Socket::class,
+        'Process:exportSocket'   => '\\' . Socket::class,
         'Channel:isEmpty'        => 'bool',
         'Channel:isFull'         => 'bool',
-        'Coroutine:list'         => '\\' . Swoole\Coroutine\Iterator::class,
+        'Coroutine:list'         => '\\' . Iterator::class,
         // functions
         'Func:swoole_cpu_num'    => 'int',
         'Func:swoole_version'    => 'string',

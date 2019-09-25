@@ -1,5 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
+namespace IDEHelper;
+
+use ReflectionClass;
+use ReflectionException;
+use ReflectionFunction;
+
+/**
+ * Class SwooleLibrary
+ */
 class SwooleLibrary
 {
     public const LIB_CLASS = [
@@ -48,7 +57,7 @@ class SwooleLibrary
     /**
      * @return ReflectionClass[]
      */
-    public static function loadLibClass()
+    public static function loadLibClass(): array
     {
         $libClass = [];
         foreach (self::LIB_CLASS as $className) {
@@ -65,7 +74,7 @@ class SwooleLibrary
         return $libClass;
     }
 
-    public static function loadLibFun()
+    public static function loadLibFun(): array
     {
         $libFun = [];
         foreach (self::LIB_FUNCTION as $funName) {

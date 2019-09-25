@@ -1,7 +1,21 @@
 <?php declare(strict_types=1);
 
+namespace IDEHelper;
+
+use Reflection;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionExtension;
+use ReflectionFunction;
+use ReflectionMethod;
+use ReflectionParameter;
+use ReflectionProperty;
+use RuntimeException;
+use function strpos;
 use Swoole\Coroutine;
 use Swoole\Coroutine\Channel;
+use Swoole\Process;
+use Throwable;
 
 /**
  * Class ExtDocsGenerator
@@ -98,6 +112,16 @@ class ExtStubExporter
     }
 
     /**
+     * @param string $lang
+     *
+     * @return self
+     */
+    public static function create(string $lang = 'en'): self
+    {
+        return new static($lang);
+    }
+
+    /**
      * Class constructor
      *
      * @param string $lang
@@ -122,7 +146,8 @@ class ExtStubExporter
             $this->config = [];
             $this->rftExt = null;
 
-            $this->println("\nExport Successful :)");
+            $this->println("\nStats Information:\n" . json_encode($this->stats, JSON_PRETTY_PRINT));
+            $this->println('Export Successful :)');
         } catch (Throwable $e) {
             $this->println("\nExport Failure!\nException:", $e->getMessage());
         }
@@ -278,6 +303,7 @@ class ExtStubExporter
     public function getFunctionsDef(): string
     {
         $all = [];
+
         /** @var $v ReflectionFunction */
         foreach ($this->rftExt->getFunctions() + SwooleLibrary::loadLibFun() as $function) {
             $this->stats['function']++;
@@ -511,9 +537,9 @@ class ExtStubExporter
     {
         // 获取属性定义
         $propString = $this->getPropertyDef($classname, $rftClass->getProperties(
-            \ReflectionProperty::IS_PUBLIC |
-            \ReflectionProperty::IS_PROTECTED |
-            \ReflectionProperty::IS_STATIC
+            ReflectionProperty::IS_PUBLIC |
+            ReflectionProperty::IS_PROTECTED |
+            ReflectionProperty::IS_STATIC
         ));
 
         // 获取常量定义
@@ -521,11 +547,11 @@ class ExtStubExporter
 
         // 获取方法定义
         $methodString = $this->getMethodsDef($classname, $rftClass->getMethods(
-            \ReflectionMethod::IS_PUBLIC |
-            \ReflectionMethod::IS_PROTECTED |
-            \ReflectionMethod::IS_STATIC |
-            \ReflectionMethod::IS_ABSTRACT |
-            \ReflectionMethod::IS_FINAL
+            ReflectionMethod::IS_PUBLIC |
+            ReflectionMethod::IS_PROTECTED |
+            ReflectionMethod::IS_STATIC |
+            ReflectionMethod::IS_ABSTRACT |
+            ReflectionMethod::IS_FINAL
         ));
 
         // build class line
@@ -545,21 +571,29 @@ class ExtStubExporter
                 } catch (ReflectionException $e) {
                     continue;
                 }
+
                 foreach ($faceNames as $subi => $subFaceName) {
                     if ($ifRef->isSubclassOf($subFaceName)) {
                         $ignoreInterfaces[] = $subFaceName;
                     }
                 }
             }
+
             $faceNames = array_filter($faceNames, function ($name) use ($ignoreInterfaces) {
-                return !in_array($name, $ignoreInterfaces);
+                return !in_array($name, $ignoreInterfaces, true);
             });
 
             $classLine .= ' implements \\' . implode(', \\', $faceNames);
         }
 
-        $version   = $this->version;
-        $modifier  = $rftClass->isInterface() ? 'interface' : ($rftClass->isAbstract() ? 'abstract class' : 'class');
+        $version  = $this->version;
+        $modifier = 'class';
+        if ($rftClass->isInterface()) {
+            $modifier = 'interface';
+        } elseif ($rftClass->isAbstract()) {
+            $modifier = 'abstract class';
+        }
+
         $classBody = <<<PHP
 /**
  * @since $version
@@ -597,7 +631,7 @@ PHP;
         if ($pt = $p->getType()) {
             $name = $pt->getName();
             if ($name === 'swoole_process') {
-                $name = Swoole\Process::class;
+                $name = Process::class;
             }
 
             // is class
@@ -681,6 +715,11 @@ PHP;
         } else {
             $returnText = TypeMeta::$returnTypes[$pathKey] ?? 'mixed';
         }
+
+        // class name
+        // if (strpos($returnText, '\\') > 0) {
+        //     $returnText = '\\' . $returnText;
+        // }
 
         return "{$indent}* @return {$returnText}\n";
     }
