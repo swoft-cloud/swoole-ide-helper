@@ -5,6 +5,18 @@ namespace IDEHelper;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
+use Swoole\ArrayObject;
+use Swoole\Constant;
+use Swoole\Coroutine\ObjectPool;
+use Swoole\Coroutine\Server;
+use Swoole\Coroutine\Server\Connection;
+use Swoole\Coroutine\WaitGroup;
+use Swoole\Curl\Exception;
+use Swoole\Curl\Handler;
+use Swoole\Http\StatusCode;
+use Swoole\StringObject;
+use function class_exists;
+use function function_exists;
 
 /**
  * Class SwooleLibrary
@@ -13,19 +25,19 @@ class SwooleLibrary
 {
     public const LIB_CLASS = [
         // library/core/Coroutine
-        'Swoole\\Coroutine\\WaitGroup',
-        'Swoole\\Coroutine\\Server',
-        'Swoole\\Coroutine\\Server\\Connection',
-        'Swoole\\Coroutine\\ObjectPool',
+        WaitGroup::class,
+        Server::class,
+        Connection::class,
+        ObjectPool::class,
         // library/core
-        'Swoole\\ArrayObject',
-        'Swoole\\StringObject',
-        'Swoole\\Constant',
+        ArrayObject::class,
+        StringObject::class,
+        Constant::class,
         // library/core/Curl
-        'Swoole\\Curl\\Exception',
-        'Swoole\\Curl\\Handler',
+        Exception::class,
+        Handler::class,
         // library/core/Http
-        'Swoole\\Http\\StatusCode',
+        StatusCode::class,
     ];
 
     public const LIB_FUNCTION = [
