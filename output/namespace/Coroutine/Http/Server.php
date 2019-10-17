@@ -3,7 +3,7 @@
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.4.7
+ * @since 4.4.8
  */
 class Server
 {

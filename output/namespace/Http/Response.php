@@ -3,7 +3,7 @@
 namespace Swoole\Http;
 
 /**
- * @since 4.4.7
+ * @since 4.4.8
  */
 class Response
 {
@@ -153,4 +153,9 @@ class Response
      * @return mixed
      */
     public function recv(){}
+
+    /**
+     * @return mixed
+     */
+    public function close(){}
 }

@@ -3,7 +3,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.7
+ * @since 4.4.8
  */
 class Process
 {
@@ -61,9 +61,10 @@ class Process
     /**
      * @param $nochdir
      * @param $noclose
+     * @param $pipes
      * @return mixed
      */
-    public static function daemon($nochdir = null, $noclose = null){}
+    public static function daemon($nochdir = null, $noclose = null, $pipes = null){}
 
     /**
      * @param array $cpu_settings

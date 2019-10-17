@@ -3,7 +3,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.7
+ * @since 4.4.8
  */
 class Context extends \ArrayObject implements \Countable, \Serializable, \ArrayAccess, \IteratorAggregate
 {

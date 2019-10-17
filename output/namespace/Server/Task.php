@@ -3,7 +3,7 @@
 namespace Swoole\Server;
 
 /**
- * @since 4.4.7
+ * @since 4.4.8
  */
 class Task
 {
@@ -19,4 +19,10 @@ class Task
      * @return mixed
      */
     public function finish($data){}
+
+    /**
+     * @param mixed $data
+     * @return mixed
+     */
+    public static function pack($data){}
 }

@@ -62,6 +62,13 @@ You can regenerate it locally. Of course, you must ensure that the `swoole` exte
 php dump.php
 ```
 
+By docker:
+
+```bash
+dc run -ti --rm -v /path/to/swoole-ide-helper:/var/www/swoft swoft/swoft bash
+php dump.php
+```
+
 ## LICENSE
 
 See [LICENSE](LICENSE)

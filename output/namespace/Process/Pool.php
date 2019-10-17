@@ -3,7 +3,7 @@
 namespace Swoole\Process;
 
 /**
- * @since 4.4.7
+ * @since 4.4.8
  */
 class Pool
 {

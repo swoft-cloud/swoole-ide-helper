@@ -3,7 +3,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.7
+ * @since 4.4.8
  */
 class Client
 {
@@ -28,9 +28,10 @@ class Client
     /**
      * @param $type
      * @param $async
+     * @param $id
      * @return mixed
      */
-    public function __construct($type, $async = null){}
+    public function __construct($type, $async = null, $id = null){}
 
     /**
      * @param array $settings
@@ -62,12 +63,6 @@ class Client
     public function send($data, $flag = null){}
 
     /**
-     * @param $dst_socket
-     * @return mixed
-     */
-    public function pipe($dst_socket){}
-
-    /**
      * @param string $filename
      * @param int $offset
      * @param int $length
@@ -84,36 +79,15 @@ class Client
     public function sendto(string $ip, int $port, $data){}
 
     /**
-     * @return mixed
-     */
-    public function sleep(){}
-
-    /**
-     * @return mixed
-     */
-    public function wakeup(){}
-
-    /**
-     * @return mixed
-     */
-    public function pause(){}
-
-    /**
-     * @return mixed
-     */
-    public function resume(){}
-
-    /**
      * @param $how
      * @return mixed
      */
     public function shutdown($how){}
 
     /**
-     * @param callable $callback
      * @return mixed
      */
-    public function enableSSL(callable $callback = null){}
+    public function enableSSL(){}
 
     /**
      * @return mixed
@@ -145,13 +119,6 @@ class Client
      * @return mixed
      */
     public function close($force = null){}
-
-    /**
-     * @param string $event_name
-     * @param callable $callback
-     * @return mixed
-     */
-    public function on(string $event_name, callable $callback){}
 
     /**
      * @return mixed
