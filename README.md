@@ -59,13 +59,14 @@ composer require --dev swoft/swoole-ide-helper:~4.4.2
 You can regenerate it locally. Of course, you must ensure that the `swoole` extension is already installed.
 
 ```bash
+cd /path/to/swoole-ide-helper
 php dump.php
 ```
 
 By docker:
 
 ```bash
-dc run -ti --rm -v /path/to/swoole-ide-helper:/var/www/swoft swoft/swoft bash
+docker run -ti --rm -v /path/to/swoole-ide-helper:/var/www/swoft swoft/swoft bash
 php dump.php
 ```
 
