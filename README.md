@@ -56,7 +56,9 @@ composer require --dev swoft/swoole-ide-helper:~4.4.2
 
 ## Build
 
-You can regenerate it locally. Of course, you must ensure that the `swoole` extension is already installed.
+You can regenerate it locally.
+
+Of course, you must ensure that the `swoole` extension is already installed.
 
 ```bash
 cd /path/to/swoole-ide-helper
