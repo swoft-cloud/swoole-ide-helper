@@ -366,21 +366,31 @@ class ExtStubExporter
      **************************************************************************/
 
     /**
-     * @param string $classname
-     * @param array  $props
+     * @param string          $classname
+     * @param ReflectionClass $rftClass
      *
      * @return string
      */
-    public function getPropertyDef(string $classname, array $props): string
+    public function getPropertyDef(string $classname, ReflectionClass $rftClass): string
     {
+        $props = $rftClass->getProperties(
+            ReflectionProperty::IS_PUBLIC |
+            ReflectionProperty::IS_PROTECTED |
+            ReflectionProperty::IS_STATIC
+        );
         if (!$props) {
             return '';
         }
 
         $propString = self::SPACE4 . "// property of the class $classname\n";
 
-        /** @var $prop ReflectionProperty */
+        $parentsClass = $rftClass->getParentClass();
+        $parentsClassName = $parentsClass ? $parentsClass->getName() : '';
+
         foreach ($props as $k => $prop) {
+            if ($prop->getDeclaringClass()->getName() === $parentsClassName) {
+                continue;
+            }
             $modifiers  = implode(' ', Reflection::getModifierNames($prop->getModifiers()));
             $propString .= self::SPACE4 . "{$modifiers} $" . $prop->name . ";\n";
         }
@@ -423,17 +433,28 @@ class ExtStubExporter
      **************************************************************************/
 
     /**
-     * @param string $classname
-     * @param array  $methods
+     * @param string          $classname
+     * @param ReflectionClass $rftClass
      *
      * @return string
      */
-    public function getMethodsDef(string $classname, array $methods): string
+    public function getMethodsDef(string $classname, ReflectionClass $rftClass): string
     {
+        $methods = $rftClass->getMethods(
+            ReflectionMethod::IS_PUBLIC |
+            ReflectionMethod::IS_PROTECTED |
+            ReflectionMethod::IS_STATIC |
+            ReflectionMethod::IS_ABSTRACT |
+            ReflectionMethod::IS_FINAL
+        );
+
         // var_dump("getMethodsDef: " . $classname);
         $all = [];
         $sp4 = self::SPACE4;
         $tpl = "$sp4%s function %s(%s)";
+
+        $parentsClass = $rftClass->getParentClass();
+        $parentsClassName = $parentsClass ? $parentsClass->getName() : '';
 
         /**
          * @var string           $k The method name
@@ -441,6 +462,9 @@ class ExtStubExporter
          */
         foreach ($methods as $k => $m) {
             if ($m->isFinal() || $m->isDestructor()) {
+                continue;
+            }
+            if ($m->getDeclaringClass()->getName() === $parentsClassName) {
                 continue;
             }
 
@@ -533,26 +557,16 @@ class ExtStubExporter
      *
      * @return string
      */
-    public function getClassDef(string $classname, $rftClass): string
+    public function getClassDef(string $classname, ReflectionClass $rftClass): string
     {
         // 获取属性定义
-        $propString = $this->getPropertyDef($classname, $rftClass->getProperties(
-            ReflectionProperty::IS_PUBLIC |
-            ReflectionProperty::IS_PROTECTED |
-            ReflectionProperty::IS_STATIC
-        ));
+        $propString = $this->getPropertyDef($classname, $rftClass);
 
         // 获取常量定义
         $constString = $this->getConstantsDef($classname, $rftClass->getConstants());
 
         // 获取方法定义
-        $methodString = $this->getMethodsDef($classname, $rftClass->getMethods(
-            ReflectionMethod::IS_PUBLIC |
-            ReflectionMethod::IS_PROTECTED |
-            ReflectionMethod::IS_STATIC |
-            ReflectionMethod::IS_ABSTRACT |
-            ReflectionMethod::IS_FINAL
-        ));
+        $methodString = $this->getMethodsDef($classname, $rftClass);
 
         // build class line
         $classLine = $classname;
