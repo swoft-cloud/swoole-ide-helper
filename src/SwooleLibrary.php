@@ -2,6 +2,7 @@
 
 namespace IDEHelper;
 
+use Co;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
@@ -24,6 +25,9 @@ use function function_exists;
 class SwooleLibrary
 {
     public const LIB_CLASS = [
+        // library/alias
+        Co\WaitGroup::class,
+        Co\Server::class,
         // library/core/Coroutine
         WaitGroup::class,
         Server::class,
