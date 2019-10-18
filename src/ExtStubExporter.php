@@ -7,6 +7,7 @@ use ReflectionClass;
 use ReflectionException;
 use ReflectionExtension;
 use ReflectionFunction;
+use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionParameter;
 use ReflectionProperty;
@@ -178,6 +179,7 @@ class ExtStubExporter
 
     /**
      * @param string $outDir
+     * @throws ReflectionException
      */
     public function doExport(string $outDir = ''): void
     {
@@ -299,6 +301,7 @@ class ExtStubExporter
 
     /**
      * @return string
+     * @throws ReflectionException
      */
     public function getFunctionsDef(): string
     {
@@ -315,25 +318,36 @@ class ExtStubExporter
             $comment .= $this->getDescription($name, true);
             if ($params = $function->getParameters()) {
                 foreach ($params as $k1 => $p) {
-                    $pName = $p->name;
-                    $pType = $this->getParameterType($p, $pName, self::FUNC_PREFIX . $name);
+                    [$pName, $pType, $default] = $this->getParame($function, $p);
+
+                    if (!empty($pType) && $pType !== '...') {
+                        $pType .= ' ';
+                    }
 
                     $comment .= sprintf(' * @param %s$%s', $pType, $pName) . "\n";
                     $canType = $pType && $pType !== 'mixed ';
 
-                    if ($p->isVariadic()) {
-                        $fnArgs[] = sprintf('%s$%s', $canType ? $pType : '', $pName);
-                    } elseif ($p->isOptional()) {
-                        $fnArgs[] = sprintf('%s$%s = null', $canType ? $pType : '', $pName);
+                    if (is_string($default)) {
+                        $fnArgs[] = sprintf('%s$%s = %s', $canType ? $pType : '', $pName, $default);
                     } else {
-                        $fnArgs[] = ($canType ? $pType : '') . '$' . $pName;
+                        $fnArgs[] = sprintf('%s$%s', $canType ? $pType : '', $pName);
                     }
                 }
             }
 
-            $comment .= $this->getReturnLine($name, true);
+            $returnType = $this->getReturnType($function);
+            if ($returnType) {
+                if ($returnType === 'mixed') {
+                    $return = '';
+                    $comment .= " * @return mixed\n";
+                } else {
+                    // $return = ": {$returnType}";
+                    $comment .= " * @return {$returnType}\n";
+                }
+            }
+
             $comment .= " */\n";
-            $comment .= sprintf("function %s(%s){}\n\n", $name, implode(', ', $fnArgs));
+            $comment .= sprintf("function %s(%s)%s{}\n\n", $name, implode(', ', $fnArgs), $return ?? '');
 
             if ($inNamespace) {
                 $ns = $function->getNamespaceName();
@@ -384,11 +398,10 @@ class ExtStubExporter
 
         $propString = self::SPACE4 . "// property of the class $classname\n";
 
-        $parentsClass = $rftClass->getParentClass();
-        $parentsClassName = $parentsClass ? $parentsClass->getName() : '';
+        $parentsClassNames = $this->getParentsClasss($rftClass);
 
         foreach ($props as $k => $prop) {
-            if ($prop->getDeclaringClass()->getName() === $parentsClassName) {
+            if ($parentsClassNames[$prop->getDeclaringClass()->getName()] ?? false) {
                 continue;
             }
             $modifiers  = implode(' ', Reflection::getModifierNames($prop->getModifiers()));
@@ -437,6 +450,7 @@ class ExtStubExporter
      * @param ReflectionClass $rftClass
      *
      * @return string
+     * @throws ReflectionException
      */
     public function getMethodsDef(string $classname, ReflectionClass $rftClass): string
     {
@@ -453,8 +467,7 @@ class ExtStubExporter
         $sp4 = self::SPACE4;
         $tpl = "$sp4%s function %s(%s)";
 
-        $parentsClass = $rftClass->getParentClass();
-        $parentsClassName = $parentsClass ? $parentsClass->getName() : '';
+        $parentsClassNames = $this->getParentsClasss($rftClass);
 
         /**
          * @var string           $k The method name
@@ -464,53 +477,55 @@ class ExtStubExporter
             if ($m->isFinal() || $m->isDestructor()) {
                 continue;
             }
-            if ($m->getDeclaringClass()->getName() === $parentsClassName) {
+            if ($parentsClassNames[$m->getDeclaringClass()->getName()] ?? false) {
                 continue;
             }
 
             $this->stats['method']++;
             $methodName = $m->name;
-            $methodKey  = "{$classname}:$methodName";
             if (self::isPHPKeyword($methodName)) {
                 $methodName = '_' . $methodName;
             }
 
-            $arguments = [];
+            $fnArgs = [];
 
             $comment = "$sp4/**\n";
-            $comment .= $this->getDescription($methodKey);
+            $comment .= $this->getDescription("{$classname}:$methodName");
 
             if ($params = $m->getParameters()) {
                 foreach ($params as $k1 => $p) {
-                    $pName = $p->name;
-                    $pType = $this->getParameterType($p, $pName, $methodKey);
+                    [$pName, $pType, $default] = $this->getParame($m, $p);
+
+                    if (!empty($pType) && $pType !== '...') {
+                        $pType .= ' ';
+                    }
 
                     $comment .= sprintf('%s * @param %s$%s', $sp4, $pType, $pName) . "\n";
                     $canType = $pType && $pType !== 'mixed ';
 
-                    if ($p->isVariadic()) {
-                        $arguments[] = sprintf('%s$%s', ($canType ? $pType : ''), $pName);
-                    } elseif ($p->isOptional()) {
-                        // var_dump('--------' . $methodName . ':' . $pName);
-                        // if ($p->isDefaultValueAvailable()) {
-                        //     var_dump($p->getDefaultValue());
-                        // }
-                        $arguments[] = sprintf('%s$%s = null', ($canType ? $pType : ''), $pName);
+                    if (is_string($default)) {
+                        $fnArgs[] = sprintf('%s$%s = %s', $canType ? $pType : '', $pName, $default);
                     } else {
-                        $arguments[] = ($canType ? $pType : '') . '$' . $pName;
+                        $fnArgs[] = sprintf('%s$%s', $canType ? $pType : '', $pName);
                     }
                 }
             }
 
-            if (!empty($config['return'])) {
-                $comment .= self::SPACE5 . "* @return {$config['return']}\n";
-            } else {
-                $comment .= $this->getReturnLine($methodKey);
+            $returnType = $this->getReturnType($m);
+            if ($returnType) {
+                if ($returnType === 'mixed') {
+                    $return = '';
+                    $comment .= self::SPACE5 . "* @return mixed\n";
+                } else {
+                    // $return = ": {$returnType}";
+                    $comment .= self::SPACE5 . "* @return {$returnType}\n";
+                }
             }
 
             $comment   .= "$sp4 */\n";
             $modifiers = implode(' ', Reflection::getModifierNames($m->getModifiers()));
-            $comment   .= sprintf($tpl, $modifiers, $methodName, implode(', ', $arguments));
+            $comment   .= sprintf($tpl, $modifiers, $methodName, implode(', ', $fnArgs));
+            $comment   .= $return ?? '';
             $comment   .= $m->isAbstract() ? ';' : '{}';
 
             $all[] = $comment;
@@ -522,6 +537,7 @@ class ExtStubExporter
     /**
      * @param string          $classname
      * @param ReflectionClass $ref
+     * @throws ReflectionException
      */
     public function exportNamespaceClass(string $classname, $ref): void
     {
@@ -556,6 +572,7 @@ class ExtStubExporter
      * @param ReflectionClass $rftClass
      *
      * @return string
+     * @throws ReflectionException
      */
     public function getClassDef(string $classname, ReflectionClass $rftClass): string
     {
@@ -630,61 +647,151 @@ PHP;
      **************************************************************************/
 
     /**
-     * @param ReflectionParameter $p
-     * @param string              $name
-     * @param string              $mthKey method key
-     *
+     * @param ReflectionClass $rftClass
+     * @return string[]
+     */
+    public function getParentsClasss(ReflectionClass $rftClass): array
+    {
+        $parentsClassNames = [];
+        $parentsClass = $rftClass->getParentClass();
+        do {
+            if ($parentsClass) {
+                $parentsClassNames[$parentsClass->getName()] = true;
+
+            } else {
+                break;
+            }
+        } while ($parentsClass = $parentsClass->getParentClass());
+        return $parentsClassNames;
+    }
+
+    /**
+     * @param ReflectionFunctionAbstract $function
      * @return string
      */
-    private function getParameterType(ReflectionParameter $p, string $name, string $mthKey = ''): string
+    public function getFunPathName(ReflectionFunctionAbstract $function): ?string
     {
-        if ($p->isVariadic()) {
-            return '...';
+        if ($function instanceof ReflectionFunction) {
+            $inNamespace = $function->inNamespace();
+            $name = $inNamespace ? $function->getShortName() : $function->getName();
+        } elseif ($function instanceof ReflectionMethod) {
+            $name = $function->getDeclaringClass()->getName() . '::' . $function->getName();
         }
-        // has type
-        if ($pt = $p->getType()) {
-            $name = $pt->getName();
-            if ($name === 'swoole_process') {
-                $name = Process::class;
-            }
+        return $name ?? null;
+    }
 
+    /**
+     * @param ReflectionFunctionAbstract $fun
+     * @param ReflectionParameter        $p
+     * @return array
+     * @throws ReflectionException
+     */
+    private function getParame(ReflectionFunctionAbstract $fun, ReflectionParameter $p): array
+    {
+        $pName = $p->getName();
+        $mthKey = $this->getFunPathName($fun);
+
+        if ($p->isVariadic()) {
+            $pType = '...';
+        } elseif ($pt = $p->getType()) {
+            $name = $pt->getName();
+            $name = TypeMeta::$classMapping[$name] ?? $name;
             // is class
             if (strpos($name, '\\') > 0) {
                 $name = '\\' . $name;
             }
-
-            return $name . ' ';
+            $pType = $name;
+        } elseif ($mthKey && isset(TypeMeta::$special[$mthKey][$pName])) {
+            $special = TypeMeta::$special[$mthKey][$pName];
+            if (is_array($special)) {
+                $pType = $special[0];
+                $pDefaultVal = $special[1];
+            } else {
+                $pType = TypeMeta::$special[$mthKey][$pName];
+            }
+        } else {
+            $pType = $this->getParameType($pName);
+        }
+        if (!$p->isVariadic() && $p->isOptional()) {
+            $pDefaultVal = $this->getParameDefaultValue($p, $pDefaultVal ?? null);
         }
 
-        if ($mthKey && isset(TypeMeta::$special[$mthKey][$name])) {
-            return TypeMeta::$special[$mthKey][$name] . ' ';
-        }
+        return [$pName, $pType, $pDefaultVal ?? null];
+    }
 
+    /**
+     * @param $name
+     * @return string
+     */
+    public function getParameType($name): string
+    {
         if (in_array($name, TypeMeta::INT, true)) {
-            return 'int ';
+            return 'int';
         }
 
         if (in_array($name, TypeMeta::STRING, true)) {
-            return 'string ';
+            return 'string';
         }
 
         if (in_array($name, TypeMeta::FLOAT, true)) {
-            return 'float ';
+            return 'float';
         }
 
         if (in_array($name, TypeMeta::BOOL, true)) {
-            return 'bool ';
+            return 'bool';
         }
 
         if (in_array($name, TypeMeta::ARRAY, true)) {
-            return 'array ';
+            return 'array';
         }
 
         if (in_array($name, TypeMeta::MIXED, true)) {
-            return 'mixed ';
+            return 'mixed';
         }
 
         return '';
+    }
+
+    /**
+     * 获取默认值
+     * @param ReflectionParameter $parameter
+     * @param null                $default
+     * @return string
+     * @throws ReflectionException
+     */
+    public function getParameDefaultValue(ReflectionParameter $parameter, $default = null): string
+    {
+        if ($parameter->isDefaultValueAvailable() && $parameter->isDefaultValueConstant()) {
+            $defaultValue = $parameter->getDefaultValueConstantName();
+            while (!defined($defaultValue)) {
+                $pos = strpos($defaultValue, '\\');
+                if (false !== $pos) {
+                    $defaultValue = substr($defaultValue, $pos + 1);
+                } else {
+                    $defaultValue = null;
+                }
+            }
+            if (null !== $defaultValue) {
+                return $defaultValue;
+            }
+        } elseif ($parameter->isDefaultValueAvailable()) {
+            $defaultValue = $parameter->getDefaultValue();
+        } else {
+            $defaultValue = $default;
+        }
+
+        if ([] === $defaultValue) {
+            $defaultValue = '[]';
+        } elseif ($defaultValue === null) {
+            $defaultValue = 'null';
+        } elseif (is_bool($defaultValue)) {
+            $defaultValue = $defaultValue ? 'true' : 'false';
+        } elseif (is_string($defaultValue) && defined($defaultValue)) {
+        } else {
+            // 使用 symfony/var-dumper 可以更好的渲染值
+            $defaultValue = var_export($defaultValue, true);
+        }
+        return $defaultValue;
     }
 
     /**
@@ -709,33 +816,26 @@ PHP;
     }
 
     /**
-     * Get return comment line
-     *
-     * @param string $pathKey
-     * @param bool   $isFunc
-     *
+     * @param ReflectionFunctionAbstract $function
      * @return string
      */
-    private function getReturnLine(string $pathKey, bool $isFunc = false): string
+    private function getReturnType(ReflectionFunctionAbstract $function): ?string
     {
-        $indent = self::SPACE5;
-        if ($isFunc) {
-            $indent  = ' ';
-            $pathKey = self::FUNC_PREFIX . $pathKey;
+        if (!$function->hasReturnType()) {
+            if ($function instanceof ReflectionFunction) {
+                $pathKey = self::FUNC_PREFIX . $this->getFunPathName($function);
+            } else {
+                $pathKey = $this->getFunPathName($function);
+            }
+            return TypeMeta::$returnTypes[$pathKey] ?? 'mixed';
         }
-
-        if (isset($this->config[$pathKey]['_return'])) {
-            $returnText = trim($this->config[$pathKey]['_return']);
+        $returnType = $function->getReturnType();
+        if (!$returnType->isBuiltin() && strpos((string) $returnType, '\\') > 0) {
+            $return = '\\' . (string) $returnType;
         } else {
-            $returnText = TypeMeta::$returnTypes[$pathKey] ?? 'mixed';
+            $return = (string) $returnType;
         }
-
-        // class name
-        // if (strpos($returnText, '\\') > 0) {
-        //     $returnText = '\\' . $returnText;
-        // }
-
-        return "{$indent}* @return {$returnText}\n";
+        return ($returnType->allowsNull() ? '?' : '') . $return;
     }
 
     /**

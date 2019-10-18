@@ -50,7 +50,7 @@ final class TypeMeta
      * @var array All float arguments name list
      */
     public const FLOAT = [
-        'timeout'
+        'timeout',
     ];
 
     /**
@@ -119,15 +119,30 @@ final class TypeMeta
         'cmp_function',
     ];
 
+    public static $classMapping = [
+        'swoole_process' => Process::class
+    ];
+
     public static $special = [
         // Server:sendMessage($message)
-        'Server:sendMessage' => [
+        'Swoole\\Server::__construct'     => [
+            'host'      => 'string',
+            'port'      => ['int', 0],
+            'mode'      => ['int', 'SWOOLE_PROCESS'],
+            'sock_type' => ['int', 'SWOOLE_SOCK_TCP'],
+        ],
+        'Swoole\\Server::addlistener'     => [
+            'host'      => 'string',
+            'port'      => 'int',
+            'sock_type' => ['int', 'SWOOLE_SOCK_TCP'],
+        ],
+        'Swoole\\Server::sendMessage'     => [
             'message' => 'mixed',
         ],
-        'Server:addProcess'  => [
+        'Swoole\\Server::addProcess'      => [
             'process' => '\\' . Process::class,
         ],
-        'Coroutine:getBackTrace'  => [
+        'Swoole\\Coroutine::getBackTrace' => [
             'options' => 'int',
         ],
     ];
@@ -136,14 +151,15 @@ final class TypeMeta
      * @var array
      */
     public static $returnTypes = [
-        'Process:exportSocket'   => '\\' . Socket::class,
-        'Channel:isEmpty'        => 'bool',
-        'Channel:isFull'         => 'bool',
-        'Coroutine:list'         => '\\' . Iterator::class,
+        'Swoole\\Server::send'                => 'bool',
+        'Swoole\\Process::exportSocket'       => '\\' . Socket::class,
+        'Swoole\\Coroutine\\Channel::isEmpty' => 'bool',
+        'Swoole\\Coroutine\\Channel::isFull'  => 'bool',
+        'Swoole\\Coroutine::list'             => '\\' . Iterator::class,
         // functions
-        'Func:swoole_cpu_num'    => 'int',
-        'Func:swoole_version'    => 'string',
-        'Func:swoole_last_error' => 'string',
-        'Func:swoole_strerror'   => 'string',
+        'Func:swoole_cpu_num'                 => 'int',
+        'Func:swoole_version'                 => 'string',
+        'Func:swoole_last_error'              => 'string',
+        'Func:swoole_strerror'                => 'string',
     ];
 }

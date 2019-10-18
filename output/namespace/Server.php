@@ -25,11 +25,11 @@ class Server
     /**
      * @param string $host
      * @param int $port
-     * @param $mode
-     * @param $sock_type
+     * @param int $mode
+     * @param int $sock_type
      * @return mixed
      */
-    public function __construct(string $host, int $port = null, $mode = null, $sock_type = null){}
+    public function __construct(string $host, int $port = 0, int $mode = SWOOLE_PROCESS, int $sock_type = SWOOLE_SOCK_TCP){}
 
     /**
      * @param string $host
@@ -42,10 +42,10 @@ class Server
     /**
      * @param string $host
      * @param int $port
-     * @param $sock_type
+     * @param int $sock_type
      * @return mixed
      */
-    public function addlistener(string $host, int $port, $sock_type){}
+    public function addlistener(string $host, int $port, int $sock_type = SWOOLE_SOCK_TCP){}
 
     /**
      * @param string $event_name
@@ -76,7 +76,7 @@ class Server
      * @param int $fd
      * @param string $send_data
      * @param int $server_socket
-     * @return bool If success return True, fail return False
+     * @return bool
      */
     public function send(int $fd, string $send_data, int $server_socket = null){}
 

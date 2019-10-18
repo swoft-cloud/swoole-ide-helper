@@ -21,7 +21,7 @@ class Connection
      * @param float $timeout
      * @return mixed
      */
-    public function recv(float $timeout = null){}
+    public function recv(float $timeout = 0){}
 
     /**
      * @param mixed $data

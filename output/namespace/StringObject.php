@@ -15,10 +15,10 @@ class StringObject
      * @param string $string
      * @return mixed
      */
-    public function __construct(string $string = null){}
+    public function __construct(string $string = ''){}
 
     /**
-     * @return mixed
+     * @return int
      */
     public function length(){}
 
@@ -27,28 +27,28 @@ class StringObject
      * @param int $offset
      * @return mixed
      */
-    public function indexOf(string $needle, int $offset = null){}
+    public function indexOf(string $needle, int $offset = 0){}
 
     /**
      * @param string $needle
      * @param int $offset
      * @return mixed
      */
-    public function lastIndexOf(string $needle, int $offset = null){}
+    public function lastIndexOf(string $needle, int $offset = 0){}
 
     /**
      * @param string $needle
      * @param int $offset
      * @return mixed
      */
-    public function pos(string $needle, int $offset = null){}
+    public function pos(string $needle, int $offset = 0){}
 
     /**
      * @param string $needle
      * @param int $offset
      * @return mixed
      */
-    public function rpos(string $needle, int $offset = null){}
+    public function rpos(string $needle, int $offset = 0){}
 
     /**
      * @param string $needle
@@ -57,34 +57,34 @@ class StringObject
     public function ipos(string $needle){}
 
     /**
-     * @return mixed
+     * @return self
      */
     public function lower(){}
 
     /**
-     * @return mixed
+     * @return self
      */
     public function upper(){}
 
     /**
-     * @return mixed
+     * @return self
      */
     public function trim(){}
 
     /**
-     * @return mixed
+     * @return self
      */
     public function lrim(){}
 
     /**
-     * @return mixed
+     * @return self
      */
     public function rtrim(){}
 
     /**
      * @param int $offset
      * @param ...$length
-     * @return mixed
+     * @return self
      */
     public function substr(int $offset, ...$length){}
 
@@ -98,53 +98,53 @@ class StringObject
      * @param string $search
      * @param string $replace
      * @param $count
-     * @return mixed
+     * @return self
      */
     public function replace(string $search, string $replace, $count = null){}
 
     /**
      * @param string $needle
-     * @return mixed
+     * @return bool
      */
     public function startsWith(string $needle){}
 
     /**
      * @param string $subString
-     * @return mixed
+     * @return bool
      */
     public function contains(string $subString){}
 
     /**
      * @param string $needle
-     * @return mixed
+     * @return bool
      */
     public function endsWith(string $needle){}
 
     /**
      * @param string $delimiter
      * @param int $limit
-     * @return mixed
+     * @return \Swoole\ArrayObject
      */
-    public function split(string $delimiter, int $limit = null){}
+    public function split(string $delimiter, int $limit = PHP_INT_MAX){}
 
     /**
      * @param int $index
-     * @return mixed
+     * @return string
      */
     public function char(int $index){}
 
     /**
      * @param int $chunkLength
      * @param string $chunkEnd
-     * @return mixed
+     * @return self
      */
-    public function chunkSplit(int $chunkLength = null, string $chunkEnd = null){}
+    public function chunkSplit(int $chunkLength = 1, string $chunkEnd = ''){}
 
     /**
      * @param $splitLength
-     * @return mixed
+     * @return \Swoole\ArrayObject
      */
-    public function chunk($splitLength = null){}
+    public function chunk($splitLength = 1){}
 
     /**
      * @return mixed
@@ -152,13 +152,13 @@ class StringObject
     public function toString(){}
 
     /**
-     * @return mixed
+     * @return string
      */
     public function __toString(){}
 
     /**
      * @param array $value
-     * @return mixed
+     * @return \Swoole\ArrayObject
      */
     protected static function detectArrayType(array $value){}
 }

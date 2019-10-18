@@ -269,27 +269,27 @@ function swoole_timer_clear_all(){}
 
 /**
  * @param string $string
- * @return mixed
+ * @return \Swoole\StringObject
  */
-function _string(string $string = null){}
+function _string(string $string = ''){}
 
 /**
  * @param array $array
- * @return mixed
+ * @return \Swoole\ArrayObject
  */
-function _array(array $array = null){}
+function _array(array $array = []){}
 
 /**
  * @param string $string
- * @return mixed
+ * @return \Swoole\StringObject
  */
-function swoole_string(string $string = null){}
+function swoole_string(string $string = ''){}
 
 /**
  * @param array $array
- * @return mixed
+ * @return \Swoole\ArrayObject
  */
-function swoole_array(array $array = null){}
+function swoole_array(array $array = []){}
 
 /**
  * @param array $array
@@ -297,7 +297,7 @@ function swoole_array(array $array = null){}
  * @param $default_value
  * @return mixed
  */
-function swoole_array_default_value(array $array, string $key, $default_value = null){}
+function swoole_array_default_value(array $array, string $key, $default_value = ''){}
 
 /**
  * @param string $command
@@ -315,7 +315,7 @@ function swoole_shell_exec(string $cmd){}
 
 /**
  * @param $url
- * @return mixed
+ * @return \Swoole\Curl\Handler
  */
 function swoole_curl_init($url = null){}
 
@@ -323,14 +323,14 @@ function swoole_curl_init($url = null){}
  * @param \Swoole\Curl\Handler $obj
  * @param $opt
  * @param $value
- * @return mixed
+ * @return bool
  */
 function swoole_curl_setopt(\Swoole\Curl\Handler $obj, $opt, $value){}
 
 /**
  * @param \Swoole\Curl\Handler $obj
  * @param $array
- * @return mixed
+ * @return bool
  */
 function swoole_curl_setopt_array(\Swoole\Curl\Handler $obj, $array){}
 
@@ -342,31 +342,31 @@ function swoole_curl_exec(\Swoole\Curl\Handler $obj){}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return ?string
  */
 function swoole_curl_multi_getcontent(\Swoole\Curl\Handler $obj){}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return void
  */
 function swoole_curl_close(\Swoole\Curl\Handler $obj){}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return string
  */
 function swoole_curl_error(\Swoole\Curl\Handler $obj){}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return int
  */
 function swoole_curl_errno(\Swoole\Curl\Handler $obj){}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return void
  */
 function swoole_curl_reset(\Swoole\Curl\Handler $obj){}
 
@@ -375,5 +375,5 @@ function swoole_curl_reset(\Swoole\Curl\Handler $obj){}
  * @param int $opt
  * @return mixed
  */
-function swoole_curl_getinfo(\Swoole\Curl\Handler $obj, int $opt = null){}
+function swoole_curl_getinfo(\Swoole\Curl\Handler $obj, int $opt = 0){}
 

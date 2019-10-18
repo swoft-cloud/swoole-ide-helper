@@ -32,19 +32,19 @@ class Handler
     public function execute(){}
 
     /**
-     * @return mixed
+     * @return void
      */
     public function close(){}
 
     /**
      * @param int $opt
      * @param $value
-     * @return mixed
+     * @return bool
      */
     public function setOption(int $opt, $value){}
 
     /**
-     * @return mixed
+     * @return void
      */
     public function reset(){}
 
