@@ -768,6 +768,7 @@ PHP;
                     $defaultValue = substr($defaultValue, $pos + 1);
                 } else {
                     $defaultValue = null;
+                    break;
                 }
             }
             if (null !== $defaultValue) {
