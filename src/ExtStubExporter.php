@@ -15,7 +15,6 @@ use RuntimeException;
 use function strpos;
 use Swoole\Coroutine;
 use Swoole\Coroutine\Channel;
-use Swoole\Process;
 use Throwable;
 
 /**
@@ -318,7 +317,7 @@ class ExtStubExporter
             $comment .= $this->getDescription($name, true);
             if ($params = $function->getParameters()) {
                 foreach ($params as $k1 => $p) {
-                    [$pName, $pType, $default] = $this->getParame($function, $p);
+                    [$pName, $pType, $default] = $this->getParameter($function, $p);
 
                     if (!empty($pType) && $pType !== '...') {
                         $pType .= ' ';
@@ -494,7 +493,7 @@ class ExtStubExporter
 
             if ($params = $m->getParameters()) {
                 foreach ($params as $k1 => $p) {
-                    [$pName, $pType, $default] = $this->getParame($m, $p);
+                    [$pName, $pType, $default] = $this->getParameter($m, $p);
 
                     if (!empty($pType) && $pType !== '...') {
                         $pType .= ' ';
@@ -686,7 +685,7 @@ PHP;
      * @return array
      * @throws ReflectionException
      */
-    private function getParame(ReflectionFunctionAbstract $fun, ReflectionParameter $p): array
+    private function getParameter(ReflectionFunctionAbstract $fun, ReflectionParameter $p): array
     {
         $pName = $p->getName();
         $mthKey = $this->getFunPathName($fun);
@@ -710,10 +709,10 @@ PHP;
                 $pType = TypeMeta::$special[$mthKey][$pName];
             }
         } else {
-            $pType = $this->getParameType($pName);
+            $pType = $this->getParameterType($pName);
         }
         if (!$p->isVariadic() && $p->isOptional()) {
-            $pDefaultVal = $this->getParameDefaultValue($p, $pDefaultVal ?? null);
+            $pDefaultVal = $this->getParameterDefaultValue($p, $pDefaultVal ?? null);
         }
 
         return [$pName, $pType, $pDefaultVal ?? null];
@@ -723,7 +722,7 @@ PHP;
      * @param $name
      * @return string
      */
-    public function getParameType($name): string
+    public function getParameterType($name): string
     {
         if (in_array($name, TypeMeta::INT, true)) {
             return 'int';
@@ -759,7 +758,7 @@ PHP;
      * @return string
      * @throws ReflectionException
      */
-    public function getParameDefaultValue(ReflectionParameter $parameter, $default = null): string
+    public function getParameterDefaultValue(ReflectionParameter $parameter, $default = null): string
     {
         if ($parameter->isDefaultValueAvailable() && $parameter->isDefaultValueConstant()) {
             $defaultValue = $parameter->getDefaultValueConstantName();
