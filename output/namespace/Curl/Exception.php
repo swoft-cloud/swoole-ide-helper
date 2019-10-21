@@ -8,7 +8,6 @@ namespace Swoole\Curl;
 class Exception extends \Swoole\Exception implements \Throwable
 {
 
-    // property of the class Exception
 
 
 }

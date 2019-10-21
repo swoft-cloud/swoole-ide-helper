@@ -8,7 +8,6 @@ namespace Swoole\Coroutine\Http2\Client;
 class Exception extends \Swoole\Exception implements \Throwable
 {
 
-    // property of the class Exception
 
 
 }

@@ -77,5 +77,5 @@ abstract class StatusCode
      * @param int $value
      * @return string
      */
-    public static function getReasonPhrase(int $value){}
+    public static function getReasonPhrase(int $value): string{}
 }

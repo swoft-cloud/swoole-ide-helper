@@ -8,7 +8,6 @@ namespace Swoole\WebSocket;
 class Server extends \Swoole\Http\Server
 {
 
-    // property of the class Server
 
     /**
      * @param int $fd

@@ -16,7 +16,6 @@ class Server extends \Swoole\Server
     public const SET = 5;
     public const MAP = 6;
 
-    // property of the class Server
 
     /**
      * @return mixed

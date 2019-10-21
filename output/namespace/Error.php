@@ -8,7 +8,6 @@ namespace Swoole;
 class Error extends \Error implements \Throwable
 {
 
-    // property of the class Error
 
 
 }

@@ -8,7 +8,6 @@ namespace Swoole;
 class ExitException extends \Swoole\Exception implements \Throwable
 {
 
-    // property of the class ExitException
 
     /**
      * @return mixed

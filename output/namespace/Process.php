@@ -158,7 +158,7 @@ class Process
     /**
      * @return \Swoole\Coroutine\Socket
      */
-    public function exportSocket(){}
+    public function exportSocket(): \Swoole\Coroutine\Socket{}
 
     /**
      * @param string $process_name

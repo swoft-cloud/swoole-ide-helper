@@ -8,7 +8,6 @@ namespace Swoole\Http;
 class Server extends \Swoole\Server
 {
 
-    // property of the class Server
 
     /**
      * @param int $ms

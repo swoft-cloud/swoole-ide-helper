@@ -8,7 +8,6 @@ namespace Swoole;
 class Exception extends \Exception implements \Throwable
 {
 
-    // property of the class Exception
 
 
 }

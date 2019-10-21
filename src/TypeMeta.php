@@ -2,6 +2,8 @@
 
 namespace IDEHelper;
 
+use Swoole\Coroutine;
+use Swoole\Coroutine\Channel;
 use Swoole\Coroutine\Iterator;
 use Swoole\Coroutine\Socket;
 use Swoole\Process;
@@ -120,46 +122,9 @@ final class TypeMeta
     ];
 
     public static $classMapping = [
-        'swoole_process' => Process::class
-    ];
-
-    public static $special = [
-        // Server:sendMessage($message)
-        'Swoole\\Server::__construct'     => [
-            'host'      => 'string',
-            'port'      => ['int', 0],
-            'mode'      => ['int', 'SWOOLE_PROCESS'],
-            'sock_type' => ['int', 'SWOOLE_SOCK_TCP'],
-        ],
-        'Swoole\\Server::addlistener'     => [
-            'host'      => 'string',
-            'port'      => 'int',
-            'sock_type' => ['int', 'SWOOLE_SOCK_TCP'],
-        ],
-        'Swoole\\Server::sendMessage'     => [
-            'message' => 'mixed',
-        ],
-        'Swoole\\Server::addProcess'      => [
-            'process' => '\\' . Process::class,
-        ],
-        'Swoole\\Coroutine::getBackTrace' => [
-            'options' => 'int',
-        ],
-    ];
-
-    /**
-     * @var array
-     */
-    public static $returnTypes = [
-        'Swoole\\Server::send'                => 'bool',
-        'Swoole\\Process::exportSocket'       => '\\' . Socket::class,
-        'Swoole\\Coroutine\\Channel::isEmpty' => 'bool',
-        'Swoole\\Coroutine\\Channel::isFull'  => 'bool',
-        'Swoole\\Coroutine::list'             => '\\' . Iterator::class,
-        // functions
-        'Func:swoole_cpu_num'                 => 'int',
-        'Func:swoole_version'                 => 'string',
-        'Func:swoole_last_error'              => 'string',
-        'Func:swoole_strerror'                => 'string',
+        'swoole_process'              => Process::class,
+        'co'                          => Coroutine::class,
+        'chan'                        => Channel::class,
+        'swoole_websocket_closeframe' => 'Swoole\\Websocket\\CloseFrame',
     ];
 }

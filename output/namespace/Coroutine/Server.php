@@ -32,21 +32,21 @@ class Server
      * @param array $setting
      * @return void
      */
-    public function set(array $setting){}
+    public function set(array $setting): void{}
 
     /**
      * @param callable $fn
      * @return void
      */
-    public function handle(callable $fn){}
+    public function handle(callable $fn): void{}
 
     /**
      * @return bool
      */
-    public function shutdown(){}
+    public function shutdown(): bool{}
 
     /**
      * @return bool
      */
-    public function start(){}
+    public function start(): bool{}
 }

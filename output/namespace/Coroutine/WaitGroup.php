@@ -22,16 +22,16 @@ class WaitGroup
      * @param int $delta
      * @return void
      */
-    public function add(int $delta = 1){}
+    public function add(int $delta = 1): void{}
 
     /**
      * @return void
      */
-    public function done(){}
+    public function done(): void{}
 
     /**
      * @param float $timeout
      * @return bool
      */
-    public function wait(float $timeout = -1){}
+    public function wait(float $timeout = -1): bool{}
 }

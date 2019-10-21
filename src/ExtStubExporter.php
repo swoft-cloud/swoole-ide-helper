@@ -15,7 +15,6 @@ use RuntimeException;
 use function strpos;
 use Swoole\Coroutine;
 use Swoole\Coroutine\Channel;
-use Throwable;
 
 /**
  * Class ExtDocsGenerator
@@ -28,25 +27,10 @@ use Throwable;
  */
 class ExtStubExporter
 {
-    public const METHOD   = 1;
-    public const PROPERTY = 2;
-    public const CONSTANT = 3;
-
     public const SPACE4 = '    ';
     public const SPACE5 = '     ';
 
-    public const FUNC_PREFIX  = 'Func:';
-    public const PHP_KEYWORDS = [
-        // 'exit',
-        'die',
-        'echo',
-        'class',
-        'interface',
-        'function',
-        'public',
-        'protected',
-        'private',
-    ];
+    public const FUNC_PREFIX = 'Func:';
 
     /**
      * @var string
@@ -74,14 +58,6 @@ class ExtStubExporter
     private $rftExt;
 
     /**
-     * [
-     *  'Server:send' => [
-     *      'desc' => '',
-     *      'var0' => 'int Description',
-     *      'var1' => 'string Description',
-     *  ],
-     * ]
-     *
      * @var array
      */
     private $config = [];
@@ -100,16 +76,6 @@ class ExtStubExporter
      * @var array Short alias class.
      */
     private $shortAliases = [];
-
-    /**
-     * @param string $word
-     *
-     * @return bool
-     */
-    public static function isPHPKeyword(string $word): bool
-    {
-        return in_array($word, self::PHP_KEYWORDS, true);
-    }
 
     /**
      * @param string $lang
@@ -134,23 +100,20 @@ class ExtStubExporter
 
     /**
      * @param string $outDir
+     * @throws ReflectionException
      */
     public function export(string $outDir = ''): void
     {
         $this->println('Generate IDE Helper Classes For Swoole Extension');
 
-        try {
-            $this->prepare();
-            $this->doExport($outDir);
+        $this->prepare();
+        $this->doExport($outDir);
 
-            $this->config = [];
-            $this->rftExt = null;
+        $this->config = [];
+        $this->rftExt = null;
 
-            $this->println("\nStats Information:\n" . json_encode($this->stats, JSON_PRETTY_PRINT));
-            $this->println('Export Successful :)');
-        } catch (Throwable $e) {
-            $this->println("\nExport Failure!\nException:", $e->getMessage());
-        }
+        $this->println("\nStats Information:\n" . json_encode($this->stats, JSON_PRETTY_PRINT));
+        $this->println('Export Successful :)');
     }
 
     /**
@@ -310,51 +273,14 @@ class ExtStubExporter
         foreach ($this->rftExt->getFunctions() + SwooleLibrary::loadLibFun() as $function) {
             $this->stats['function']++;
 
-            $inNamespace = $function->inNamespace();
-            $name = $inNamespace ? $function->getShortName() : $function->getName();
-            $fnArgs  = [];
-            $comment = "/**\n";
-            $comment .= $this->getDescription($name, true);
-            if ($params = $function->getParameters()) {
-                foreach ($params as $k1 => $p) {
-                    [$pName, $pType, $default] = $this->getParameter($function, $p);
+            $comment = $this->exportFunctions($function) . "\n\n";
 
-                    if (!empty($pType) && $pType !== '...') {
-                        $pType .= ' ';
-                    }
-
-                    $comment .= sprintf(' * @param %s$%s', $pType, $pName) . "\n";
-                    $canType = $pType && $pType !== 'mixed ';
-
-                    if (is_string($default)) {
-                        $fnArgs[] = sprintf('%s$%s = %s', $canType ? $pType : '', $pName, $default);
-                    } else {
-                        $fnArgs[] = sprintf('%s$%s', $canType ? $pType : '', $pName);
-                    }
-                }
-            }
-
-            $returnType = $this->getReturnType($function);
-            if ($returnType) {
-                if ($returnType === 'mixed') {
-                    $return = '';
-                    $comment .= " * @return mixed\n";
-                } else {
-                    // $return = ": {$returnType}";
-                    $comment .= " * @return {$returnType}\n";
-                }
-            }
-
-            $comment .= " */\n";
-            $comment .= sprintf("function %s(%s)%s{}\n\n", $name, implode(', ', $fnArgs), $return ?? '');
-
-            if ($inNamespace) {
-                $ns = $function->getNamespaceName();
+            if ($function->inNamespace()) {
+                $ns       = $function->getNamespaceName();
                 $all[$ns] = ($all[$ns] ?? '') . $comment;
             } else {
                 $all['_'] = ($all['_'] ?? '') . $comment;
             }
-
         }
 
         $code = '';
@@ -363,7 +289,7 @@ class ExtStubExporter
                 continue;
             }
             $funcCode = preg_replace('/\n/m', "\n" . self::SPACE4, $funcCode);
-            $code .= "namespace {$ns} {\n\n    {$funcCode}\n}\n\n";
+            $code     .= "namespace {$ns} {\n\n    {$funcCode}\n}\n\n";
         }
 
         if (isset($all['_'])) {
@@ -373,10 +299,19 @@ class ExtStubExporter
         return $code;
     }
 
-    /***************************************************************************
-     * Parse Class
-     * - Property Definition
-     **************************************************************************/
+    /**
+     * @param string $annotate
+     * @return array|null
+     */
+    public function parseAnnotate(string $annotate): ?array
+    {
+        $preg   = '/^(?<type>[\w\|\[\]\\\\]+)\s?(?:\((?<default>.+)\))?(?:\:(?<desc>[\S\s]+))?/m';
+        $result = preg_match_all($preg, $annotate, $matches);
+        if ($result) {
+            return ['type' => $matches['type'][0], 'default' => $matches['default'][0], 'desc' => $matches['desc'][0]];
+        };
+        return null;
+    }
 
     /**
      * @param string          $classname
@@ -395,25 +330,36 @@ class ExtStubExporter
             return '';
         }
 
-        $propString = self::SPACE4 . "// property of the class $classname\n";
+        $sp4        = self::SPACE4;
+        $propString = '';
 
         $parentsClassNames = $this->getParentsClasss($rftClass);
 
-        foreach ($props as $k => $prop) {
-            if ($parentsClassNames[$prop->getDeclaringClass()->getName()] ?? false) {
+        foreach ($props as $prop) {
+            $class = $prop->getDeclaringClass();
+            if ($parentsClassNames[$class->getName()] ?? false) {
+                // 跳过父类属性
                 continue;
             }
-            $modifiers  = implode(' ', Reflection::getModifierNames($prop->getModifiers()));
-            $propString .= self::SPACE4 . "{$modifiers} $" . $prop->name . ";\n";
+            $modifiers = implode(' ', Reflection::getModifierNames($prop->getModifiers()));
+            /** @var string $annotate */
+            $annotate = $this->config[$class->getName()]["\${$prop->getName()}"] ?? null;
+            if ($annotate && $result = $this->parseAnnotate($annotate)) {
+                $propString .= "{$sp4}/**\n";
+                if (!empty($result['desc'])) {
+                    $propString .= "{$sp4} * {$result['desc']}\n";
+                }
+                $propString .= "{$sp4} * @var {$result['type']}\n{$sp4} */\n";
+            }
+            $propString .= "{$sp4}{$modifiers} $" . $prop->name . ";\n";
+        }
+
+        if (!empty($propString)) {
+            $propString = "{$sp4}// property of the class $classname\n{$propString}";
         }
 
         return $propString;
     }
-
-    /***************************************************************************
-     * Parse Class
-     * - Constant Definition
-     **************************************************************************/
 
     /**
      * @param string $classname
@@ -421,28 +367,35 @@ class ExtStubExporter
      *
      * @return string
      */
-    public function getConstantsDef(string $classname, array $consts): string
+    public function getConstantsDef(string $classname, ReflectionClass $rftClass): string
     {
+        $consts = $rftClass->getReflectionConstants();
         if (!$consts) {
             return '';
         }
 
-        $all = self::SPACE4 . "// constants of the class $classname\n";
+        $all = '';
         $sp4 = self::SPACE4;
 
         foreach ($consts as $k => $v) {
-            $all .= "{$sp4}public const {$k} = ";
-            $v = var_export($v, true);
-            $all .= "{$v};\n";
+            if ($v->getModifiers() & ReflectionMethod::IS_PROTECTED
+                || $v->getModifiers() & ReflectionMethod::IS_PRIVATE
+            ) {
+                continue;
+            }
+            $modifiers = implode(' ', Reflection::getModifierNames($v->getModifiers()));
+            $all       .= "{$sp4}{$modifiers} const {$v->getName()} = ";
+            $v         = var_export($v->getValue(), true);
+            $all       .= "{$v};\n";
         }
+
+        if (!empty($all)) {
+            $all = "{$sp4}// constants of the class $classname\n{$all}";
+        }
+
 
         return $all;
     }
-
-    /***************************************************************************
-     * Parse Class
-     * - Method Definition
-     **************************************************************************/
 
     /**
      * @param string          $classname
@@ -451,7 +404,7 @@ class ExtStubExporter
      * @return string
      * @throws ReflectionException
      */
-    public function getMethodsDef(string $classname, ReflectionClass $rftClass): string
+    public function getMethodsDef(ReflectionClass $rftClass): string
     {
         $methods = $rftClass->getMethods(
             ReflectionMethod::IS_PUBLIC |
@@ -461,13 +414,8 @@ class ExtStubExporter
             ReflectionMethod::IS_FINAL
         );
 
-        // var_dump("getMethodsDef: " . $classname);
-        $all = [];
-        $sp4 = self::SPACE4;
-        $tpl = "$sp4%s function %s(%s)";
-
+        $all               = [];
         $parentsClassNames = $this->getParentsClasss($rftClass);
-
         /**
          * @var string           $k The method name
          * @var ReflectionMethod $m
@@ -479,58 +427,112 @@ class ExtStubExporter
             if ($parentsClassNames[$m->getDeclaringClass()->getName()] ?? false) {
                 continue;
             }
-
             $this->stats['method']++;
-            $methodName = $m->name;
-            if (self::isPHPKeyword($methodName)) {
-                $methodName = '_' . $methodName;
-            }
-
-            $fnArgs = [];
-
-            $comment = "$sp4/**\n";
-            $comment .= $this->getDescription("{$classname}:$methodName");
-
-            if ($params = $m->getParameters()) {
-                foreach ($params as $k1 => $p) {
-                    [$pName, $pType, $default] = $this->getParameter($m, $p);
-
-                    if (!empty($pType) && $pType !== '...') {
-                        $pType .= ' ';
-                    }
-
-                    $comment .= sprintf('%s * @param %s$%s', $sp4, $pType, $pName) . "\n";
-                    $canType = $pType && $pType !== 'mixed ';
-
-                    if (is_string($default)) {
-                        $fnArgs[] = sprintf('%s$%s = %s', $canType ? $pType : '', $pName, $default);
-                    } else {
-                        $fnArgs[] = sprintf('%s$%s', $canType ? $pType : '', $pName);
-                    }
-                }
-            }
-
-            $returnType = $this->getReturnType($m);
-            if ($returnType) {
-                if ($returnType === 'mixed') {
-                    $return = '';
-                    $comment .= self::SPACE5 . "* @return mixed\n";
-                } else {
-                    // $return = ": {$returnType}";
-                    $comment .= self::SPACE5 . "* @return {$returnType}\n";
-                }
-            }
-
-            $comment   .= "$sp4 */\n";
-            $modifiers = implode(' ', Reflection::getModifierNames($m->getModifiers()));
-            $comment   .= sprintf($tpl, $modifiers, $methodName, implode(', ', $fnArgs));
-            $comment   .= $return ?? '';
-            $comment   .= $m->isAbstract() ? ';' : '{}';
-
-            $all[] = $comment;
+            $all[] = $this->exportFunctions($m);
         }
 
         return implode("\n\n", $all);
+    }
+
+    /**
+     * @param ReflectionFunctionAbstract $func
+     * @return string
+     * @throws ReflectionException
+     */
+    public function exportFunctions(ReflectionFunctionAbstract $func): ?string
+    {
+        $isMethod = false;
+
+        if ($func instanceof ReflectionMethod) {
+            $isMethod = true;
+            $sp4      = self::SPACE4;
+            $class    = $func->getDeclaringClass();
+            $funcName = $func->getName();
+            /** @var array $config */
+            $config = $this->config[$class->getName()][$func->getName()] ?? null;
+        } elseif ($func instanceof ReflectionFunction) {
+            $sp4      = '';
+            $funcName = $func->inNamespace() ? $func->getShortName() : $func->getName();
+            /** @var array $config */
+            $config = $this->config[self::FUNC_PREFIX . $func->getName()] ?? null;
+        } else {
+            return null;
+        }
+
+        $isReference = $func->returnsReference() ? '&' : '';
+        $tpl         = "{$sp4}%s function {$isReference}%s(%s)";
+
+        $fnArgs  = [];
+        $comment = "$sp4/**\n";
+        if ($config['desc'] ?? null) {
+            $comment .= "$sp4 * {$config['desc']}\n";
+        }
+
+        if ($params = $func->getParameters()) {
+            foreach ($params as $k1 => $p) {
+                [$pName, $pType, $default, $desc] = $this->getParameter($p, $config);
+
+                if (!empty($pType) && $pType !== '...') {
+                    $pType .= ' ';
+                }
+                if (!empty($desc)) {
+                    $desc = ' ' . $desc;
+                }
+
+                $comment .= sprintf('%s * @param %s$%s%s', $sp4, $pType, $pName, $desc ?: '') . "\n";
+                if (trim($pType) === 'mixed' || false !== strpos($pType, '|')) {
+                    $pType = '';
+                }
+
+                if (is_string($default) || is_numeric($default)) {
+                    $fnArgs[] = sprintf('%s$%s = %s', $pType, $pName, $default);
+                } else {
+                    $fnArgs[] = sprintf('%s$%s', $pType, $pName);
+                }
+            }
+        }
+
+        $returnType = $this->getReturnType($func, $config);
+        if ($returnType) {
+            if ($annotate = $this->parseAnnotate($returnType)) {
+                $returnType = $annotate['type'] ?: 'mixed';
+                $returnDesc = $annotate['desc'];
+                $returnStr  = ": {$returnType}";
+                if (!empty($returnDesc)) {
+                    $returnDesc = ' ' . $returnDesc;
+                }
+            } elseif ($returnType === 'mixed') {
+                $returnStr = '';
+            } else {
+                $returnStr = ": {$returnType}";
+            }
+            $comment .= sprintf("%s * @return %s%s\n", $sp4, $returnType, $returnDesc ?? '');
+        }
+        if (isset($returnStr)
+            && ($returnStr === ': mixed'
+                || false !== strpos($returnStr, '|')
+                || false !== strpos($returnStr, '[]')
+            )
+        ) {
+            $returnStr = '';
+        }
+
+        $comment .= "$sp4 */\n";
+        if ($isMethod) {
+            $modifiers = implode(' ', Reflection::getModifierNames($func->getModifiers()));
+        } else {
+            $modifiers = '';
+        }
+        $comment .= sprintf($tpl, $modifiers, $funcName, implode(', ', $fnArgs));
+        $comment .= $returnStr ?? '';
+        if ($isMethod) {
+            $comment .= $func->isAbstract() ? ';' : '{}';
+        } else {
+            $comment .= '{}';
+        }
+
+
+        return $comment;
     }
 
     /**
@@ -556,11 +558,9 @@ class ExtStubExporter
         $dir  = dirname($path);
         $name = basename($path);
 
-        // var_dump($classname . '-'. $name);
         $this->stats['class']++;
         // create dir
         $this->createDir($dir);
-        // var_dump($classname);
 
         $content = "namespace {$ns};\n\n" . $this->getClassDef($name, $ref);
         $this->writePhpFile($path . '.php', $content);
@@ -579,10 +579,10 @@ class ExtStubExporter
         $propString = $this->getPropertyDef($classname, $rftClass);
 
         // 获取常量定义
-        $constString = $this->getConstantsDef($classname, $rftClass->getConstants());
+        $constString = $this->getConstantsDef($classname, $rftClass);
 
         // 获取方法定义
-        $methodString = $this->getMethodsDef($classname, $rftClass);
+        $methodString = $this->getMethodsDef($rftClass);
 
         // build class line
         $classLine = $classname;
@@ -652,7 +652,7 @@ PHP;
     public function getParentsClasss(ReflectionClass $rftClass): array
     {
         $parentsClassNames = [];
-        $parentsClass = $rftClass->getParentClass();
+        $parentsClass      = $rftClass->getParentClass();
         do {
             if ($parentsClass) {
                 $parentsClassNames[$parentsClass->getName()] = true;
@@ -672,7 +672,7 @@ PHP;
     {
         if ($function instanceof ReflectionFunction) {
             $inNamespace = $function->inNamespace();
-            $name = $inNamespace ? $function->getShortName() : $function->getName();
+            $name        = $inNamespace ? $function->getShortName() : $function->getName();
         } elseif ($function instanceof ReflectionMethod) {
             $name = $function->getDeclaringClass()->getName() . '::' . $function->getName();
         }
@@ -680,17 +680,22 @@ PHP;
     }
 
     /**
-     * @param ReflectionFunctionAbstract $fun
-     * @param ReflectionParameter        $p
+     * @param ReflectionParameter $p
      * @return array
      * @throws ReflectionException
      */
-    private function getParameter(ReflectionFunctionAbstract $fun, ReflectionParameter $p): array
+    private function getParameter(ReflectionParameter $p, ?array $config = null): array
     {
         $pName = $p->getName();
-        $mthKey = $this->getFunPathName($fun);
 
-        if ($p->isVariadic()) {
+        /** @var string $pAnnotate */
+        $pAnnotate = $config ? ($config["\${$p->getName()}"] ?? null) : null;
+
+        if ($pAnnotate && $annotate = $this->parseAnnotate($pAnnotate)) {
+            $pType       = $annotate['type'];
+            $pDefaultVal = $annotate['default'] ?: null;
+            $desc        = $annotate['desc'] ?: null;
+        } elseif ($p->isVariadic()) {
             $pType = '...';
         } elseif ($pt = $p->getType()) {
             $name = $pt->getName();
@@ -700,22 +705,14 @@ PHP;
                 $name = '\\' . $name;
             }
             $pType = $name;
-        } elseif ($mthKey && isset(TypeMeta::$special[$mthKey][$pName])) {
-            $special = TypeMeta::$special[$mthKey][$pName];
-            if (is_array($special)) {
-                $pType = $special[0];
-                $pDefaultVal = $special[1];
-            } else {
-                $pType = TypeMeta::$special[$mthKey][$pName];
-            }
         } else {
             $pType = $this->getParameterType($pName);
         }
-        if (!$p->isVariadic() && $p->isOptional()) {
+        if ((!$p->isVariadic() && $p->isOptional()) || isset($pDefaultVal)) {
             $pDefaultVal = $this->getParameterDefaultValue($p, $pDefaultVal ?? null);
         }
 
-        return [$pName, $pType, $pDefaultVal ?? null];
+        return [$pName, $pType, $pDefaultVal ?? null, $desc ?? null];
     }
 
     /**
@@ -755,10 +752,10 @@ PHP;
      * 获取默认值
      * @param ReflectionParameter $parameter
      * @param null                $default
-     * @return string
+     * @return string|int
      * @throws ReflectionException
      */
-    public function getParameterDefaultValue(ReflectionParameter $parameter, $default = null): string
+    public function getParameterDefaultValue(ReflectionParameter $parameter, $default = null)
     {
         if ($parameter->isDefaultValueAvailable() && $parameter->isDefaultValueConstant()) {
             $defaultValue = $parameter->getDefaultValueConstantName();
@@ -787,6 +784,7 @@ PHP;
         } elseif (is_bool($defaultValue)) {
             $defaultValue = $defaultValue ? 'true' : 'false';
         } elseif (is_string($defaultValue) && defined($defaultValue)) {
+        } elseif (is_numeric($defaultValue)) {
         } else {
             // 使用 symfony/var-dumper 可以更好的渲染值
             $defaultValue = var_export($defaultValue, true);
@@ -795,39 +793,16 @@ PHP;
     }
 
     /**
-     * @param string $key
-     * @param bool   $isFunc
-     *
-     * @return string
-     */
-    private function getDescription(string $key, bool $isFunc = false): string
-    {
-        $desc = '';
-        if ($isFunc) {
-            $key = self::FUNC_PREFIX . $key;
-        }
-
-        if (isset($this->config[$key]['_desc'])) {
-            $str  = $this->config[$key]['_desc'];
-            $desc = self::formatComment(ucfirst($str), $isFunc);
-        }
-
-        return $desc;
-    }
-
-    /**
      * @param ReflectionFunctionAbstract $function
      * @return string
      */
-    private function getReturnType(ReflectionFunctionAbstract $function): ?string
+    private function getReturnType(ReflectionFunctionAbstract $function, ?array $config): ?string
     {
         if (!$function->hasReturnType()) {
-            if ($function instanceof ReflectionFunction) {
-                $pathKey = self::FUNC_PREFIX . $this->getFunPathName($function);
-            } else {
-                $pathKey = $this->getFunPathName($function);
+            if ($config && ($config['return'] ?? null)) {
+                return $config['return'];
             }
-            return TypeMeta::$returnTypes[$pathKey] ?? 'mixed';
+            return 'mixed';
         }
         $returnType = $function->getReturnType();
         if (!$returnType->isBuiltin() && strpos((string) $returnType, '\\') > 0) {
@@ -836,45 +811,6 @@ PHP;
             $return = (string) $returnType;
         }
         return ($returnType->allowsNull() ? '?' : '') . $return;
-    }
-
-    /**
-     * @param string $comment
-     * @param bool   $isFunc
-     *
-     * @return string
-     */
-    public static function formatComment(string $comment, bool $isFunc = false): string
-    {
-        if (!$comment = trim($comment)) {
-            return '';
-        }
-
-        $indent = $isFunc ? ' ' : self::SPACE5;
-        $lines  = explode("\n", $comment);
-
-        foreach ($lines as &$li) {
-            // $li = $indent . '* '. ltrim($li, '*');
-            $li = $indent . '* ' . ltrim($li);
-        }
-
-        return implode("\n", $lines) . "\n";
-    }
-
-    /**
-     * @param string $comment
-     * @param bool   $isFunc
-     *
-     * @return string
-     */
-    public static function formatArgComment(string $comment, bool $isFunc = false): string
-    {
-        if (!$comment = trim($comment)) {
-            return '';
-        }
-
-        // TODO ...
-        return $comment;
     }
 
     /***************************************************************************
@@ -901,12 +837,7 @@ PHP;
      */
     private function writePhpFile(string $filepath, string $content): void
     {
-        $phpText = <<<PHP
-<?php /** @noinspection ALL - For disable PhpStorm check */
-
-$content
-PHP;
-
+        $phpText = "<?php /** @noinspection ALL - For disable PhpStorm check */\n\n{$content}";
         file_put_contents($filepath, $phpText);
     }
 
@@ -916,21 +847,5 @@ PHP;
     private function println(...$args): void
     {
         echo implode(' ', $args), "\n";
-    }
-
-    /**
-     * @return array
-     */
-    public function getStats(): array
-    {
-        return $this->stats;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExtName(): string
-    {
-        return $this->extName;
     }
 }
