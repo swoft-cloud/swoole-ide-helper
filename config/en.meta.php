@@ -1,7 +1,7 @@
 <?php
 
 return [
-// Class
+    // Class
     'Swoole\\Server'                    => [
         // class prop
         '$setting'     => 'array',
@@ -44,8 +44,14 @@ return [
         'exportSocket' => [
             'return' => '\\Swoole\\Coroutine\\Socket',
         ],
+        'signal'       => [
+            '$callback' => 'callable',
+        ],
     ],
     'Swoole\\Coroutine'                 => [
+        'defer'        => [
+            '$callback' => 'callback',
+        ],
         'list'         => [
             'return' => 'Swoole\Coroutine\Iterator',
         ],

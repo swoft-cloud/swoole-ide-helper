@@ -17,10 +17,10 @@ class Coroutine
     public static function create(callable $func, ...$params){}
 
     /**
-     * @param mixed $callback
+     * @param callback $callback
      * @return mixed
      */
-    public static function defer($callback){}
+    public static function defer(callback $callback){}
 
     /**
      * @param array $options

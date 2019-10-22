@@ -4,9 +4,8 @@ namespace IDEHelper;
 
 use Swoole\Coroutine;
 use Swoole\Coroutine\Channel;
-use Swoole\Coroutine\Iterator;
-use Swoole\Coroutine\Socket;
 use Swoole\Process;
+use Swoole\Websocket\CloseFrame;
 
 /**
  * Class TypeMeta
@@ -116,15 +115,12 @@ final class TypeMeta
 
     public const MIXED = [
         'data',
-        'func',
-        'callback',
-        'cmp_function',
     ];
 
     public static $classMapping = [
         'swoole_process'              => Process::class,
         'co'                          => Coroutine::class,
         'chan'                        => Channel::class,
-        'swoole_websocket_closeframe' => 'Swoole\\Websocket\\CloseFrame',
+        'swoole_websocket_closeframe' => CloseFrame::class,
     ];
 }
