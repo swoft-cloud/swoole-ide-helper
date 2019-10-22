@@ -86,9 +86,9 @@ class Coroutine
     public static function getBackTrace(int $cid = null, int $options = null, int $limit = null){}
 
     /**
-     * @return Swoole\Coroutine\Iterator
+     * @return \Swoole\Coroutine\Iterator
      */
-    public static function list(): Swoole\Coroutine\Iterator{}
+    public static function list(): \Swoole\Coroutine\Iterator{}
 
     /**
      * @return mixed

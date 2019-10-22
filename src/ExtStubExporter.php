@@ -28,7 +28,6 @@ use Swoole\Coroutine\Channel;
 class ExtStubExporter
 {
     public const SPACE4 = '    ';
-    public const SPACE5 = '     ';
 
     public const FUNC_PREFIX = 'Func:';
 
@@ -362,9 +361,8 @@ class ExtStubExporter
     }
 
     /**
-     * @param string $classname
-     * @param array  $consts
-     *
+     * @param string          $classname
+     * @param ReflectionClass $rftClass
      * @return string
      */
     public function getConstantsDef(string $classname, ReflectionClass $rftClass): string
@@ -398,7 +396,6 @@ class ExtStubExporter
     }
 
     /**
-     * @param string          $classname
      * @param ReflectionClass $rftClass
      *
      * @return string
@@ -459,9 +456,6 @@ class ExtStubExporter
             return null;
         }
 
-        $isReference = $func->returnsReference() ? '&' : '';
-        $tpl         = "{$sp4}%s function {$isReference}%s(%s)";
-
         $fnArgs  = [];
         $comment = "$sp4/**\n";
         if ($config['desc'] ?? null) {
@@ -496,25 +490,19 @@ class ExtStubExporter
         if ($returnType) {
             if ($annotate = $this->parseAnnotate($returnType)) {
                 $returnType = $annotate['type'] ?: 'mixed';
-                $returnDesc = $annotate['desc'];
-                $returnStr  = ": {$returnType}";
-                if (!empty($returnDesc)) {
-                    $returnDesc = ' ' . $returnDesc;
+                if (!empty($annotate['desc'])) {
+                    $returnDesc = ' ' . $annotate['desc'];
                 }
-            } elseif ($returnType === 'mixed') {
-                $returnStr = '';
-            } else {
-                $returnStr = ": {$returnType}";
             }
+            $returnType = $this->paddingNsRoot($returnType);
             $comment .= sprintf("%s * @return %s%s\n", $sp4, $returnType, $returnDesc ?? '');
         }
-        if (isset($returnStr)
-            && ($returnStr === ': mixed'
-                || false !== strpos($returnStr, '|')
-                || false !== strpos($returnStr, '[]')
-            )
+        if (!empty($returnType)
+            && $returnType !== 'mixed'
+            && false === strpos($returnType, '|')
+            && false === strpos($returnType, '[]')
         ) {
-            $returnStr = '';
+            $returnStr = ": {$returnType}";
         }
 
         $comment .= "$sp4 */\n";
@@ -523,6 +511,12 @@ class ExtStubExporter
         } else {
             $modifiers = '';
         }
+        if (!empty($modifiers)) {
+            $modifiers .= ' ';
+        }
+
+        $isReference = $func->returnsReference() ? '&' : '';
+        $tpl = "{$sp4}%sfunction {$isReference}%s(%s)";
         $comment .= sprintf($tpl, $modifiers, $funcName, implode(', ', $fnArgs));
         $comment .= $returnStr ?? '';
         if ($isMethod) {
@@ -665,22 +659,27 @@ PHP;
     }
 
     /**
-     * @param ReflectionFunctionAbstract $function
+     * @param string $type
      * @return string
      */
-    public function getFunPathName(ReflectionFunctionAbstract $function): ?string
+    private function paddingNsRoot(string $type)
     {
-        if ($function instanceof ReflectionFunction) {
-            $inNamespace = $function->inNamespace();
-            $name        = $inNamespace ? $function->getShortName() : $function->getName();
-        } elseif ($function instanceof ReflectionMethod) {
-            $name = $function->getDeclaringClass()->getName() . '::' . $function->getName();
+        if (strpos($type, '|') > 0) {
+            $types = explode('|', $type);
+            $types = array_map([$this, 'paddingNsRoot'], $types);
+            return implode('|', $types);
         }
-        return $name ?? null;
+        // is class
+        $pos = strpos($type, '\\');
+        if ($pos > 0 || (0 !== $pos && class_exists($type))) {
+            $type = '\\' . $type;
+        }
+        return $type;
     }
 
     /**
      * @param ReflectionParameter $p
+     * @param array|null          $config
      * @return array
      * @throws ReflectionException
      */
@@ -695,19 +694,20 @@ PHP;
             $pType       = $annotate['type'];
             $pDefaultVal = $annotate['default'] ?: null;
             $desc        = $annotate['desc'] ?: null;
+
         } elseif ($p->isVariadic()) {
             $pType = '...';
         } elseif ($pt = $p->getType()) {
             $name = $pt->getName();
             $name = TypeMeta::$classMapping[$name] ?? $name;
-            // is class
-            if (strpos($name, '\\') > 0) {
-                $name = '\\' . $name;
-            }
             $pType = $name;
         } else {
             $pType = $this->getParameterType($pName);
         }
+
+        // is class
+        $pType = $this->paddingNsRoot($pType);
+
         if ((!$p->isVariadic() && $p->isOptional()) || isset($pDefaultVal)) {
             $pDefaultVal = $this->getParameterDefaultValue($p, $pDefaultVal ?? null);
         }
@@ -794,6 +794,7 @@ PHP;
 
     /**
      * @param ReflectionFunctionAbstract $function
+     * @param array|null                 $config
      * @return string
      */
     private function getReturnType(ReflectionFunctionAbstract $function, ?array $config): ?string
