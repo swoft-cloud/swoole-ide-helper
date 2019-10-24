@@ -9,5 +9,9 @@
   ],
   "description": "IDE helper for Swoft and Swoole",
   "license": "Apache-2.0",
+  "require": {
+    "php": ">=7.1",
+    "ext-json": "*"
+  },
   "require-dev": {}
 }

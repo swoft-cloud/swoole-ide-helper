@@ -39,10 +39,10 @@ class Process
 
     /**
      * @param int $signal_no
-     * @param mixed $callback
+     * @param callable $callback
      * @return mixed
      */
-    public static function signal(int $signal_no, $callback){}
+    public static function signal(int $signal_no, callable $callback){}
 
     /**
      * @param $usec
@@ -158,7 +158,7 @@ class Process
     /**
      * @return \Swoole\Coroutine\Socket
      */
-    public function exportSocket(){}
+    public function exportSocket(): \Swoole\Coroutine\Socket{}
 
     /**
      * @param string $process_name

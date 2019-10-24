@@ -25,25 +25,25 @@ namespace Co {
 }
 
 /**
- * Return swoole version. eg: 4.4.1
  * @return string
  */
-function swoole_version(){}
+function swoole_version(): string{}
 
 /**
  * @return int
  */
-function swoole_cpu_num(){}
+function swoole_cpu_num(): int{}
 
 /**
  * @return string
  */
-function swoole_last_error(){}
+function swoole_last_error(): string{}
 
 /**
- * @param string $domain_name
- * @param float $timeout
- * @return mixed
+ * 协程DNS查询
+ * @param string $domain_name 域名
+ * @param float $timeout 设置超时, 单位为秒
+ * @return string|false 失败返回false，可使用swoole_errno和swoole_last_error得到错误信息
  */
 function swoole_async_dns_lookup_coro(string $domain_name, float $timeout = null){}
 
@@ -114,11 +114,11 @@ function swoole_get_local_ip(){}
 function swoole_get_local_mac(){}
 
 /**
- * @param $errno
- * @param $error_type
+ * @param int $errno
+ * @param int $error_type
  * @return string
  */
-function swoole_strerror($errno, $error_type = null){}
+function swoole_strerror(int $errno, int $error_type = 1): string{}
 
 /**
  * @return mixed
@@ -269,27 +269,27 @@ function swoole_timer_clear_all(){}
 
 /**
  * @param string $string
- * @return mixed
+ * @return \Swoole\StringObject
  */
-function _string(string $string = null){}
+function _string(string $string = ''): \Swoole\StringObject{}
 
 /**
  * @param array $array
- * @return mixed
+ * @return \Swoole\ArrayObject
  */
-function _array(array $array = null){}
+function _array(array $array = []): \Swoole\ArrayObject{}
 
 /**
  * @param string $string
- * @return mixed
+ * @return \Swoole\StringObject
  */
-function swoole_string(string $string = null){}
+function swoole_string(string $string = ''): \Swoole\StringObject{}
 
 /**
  * @param array $array
- * @return mixed
+ * @return \Swoole\ArrayObject
  */
-function swoole_array(array $array = null){}
+function swoole_array(array $array = []): \Swoole\ArrayObject{}
 
 /**
  * @param array $array
@@ -297,7 +297,7 @@ function swoole_array(array $array = null){}
  * @param $default_value
  * @return mixed
  */
-function swoole_array_default_value(array $array, string $key, $default_value = null){}
+function swoole_array_default_value(array $array, string $key, $default_value = ''){}
 
 /**
  * @param string $command
@@ -315,24 +315,24 @@ function swoole_shell_exec(string $cmd){}
 
 /**
  * @param $url
- * @return mixed
+ * @return \Swoole\Curl\Handler
  */
-function swoole_curl_init($url = null){}
+function swoole_curl_init($url = null): \Swoole\Curl\Handler{}
 
 /**
  * @param \Swoole\Curl\Handler $obj
  * @param $opt
  * @param $value
- * @return mixed
+ * @return bool
  */
-function swoole_curl_setopt(\Swoole\Curl\Handler $obj, $opt, $value){}
+function swoole_curl_setopt(\Swoole\Curl\Handler $obj, $opt, $value): bool{}
 
 /**
  * @param \Swoole\Curl\Handler $obj
  * @param $array
- * @return mixed
+ * @return bool
  */
-function swoole_curl_setopt_array(\Swoole\Curl\Handler $obj, $array){}
+function swoole_curl_setopt_array(\Swoole\Curl\Handler $obj, $array): bool{}
 
 /**
  * @param \Swoole\Curl\Handler $obj
@@ -342,38 +342,38 @@ function swoole_curl_exec(\Swoole\Curl\Handler $obj){}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return ?string
  */
-function swoole_curl_multi_getcontent(\Swoole\Curl\Handler $obj){}
+function swoole_curl_multi_getcontent(\Swoole\Curl\Handler $obj): ?string{}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return void
  */
-function swoole_curl_close(\Swoole\Curl\Handler $obj){}
+function swoole_curl_close(\Swoole\Curl\Handler $obj): void{}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return string
  */
-function swoole_curl_error(\Swoole\Curl\Handler $obj){}
+function swoole_curl_error(\Swoole\Curl\Handler $obj): string{}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return int
  */
-function swoole_curl_errno(\Swoole\Curl\Handler $obj){}
+function swoole_curl_errno(\Swoole\Curl\Handler $obj): int{}
 
 /**
  * @param \Swoole\Curl\Handler $obj
- * @return mixed
+ * @return void
  */
-function swoole_curl_reset(\Swoole\Curl\Handler $obj){}
+function swoole_curl_reset(\Swoole\Curl\Handler $obj): void{}
 
 /**
  * @param \Swoole\Curl\Handler $obj
  * @param int $opt
  * @return mixed
  */
-function swoole_curl_getinfo(\Swoole\Curl\Handler $obj, int $opt = null){}
+function swoole_curl_getinfo(\Swoole\Curl\Handler $obj, int $opt = 0){}
 

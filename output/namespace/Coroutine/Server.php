@@ -26,27 +26,27 @@ class Server
      * @param bool $reuse_port
      * @return mixed
      */
-    public function __construct(string $host, int $port = null, bool $ssl = null, bool $reuse_port = null){}
+    public function __construct(string $host, int $port = 0, bool $ssl = false, bool $reuse_port = false){}
 
     /**
      * @param array $setting
-     * @return mixed
+     * @return void
      */
-    public function set(array $setting){}
+    public function set(array $setting): void{}
 
     /**
      * @param callable $fn
-     * @return mixed
+     * @return void
      */
-    public function handle(callable $fn){}
+    public function handle(callable $fn): void{}
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function shutdown(){}
+    public function shutdown(): bool{}
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function start(){}
+    public function start(): bool{}
 }

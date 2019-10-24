@@ -20,18 +20,18 @@ class WaitGroup
 
     /**
      * @param int $delta
-     * @return mixed
+     * @return void
      */
-    public function add(int $delta = null){}
+    public function add(int $delta = 1): void{}
 
     /**
-     * @return mixed
+     * @return void
      */
-    public function done(){}
+    public function done(): void{}
 
     /**
      * @param float $timeout
-     * @return mixed
+     * @return bool
      */
-    public function wait(float $timeout = null){}
+    public function wait(float $timeout = -1): bool{}
 }

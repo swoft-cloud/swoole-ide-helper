@@ -17,10 +17,10 @@ class Coroutine
     public static function create(callable $func, ...$params){}
 
     /**
-     * @param mixed $callback
+     * @param callback $callback
      * @return mixed
      */
-    public static function defer($callback){}
+    public static function defer(callback $callback){}
 
     /**
      * @param array $options
@@ -81,14 +81,14 @@ class Coroutine
      * @param int $cid
      * @param int $options
      * @param int $limit
-     * @return mixed
+     * @return array|false
      */
     public static function getBackTrace(int $cid = null, int $options = null, int $limit = null){}
 
     /**
      * @return \Swoole\Coroutine\Iterator
      */
-    public static function list(){}
+    public static function list(): \Swoole\Coroutine\Iterator{}
 
     /**
      * @return mixed

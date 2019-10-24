@@ -9,27 +9,55 @@ class Server
 {
 
     // property of the class Server
+    /**
+     * @var array
+     */
     public $setting;
+    /**
+     * TCP连接迭代器
+     * @var Swoole\Coroutine\Iterator
+     */
     public $connections;
     public $host;
     public $port;
     public $type;
     public $mode;
+    /**
+     * 监听端口数组
+     * @var Swoole\Server\Port[]
+     */
     public $ports;
+    /**
+     * 当前服务器主进程的PID
+     * @var int
+     */
     public $master_pid;
+    /**
+     * 当前服务器管理进程的PID
+     * @var int
+     */
     public $manager_pid;
+    /**
+     * @var int
+     */
     public $worker_id;
+    /**
+     * @var bool
+     */
     public $taskworker;
+    /**
+     * @var int
+     */
     public $worker_pid;
 
     /**
      * @param string $host
      * @param int $port
-     * @param $mode
-     * @param $sock_type
+     * @param int $mode
+     * @param int $sock_type
      * @return mixed
      */
-    public function __construct(string $host, int $port = null, $mode = null, $sock_type = null){}
+    public function __construct(string $host, int $port = null, int $mode = SWOOLE_PROCESS, int $sock_type = SWOOLE_SOCK_TCP){}
 
     /**
      * @param string $host
@@ -42,10 +70,10 @@ class Server
     /**
      * @param string $host
      * @param int $port
-     * @param $sock_type
+     * @param int $sock_type
      * @return mixed
      */
-    public function addlistener(string $host, int $port, $sock_type){}
+    public function addlistener(string $host, int $port, int $sock_type = SWOOLE_SOCK_TCP){}
 
     /**
      * @param string $event_name
@@ -72,13 +100,13 @@ class Server
     public function start(){}
 
     /**
-     * Send data to the client
-     * @param int $fd
+     * send data to the client
+     * @param int|string $fd
      * @param string $send_data
      * @param int $server_socket
      * @return bool If success return True, fail return False
      */
-    public function send(int $fd, string $send_data, int $server_socket = null){}
+    public function send($fd, string $send_data, int $server_socket = -1): bool{}
 
     /**
      * @param string $ip

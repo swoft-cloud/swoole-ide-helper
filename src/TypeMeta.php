@@ -2,9 +2,10 @@
 
 namespace IDEHelper;
 
-use Swoole\Coroutine\Iterator;
-use Swoole\Coroutine\Socket;
+use Swoole\Coroutine;
+use Swoole\Coroutine\Channel;
 use Swoole\Process;
+use Swoole\Websocket\CloseFrame;
 
 /**
  * Class TypeMeta
@@ -50,7 +51,7 @@ final class TypeMeta
      * @var array All float arguments name list
      */
     public const FLOAT = [
-        'timeout'
+        'timeout',
     ];
 
     /**
@@ -114,36 +115,12 @@ final class TypeMeta
 
     public const MIXED = [
         'data',
-        'func',
-        'callback',
-        'cmp_function',
     ];
 
-    public static $special = [
-        // Server:sendMessage($message)
-        'Server:sendMessage' => [
-            'message' => 'mixed',
-        ],
-        'Server:addProcess'  => [
-            'process' => '\\' . Process::class,
-        ],
-        'Coroutine:getBackTrace'  => [
-            'options' => 'int',
-        ],
-    ];
-
-    /**
-     * @var array
-     */
-    public static $returnTypes = [
-        'Process:exportSocket'   => '\\' . Socket::class,
-        'Channel:isEmpty'        => 'bool',
-        'Channel:isFull'         => 'bool',
-        'Coroutine:list'         => '\\' . Iterator::class,
-        // functions
-        'Func:swoole_cpu_num'    => 'int',
-        'Func:swoole_version'    => 'string',
-        'Func:swoole_last_error' => 'string',
-        'Func:swoole_strerror'   => 'string',
+    public static $classMapping = [
+        'swoole_process'              => Process::class,
+        'co'                          => Coroutine::class,
+        'chan'                        => Channel::class,
+        'swoole_websocket_closeframe' => CloseFrame::class,
     ];
 }

@@ -15,17 +15,17 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
      * @param array $array
      * @return mixed
      */
-    public function __construct(array $array = null){}
+    public function __construct(array $array = []){}
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function isEmpty(){}
+    public function isEmpty(): bool{}
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function count(){}
+    public function count(): int{}
 
     /**
      * @return mixed
@@ -38,9 +38,9 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
     public function key(){}
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function valid(){}
+    public function valid(): bool{}
 
     /**
      * @return mixed
@@ -61,28 +61,28 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
     /**
      * @param string $key
      * @param $value
-     * @return mixed
+     * @return self
      */
-    public function set(string $key, $value){}
+    public function set(string $key, $value): self{}
 
     /**
      * @param string $key
-     * @return mixed
+     * @return self
      */
-    public function delete(string $key){}
+    public function delete(string $key): self{}
 
     /**
      * @param $value
      * @param bool $strict
      * @param bool $loop
-     * @return mixed
+     * @return self
      */
-    public function remove($value, bool $strict = null, bool $loop = null){}
+    public function remove($value, bool $strict = true, bool $loop = false): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function clear(){}
+    public function clear(): self{}
 
     /**
      * @param string $key
@@ -111,54 +111,54 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
 
     /**
      * @param string $key
-     * @return mixed
+     * @return bool
      */
-    public function exists(string $key){}
+    public function exists(string $key): bool{}
+
+    /**
+     * @param $value
+     * @param bool $strict
+     * @return bool
+     */
+    public function contains($value, bool $strict = true): bool{}
 
     /**
      * @param $value
      * @param bool $strict
      * @return mixed
      */
-    public function contains($value, bool $strict = null){}
+    public function indexOf($value, bool $strict = true){}
 
     /**
      * @param $value
      * @param bool $strict
      * @return mixed
      */
-    public function indexOf($value, bool $strict = null){}
-
-    /**
-     * @param $value
-     * @param bool $strict
-     * @return mixed
-     */
-    public function lastIndexOf($value, bool $strict = null){}
+    public function lastIndexOf($value, bool $strict = true){}
 
     /**
      * @param $needle
      * @param $strict
      * @return mixed
      */
-    public function search($needle, $strict = null){}
+    public function search($needle, $strict = true){}
 
     /**
      * @param string $glue
-     * @return mixed
+     * @return \Swoole\StringObject
      */
-    public function join(string $glue = null){}
+    public function join(string $glue = ''): \Swoole\StringObject{}
 
     /**
-     * @return mixed
+     * @return \Swoole\StringObject
      */
-    public function serialize(){}
+    public function serialize(): \Swoole\StringObject{}
 
     /**
      * @param string $string
-     * @return mixed
+     * @return self
      */
-    public function unserialize(string $string){}
+    public function unserialize(string $string): self{}
 
     /**
      * @return mixed
@@ -185,9 +185,9 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
     /**
      * @param int $offset
      * @param $value
-     * @return mixed
+     * @return self
      */
-    public function insert(int $offset, $value){}
+    public function insert(int $offset, $value): self{}
 
     /**
      * @return mixed
@@ -203,9 +203,9 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
      * @param int $offset
      * @param int $length
      * @param bool $preserve_keys
-     * @return mixed
+     * @return self
      */
-    public function slice(int $offset, int $length = null, bool $preserve_keys = null){}
+    public function slice(int $offset, int $length = null, bool $preserve_keys = false): self{}
 
     /**
      * @return mixed
@@ -214,15 +214,15 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
 
     /**
      * @param callable $fn
-     * @return mixed
+     * @return self
      */
-    public function each(callable $fn){}
+    public function each(callable $fn): self{}
 
     /**
      * @param callable $fn
-     * @return mixed
+     * @return self
      */
-    public function map(callable $fn){}
+    public function map(callable $fn): self{}
 
     /**
      * @param callable $fn
@@ -233,133 +233,133 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
     /**
      * @param int $search_value
      * @param $strict
-     * @return mixed
+     * @return self
      */
-    public function keys(int $search_value = null, $strict = null){}
+    public function keys(int $search_value = null, $strict = false): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function values(){}
+    public function values(): self{}
 
     /**
      * @param $column_key
      * @param ...$index
-     * @return mixed
+     * @return self
      */
-    public function column($column_key, ...$index){}
+    public function column($column_key, ...$index): self{}
 
     /**
      * @param int $sort_flags
-     * @return mixed
+     * @return self
      */
-    public function unique(int $sort_flags = null){}
+    public function unique(int $sort_flags = SORT_STRING): self{}
 
     /**
      * @param bool $preserve_keys
-     * @return mixed
+     * @return self
      */
-    public function reverse(bool $preserve_keys = null){}
+    public function reverse(bool $preserve_keys = false): self{}
 
     /**
      * @param int $size
      * @param bool $preserve_keys
-     * @return mixed
+     * @return self
      */
-    public function chunk(int $size, bool $preserve_keys = null){}
+    public function chunk(int $size, bool $preserve_keys = false): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function flip(){}
+    public function flip(): self{}
 
     /**
      * @param callable $fn
      * @param int $flag
-     * @return mixed
+     * @return self
      */
-    public function filter(callable $fn, int $flag = null){}
+    public function filter(callable $fn, int $flag = 0): self{}
 
     /**
      * @param int $sort_order
      * @param int $sort_flags
-     * @return mixed
+     * @return self
      */
-    public function multiSort(int $sort_order = null, int $sort_flags = null){}
+    public function multiSort(int $sort_order = SORT_ASC, int $sort_flags = SORT_REGULAR): self{}
 
     /**
      * @param int $sort_flags
-     * @return mixed
+     * @return self
      */
-    public function asort(int $sort_flags = null){}
+    public function asort(int $sort_flags = SORT_REGULAR): self{}
 
     /**
      * @param int $sort_flags
-     * @return mixed
+     * @return self
      */
-    public function arsort(int $sort_flags = null){}
+    public function arsort(int $sort_flags = SORT_REGULAR): self{}
 
     /**
      * @param int $sort_flags
-     * @return mixed
+     * @return self
      */
-    public function krsort(int $sort_flags = null){}
+    public function krsort(int $sort_flags = SORT_REGULAR): self{}
 
     /**
      * @param int $sort_flags
-     * @return mixed
+     * @return self
      */
-    public function ksort(int $sort_flags = null){}
+    public function ksort(int $sort_flags = SORT_REGULAR): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function natcasesort(){}
+    public function natcasesort(): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function natsort(){}
-
-    /**
-     * @param int $sort_flags
-     * @return mixed
-     */
-    public function rsort(int $sort_flags = null){}
-
-    /**
-     * @return mixed
-     */
-    public function shuffle(){}
+    public function natsort(): self{}
 
     /**
      * @param int $sort_flags
-     * @return mixed
+     * @return self
      */
-    public function sort(int $sort_flags = null){}
+    public function rsort(int $sort_flags = SORT_REGULAR): self{}
+
+    /**
+     * @return self
+     */
+    public function shuffle(): self{}
+
+    /**
+     * @param int $sort_flags
+     * @return self
+     */
+    public function sort(int $sort_flags = SORT_REGULAR): self{}
 
     /**
      * @param callable $value_compare_func
-     * @return mixed
+     * @return self
      */
-    public function uasort(callable $value_compare_func){}
+    public function uasort(callable $value_compare_func): self{}
 
     /**
      * @param callable $value_compare_func
-     * @return mixed
+     * @return self
      */
-    public function uksort(callable $value_compare_func){}
+    public function uksort(callable $value_compare_func): self{}
 
     /**
      * @param callable $value_compare_func
-     * @return mixed
+     * @return self
      */
-    public function usort(callable $value_compare_func){}
+    public function usort(callable $value_compare_func): self{}
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function __toArray(){}
+    public function __toArray(): array{}
 
     /**
      * @param $value
@@ -369,13 +369,13 @@ class ArrayObject implements \ArrayAccess, \Serializable, \Countable, \Iterator
 
     /**
      * @param string $value
-     * @return mixed
+     * @return \Swoole\StringObject
      */
-    protected static function detectStringType(string $value){}
+    protected static function detectStringType(string $value): \Swoole\StringObject{}
 
     /**
      * @param array $value
-     * @return mixed
+     * @return self
      */
-    protected static function detectArrayType(array $value){}
+    protected static function detectArrayType(array $value): self{}
 }

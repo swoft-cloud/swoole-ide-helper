@@ -20,7 +20,7 @@ abstract class ObjectPool
      * @param $concurrency
      * @return mixed
      */
-    public function __construct($type, $pool_size = null, $concurrency = null){}
+    public function __construct($type, $pool_size = 10, $concurrency = 10){}
 
     /**
      * @return mixed

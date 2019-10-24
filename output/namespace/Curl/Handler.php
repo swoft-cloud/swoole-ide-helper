@@ -7,10 +7,6 @@ namespace Swoole\Curl;
  */
 class Handler
 {
-    // constants of the class Handler
-    public const ERRORS = array (
-  3 => 'No URL set!',
-);
 
     // property of the class Handler
     public $returnTransfer;
@@ -32,21 +28,21 @@ class Handler
     public function execute(){}
 
     /**
-     * @return mixed
+     * @return void
      */
-    public function close(){}
+    public function close(): void{}
 
     /**
      * @param int $opt
      * @param $value
-     * @return mixed
+     * @return bool
      */
-    public function setOption(int $opt, $value){}
+    public function setOption(int $opt, $value): bool{}
 
     /**
-     * @return mixed
+     * @return void
      */
-    public function reset(){}
+    public function reset(): void{}
 
     /**
      * @return mixed

@@ -15,40 +15,40 @@ class StringObject
      * @param string $string
      * @return mixed
      */
-    public function __construct(string $string = null){}
+    public function __construct(string $string = ''){}
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function length(){}
-
-    /**
-     * @param string $needle
-     * @param int $offset
-     * @return mixed
-     */
-    public function indexOf(string $needle, int $offset = null){}
+    public function length(): int{}
 
     /**
      * @param string $needle
      * @param int $offset
      * @return mixed
      */
-    public function lastIndexOf(string $needle, int $offset = null){}
+    public function indexOf(string $needle, int $offset = 0){}
 
     /**
      * @param string $needle
      * @param int $offset
      * @return mixed
      */
-    public function pos(string $needle, int $offset = null){}
+    public function lastIndexOf(string $needle, int $offset = 0){}
 
     /**
      * @param string $needle
      * @param int $offset
      * @return mixed
      */
-    public function rpos(string $needle, int $offset = null){}
+    public function pos(string $needle, int $offset = 0){}
+
+    /**
+     * @param string $needle
+     * @param int $offset
+     * @return mixed
+     */
+    public function rpos(string $needle, int $offset = 0){}
 
     /**
      * @param string $needle
@@ -57,36 +57,36 @@ class StringObject
     public function ipos(string $needle){}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function lower(){}
+    public function lower(): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function upper(){}
+    public function upper(): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function trim(){}
+    public function trim(): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function lrim(){}
+    public function lrim(): self{}
 
     /**
-     * @return mixed
+     * @return self
      */
-    public function rtrim(){}
+    public function rtrim(): self{}
 
     /**
      * @param int $offset
      * @param ...$length
-     * @return mixed
+     * @return self
      */
-    public function substr(int $offset, ...$length){}
+    public function substr(int $offset, ...$length): self{}
 
     /**
      * @param $n
@@ -98,53 +98,53 @@ class StringObject
      * @param string $search
      * @param string $replace
      * @param $count
-     * @return mixed
+     * @return self
      */
-    public function replace(string $search, string $replace, $count = null){}
+    public function replace(string $search, string $replace, $count = null): self{}
 
     /**
      * @param string $needle
-     * @return mixed
+     * @return bool
      */
-    public function startsWith(string $needle){}
+    public function startsWith(string $needle): bool{}
 
     /**
      * @param string $subString
-     * @return mixed
+     * @return bool
      */
-    public function contains(string $subString){}
+    public function contains(string $subString): bool{}
 
     /**
      * @param string $needle
-     * @return mixed
+     * @return bool
      */
-    public function endsWith(string $needle){}
+    public function endsWith(string $needle): bool{}
 
     /**
      * @param string $delimiter
      * @param int $limit
-     * @return mixed
+     * @return \Swoole\ArrayObject
      */
-    public function split(string $delimiter, int $limit = null){}
+    public function split(string $delimiter, int $limit = PHP_INT_MAX): \Swoole\ArrayObject{}
 
     /**
      * @param int $index
-     * @return mixed
+     * @return string
      */
-    public function char(int $index){}
+    public function char(int $index): string{}
 
     /**
      * @param int $chunkLength
      * @param string $chunkEnd
-     * @return mixed
+     * @return self
      */
-    public function chunkSplit(int $chunkLength = null, string $chunkEnd = null){}
+    public function chunkSplit(int $chunkLength = 1, string $chunkEnd = ''): self{}
 
     /**
      * @param $splitLength
-     * @return mixed
+     * @return \Swoole\ArrayObject
      */
-    public function chunk($splitLength = null){}
+    public function chunk($splitLength = 1): \Swoole\ArrayObject{}
 
     /**
      * @return mixed
@@ -152,13 +152,13 @@ class StringObject
     public function toString(){}
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function __toString(){}
+    public function __toString(): string{}
 
     /**
      * @param array $value
-     * @return mixed
+     * @return \Swoole\ArrayObject
      */
-    protected static function detectArrayType(array $value){}
+    protected static function detectArrayType(array $value): \Swoole\ArrayObject{}
 }

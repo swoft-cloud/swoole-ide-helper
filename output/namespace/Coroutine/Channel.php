@@ -34,12 +34,12 @@ class Channel
     /**
      * @return bool
      */
-    public function isEmpty(){}
+    public function isEmpty(): bool{}
 
     /**
      * @return bool
      */
-    public function isFull(){}
+    public function isFull(): bool{}
 
     /**
      * @return mixed
