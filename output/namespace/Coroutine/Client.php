@@ -44,7 +44,7 @@ class Client
 
     /**
      * @param float $timeout
-     * @return mixed
+     * @return bool|string
      */
     public function recv(float $timeout = null){}
 
@@ -56,7 +56,7 @@ class Client
 
     /**
      * @param mixed $data
-     * @return mixed
+     * @return bool|int
      */
     public function send($data){}
 
