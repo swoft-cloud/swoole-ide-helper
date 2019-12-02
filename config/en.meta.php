@@ -70,6 +70,14 @@ return [
             'return' => 'bool',
         ],
     ],
+    'Swoole\\Coroutine\\Client'         => [
+        'recv' => [
+            'return' => 'bool|string',
+        ],
+        'send' => [
+            'return' => 'bool|int',
+        ]
+    ],
     // Func
     'Func:swoole_async_dns_lookup_coro' => [
         'desc'         => '协程DNS查询',
