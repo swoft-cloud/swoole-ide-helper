@@ -3,7 +3,7 @@
 namespace Swoole\Redis;
 
 /**
- * @since 4.4.8
+ * @since 4.4.12
  */
 class Server extends \Swoole\Server
 {

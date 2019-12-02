@@ -3,7 +3,7 @@
 namespace Swoole\Table;
 
 /**
- * @since 4.4.8
+ * @since 4.4.12
  */
 class Row implements \ArrayAccess
 {

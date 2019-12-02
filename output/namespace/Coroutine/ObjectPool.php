@@ -3,7 +3,7 @@
 namespace Swoole\Coroutine;
 
 /**
- * @since 4.4.8
+ * @since 4.4.12
  */
 abstract class ObjectPool
 {

@@ -3,7 +3,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.8
+ * @since 4.4.12
  */
 class Runtime
 {
@@ -20,4 +20,9 @@ class Runtime
      * @return mixed
      */
     public static function enableCoroutine($enable = null, $flags = null){}
+
+    /**
+     * @return mixed
+     */
+    public static function getHookFlags(){}
 }

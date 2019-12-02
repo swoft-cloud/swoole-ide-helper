@@ -3,7 +3,7 @@
 namespace Swoole\Coroutine\Socket;
 
 /**
- * @since 4.4.8
+ * @since 4.4.12
  */
 class Exception extends \Swoole\Exception implements \Throwable
 {

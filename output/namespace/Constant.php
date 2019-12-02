@@ -3,7 +3,7 @@
 namespace Swoole;
 
 /**
- * @since 4.4.8
+ * @since 4.4.12
  */
 class Constant
 {
@@ -24,12 +24,14 @@ class Constant
     public const EVENT_WORKER_EXIT = 'workerExit';
     public const EVENT_WORKER_ERROR = 'workerError';
     public const EVENT_WORKER_STOP = 'workerStop';
+    public const EVENT_PIPE_MESSAGE = 'pipeMessage';
     public const EVENT_MANAGER_START = 'managerStart';
     public const EVENT_MANAGER_STOP = 'managerStop';
     public const EVENT_ERROR = 'error';
     public const OPTION_ENABLE_SIGNALFD = 'enable_signalfd';
     public const OPTION_DNS_CACHE_REFRESH_TIME = 'dns_cache_refresh_time';
     public const OPTION_SOCKET_BUFFER_SIZE = 'socket_buffer_size';
+    public const OPTION_SOCKET_SEND_TIMEOUT = 'socket_send_timeout';
     public const OPTION_LOG_LEVEL = 'log_level';
     public const OPTION_THREAD_NUM = 'thread_num';
     public const OPTION_MIN_THREAD_NUM = 'min_thread_num';
@@ -101,6 +103,7 @@ class Constant
     public const OPTION_DEFER = 'defer';
     public const OPTION_KEEP_ALIVE = 'keep_alive';
     public const OPTION_WEBSOCKET_MASK = 'websocket_mask';
+    public const OPTION_WEBSOCKET_COMPRESSION = 'websocket_compression';
     public const OPTION_HOST = 'host';
     public const OPTION_PORT = 'port';
     public const OPTION_SSL = 'ssl';

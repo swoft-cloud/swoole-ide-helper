@@ -3,7 +3,7 @@
 namespace Swoole\Timer;
 
 /**
- * @since 4.4.8
+ * @since 4.4.12
  */
 class Iterator extends \ArrayIterator implements \Countable, \Serializable, \SeekableIterator, \ArrayAccess
 {
