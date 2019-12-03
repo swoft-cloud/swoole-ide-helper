@@ -2,7 +2,7 @@
 
 return [
     // Class
-    'Swoole\\Server'                    => [
+    'Swoole\\Server'                      => [
         // class prop
         '$setting'     => 'array',
         '$master_pid'  => 'int:当前服务器主进程的PID',
@@ -40,7 +40,7 @@ return [
             '$server_socket' => 'int(-1)', // 允许没有注释
         ],
     ],
-    'Swoole\\Process'                   => [
+    'Swoole\\Process'                     => [
         'exportSocket' => [
             'return' => '\\Swoole\\Coroutine\\Socket',
         ],
@@ -48,12 +48,12 @@ return [
             '$callback' => 'callable',
         ],
     ],
-    'Swoole\\Coroutine'                 => [
+    'Swoole\\Coroutine'                   => [
         'defer'        => [
             '$callback' => 'callback',
         ],
         'list'         => [
-            'return' => 'Swoole\Coroutine\Iterator',
+            'return' => 'Swoole\\Coroutine\\Iterator',
         ],
         'getBackTrace' => [
             'return'   => 'array|false',
@@ -62,7 +62,7 @@ return [
             '$limit'   => 'int',
         ],
     ],
-    'Swoole\\Coroutine\\Channel'        => [
+    'Swoole\\Coroutine\\Channel'          => [
         'isEmpty' => [
             'return' => 'bool',
         ],
@@ -70,16 +70,66 @@ return [
             'return' => 'bool',
         ],
     ],
-    'Swoole\\Coroutine\\Client'         => [
+    'Swoole\\Coroutine\\Client'           => [
         'recv' => [
             'return' => 'bool|string',
         ],
         'send' => [
             'return' => 'bool|int',
-        ]
+        ],
+    ],
+    'Swoole\\Coroutine\\MySQL'            => [
+        '$serverInfo'    => 'array',
+        '$connected'     => 'bool',
+        '$connect_error' => 'string',
+        '$connect_errno' => 'int',
+        '$error'         => 'string',
+        '$errno'         => 'int',
+        '$affected_rows' => 'int',
+        'connect'        => [
+            '$server_config' => 'array([])',
+            'return'         => 'bool',
+        ],
+        'query'          => [
+            '$sql'     => 'string',
+            '$timeout' => 'float',
+            'return'   => 'array|bool',
+        ],
+        'prepare'        => [
+            '$sql'     => 'string',
+            '$timeout' => 'float',
+            'return'   => 'Swoole\\Coroutine\\MySQL\\Statement|false',
+        ],
+        'escape'         => [
+            '$string' => 'string',
+            'return'  => 'string',
+        ],
+        'begin'          => [
+            'return' => 'bool',
+        ],
+        'commit'         => [
+            'return' => 'bool',
+        ],
+        'rollback'       => [
+            'return' => 'bool',
+        ],
+    ],
+    'Swoole\\Coroutine\\MySQL\\Statement' => [
+        'execute'    => [
+            'return' => 'bool',
+        ],
+        'fetch'      => [
+            'return' => '?array',
+        ],
+        'fetchAll'   => [
+            'return' => '?array',
+        ],
+        'nextResult' => [
+            'return' => '?bool',
+        ],
     ],
     // Func
-    'Func:swoole_async_dns_lookup_coro' => [
+    'Func:swoole_async_dns_lookup_coro'   => [
         'desc'         => '协程DNS查询',
         // func return
         'return'       => 'string|false:失败返回false，可使用swoole_errno和swoole_last_error得到错误信息',
@@ -87,16 +137,16 @@ return [
         '$domain_name' => 'string:域名',
         '$timeout'     => 'float:设置超时, 单位为秒',
     ],
-    'Func:swoole_cpu_num'               => [
+    'Func:swoole_cpu_num'                 => [
         'return' => 'int',
     ],
-    'Func:swoole_version'               => [
+    'Func:swoole_version'                 => [
         'return' => 'string',
     ],
-    'Func:swoole_last_error'            => [
+    'Func:swoole_last_error'              => [
         'return' => 'string',
     ],
-    'Func:swoole_strerror'              => [
+    'Func:swoole_strerror'                => [
         'return'      => 'string',
         '$errno'      => 'int',
         '$error_type' => 'int(1)',

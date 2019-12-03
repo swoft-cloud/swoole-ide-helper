@@ -711,6 +711,11 @@ PHP;
         // is class
         $pType = $this->paddingNsRoot($pType);
 
+        // is array
+        if ('[]' === ($pDefaultVal ?? null) && $pType === 'array') {
+            $pDefaultVal = [];
+        }
+
         if ((!$p->isVariadic() && $p->isOptional()) || isset($pDefaultVal)) {
             $pDefaultVal = $this->getParameterDefaultValue($p, $pDefaultVal ?? null);
         }
