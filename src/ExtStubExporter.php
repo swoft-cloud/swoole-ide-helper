@@ -172,7 +172,7 @@ class ExtStubExporter
          * @var string          $className
          * @var ReflectionClass $ref
          */
-        foreach ($this->rftExt->getClasses() + SwooleLibrary::loadLibClass() as $className => $ref) {
+        foreach ($this->rftExt->getClasses() as $className => $ref) {
             // 短命名别名
             if (stripos($className, 'co\\') === 0) {
                 $this->exportShortAlias($className);
@@ -194,6 +194,9 @@ class ExtStubExporter
         }
 
         $this->writePhpFile($outDir . '/aliases.php', $shortAliases);
+
+        $this->println(' - Parse and export swoole library');
+        (new SwooleLibrary())->extract($this->outDir . '/library');
     }
 
     /**
@@ -269,7 +272,7 @@ class ExtStubExporter
         $all = [];
 
         /** @var $v ReflectionFunction */
-        foreach ($this->rftExt->getFunctions() + SwooleLibrary::loadLibFun() as $function) {
+        foreach ($this->rftExt->getFunctions() as $function) {
             $this->stats['function']++;
 
             $comment = $this->exportFunctions($function) . "\n\n";
