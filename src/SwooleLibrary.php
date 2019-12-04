@@ -67,7 +67,7 @@ class SwooleLibrary
         $filecount = 0;
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $filename = $zip->getNameIndex($i);
-            if (preg_match_all('/^swoole-swoole-src-.+?\/library\/(.+)/', $filename, $matches)) {
+            if (preg_match_all('/^swoole-swoole-src-\w+\/library\/(.+)/', $filename, $matches)) {
                 $filename = $matches[1][0];
                 foreach (self::EXTRA_FILES as $extra) {
                     if (0 === strpos($filename, $extra)) {
