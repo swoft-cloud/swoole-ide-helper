@@ -93,7 +93,6 @@ class SwooleLibrary
 
         $progress = function ($ch, $download_size, $downloaded, $upload_size, $uploaded) use ($url) {
             if($download_size > 0 || $downloaded > 0) {
-                //str_repeat 函数的作用是重复这个符号多少次
                 $downloaded = $this->formatByte($downloaded);
                 echo("\r     down: {$url} $downloaded        ");
             }
