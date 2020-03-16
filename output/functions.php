@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 /**
  * @return string
@@ -41,19 +41,6 @@ function swoole_coroutine_create(callable $func, ...$params){}
  * @return mixed
  */
 function swoole_coroutine_defer(callable $callback){}
-
-/**
- * @param callable $func
- * @param ...$params
- * @return mixed
- */
-function go(callable $func, ...$params){}
-
-/**
- * @param callable $callback
- * @return mixed
- */
-function defer(callable $callback){}
 
 /**
  * @param array $read_array
@@ -123,6 +110,18 @@ function swoole_clear_dns_cache(){}
  * @return mixed
  */
 function swoole_internal_call_user_shutdown_begin(){}
+
+/**
+ * @param callable $func
+ * @return mixed
+ */
+function go(callable $func){}
+
+/**
+ * @param callable $callback
+ * @return mixed
+ */
+function defer(callable $callback){}
 
 /**
  * @param int $fd

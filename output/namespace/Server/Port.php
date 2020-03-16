@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\Server;
 
 /**
- * @since 4.4.12
+ * @since 4.4.16
  */
 class Port
 {
@@ -34,9 +34,4 @@ class Port
      * @return mixed
      */
     public function getCallback(string $event_name){}
-
-    /**
-     * @return mixed
-     */
-    public function getSocket(){}
 }

@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\Table;
 
 /**
- * @since 4.4.12
+ * @since 4.4.16
  */
 class Row implements \ArrayAccess
 {
@@ -13,27 +13,27 @@ class Row implements \ArrayAccess
     public $value;
 
     /**
-     * @param int $offset
+     * @param int|string $offset
      * @return mixed
      */
-    public function offsetExists(int $offset){}
+    public function offsetExists($offset){}
 
     /**
-     * @param int $offset
+     * @param int|string $offset
      * @return mixed
      */
-    public function offsetGet(int $offset){}
+    public function offsetGet($offset){}
 
     /**
-     * @param int $offset
+     * @param int|string $offset
      * @param $value
      * @return mixed
      */
-    public function offsetSet(int $offset, $value){}
+    public function offsetSet($offset, $value){}
 
     /**
-     * @param int $offset
+     * @param int|string $offset
      * @return mixed
      */
-    public function offsetUnset(int $offset){}
+    public function offsetUnset($offset){}
 }

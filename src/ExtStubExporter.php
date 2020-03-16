@@ -846,7 +846,7 @@ PHP;
      */
     private function writePhpFile(string $filepath, string $content): void
     {
-        $phpText = "<?php /** @noinspection ALL - For disable PhpStorm check */\n\n{$content}";
+        $phpText = "<?php\n\n{$content}";
         file_put_contents($filepath, $phpText);
     }
 

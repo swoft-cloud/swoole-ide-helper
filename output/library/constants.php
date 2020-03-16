@@ -1,6 +1,12 @@
 <?php
-define('SWOOLE_LIBRARY', true);
+/**
+ * This file is part of Swoole.
+ *
+ * @link     https://www.swoole.com
+ * @contact  team@swoole.com
+ * @license  https://github.com/swoole/library/blob/master/LICENSE
+ */
 
-$useShortname = ini_get_all('swoole')['swoole.use_shortname']['local_value'];
-$useShortname = strtolower(trim(str_replace('0', '', $useShortname)));
-define('SWOOLE_USE_SHORTNAME', !in_array($useShortname, ['', 'off', 'false'], true));
+declare(strict_types=1);
+
+define('SWOOLE_LIBRARY', true);

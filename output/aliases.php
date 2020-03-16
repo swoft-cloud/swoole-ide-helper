@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Co
 {
