@@ -29,13 +29,8 @@ use function unlink;
  */
 class SwooleLibrary
 {
-    public const EXTRA_FILES = [
-        'example',
-        'ext',
-        '.gitignore',
-        'LICENSE',
-        'README.md',
-        'config.inc',
+    public const IGNORED_FILES = [
+        '/ext',
     ];
 
     private function formatByte(int $byte, int $dec = 2)
@@ -53,43 +48,78 @@ class SwooleLibrary
     {
         $output = rtrim($output, '/\\');
         $output .= '/';
-        mkdir($output, 0755, true);
+        if (!is_dir($output)) {
+            mkdir($output, 0755, true);
+        }
 
         $zipName = tempnam(sys_get_temp_dir(), '') . '.swoole.zip';
-        $this->download($zipName, SWOOLE_VERSION);
+        $this->download($zipName, 'swoole-src', SWOOLE_VERSION);
 
         echo '     save to: ' . $zipName . PHP_EOL;
 
         $zip = new ZipArchive();
         if (true !== $errcode = $zip->open($zipName, ZipArchive::CHECKCONS)) {
-            throw new RuntimeException("extract swoole library fail: zip ({$errcode})");
+            throw new RuntimeException("extract swoole src fail: zip ({$errcode})");
         }
-        $filecount = 0;
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $filename = $zip->getNameIndex($i);
-            if (preg_match_all('/^swoole-swoole-src-.+?\/library\/(.+)/', $filename, $matches)) {
-                $filename = $matches[1][0];
-                foreach (self::EXTRA_FILES as $extra) {
-                    if (0 === strpos($filename, $extra)) {
-                        continue 2;
-                    }
+            if (preg_match('/^swoole-src-.+?\/php_swoole_library.h/', $filename, $matches)) {
+                $library = $zip->getFromIndex($i);
+                $matches = null;
+                if (preg_match('/\/\* \$Id: (\w{40}) \*\//', $library, $matches)) {
+                    $commit_id = $matches[1];
                 }
-                if (strlen($filename) - 1 === strrpos($filename, '/')) {
-                    mkdir($output . $filename);
-                } else {
-                    $filecount++;
-                    file_put_contents($output . $filename, $zip->getFromIndex($i));
-                }
+                break;
             }
         }
-
-        echo '     extract count: ' . $filecount . PHP_EOL;
+        $zip->close();
+        unset($zip);
         unlink($zipName);
+        $filecount = 0;
+        if (isset($commit_id)) {
+            echo '     download commit id: ' . $commit_id . PHP_EOL;
+            $zipName = tempnam(sys_get_temp_dir(), '') . '.swoole.library.zip';
+            // $zipName = "swoole.library.{$commit_id}.zip";
+            $this->download($zipName, 'library', $commit_id);
+
+            $zip = new ZipArchive();
+            if (true !== $errcode = $zip->open($zipName, ZipArchive::CHECKCONS)) {
+                throw new RuntimeException("extract swoole library fail: zip ({$errcode})");
+            }
+            for ($i = 0; $i < $zip->numFiles; $i++) {
+                $filename = $zip->getNameIndex($i);
+                if (preg_match('/^library-\w+?\/src(.+)/', $filename, $matches)) {
+                    $filename = $matches[1];
+                    foreach (self::IGNORED_FILES as $extra) {
+                        if (0 === strpos($filename, $extra)) {
+                            continue 2;
+                        }
+                    }
+                    if (strlen($filename) - 1 === strrpos($filename, '/')) {
+                        if (!is_dir($output . $filename)) {
+                            mkdir($output . $filename);
+                        }
+                    } else {
+                        $filecount++;
+                        file_put_contents($output . $filename, $zip->getFromIndex($i));
+                    }
+                }
+            }
+            $zip->close();
+            unset($zip);
+            unlink($zipName);
+        }
+        echo '     extract count: ' . $filecount . PHP_EOL;
     }
 
-    protected function download($zipName, $version)
+    protected function download($zipName, $project, $version)
     {
-        $url = 'https://api.github.com/repos/swoole/swoole-src/zipball/v' . $version;
+        // $url = 'https://api.github.com/repos/swoole/swoole-src/zipball/v' . $version;
+        if (ctype_xdigit($version)) {
+            $url = "https://github.com/swoole/{$project}/archive/${version}.zip";
+        } else {
+            $url = "https://github.com/swoole/{$project}/archive/v${version}.zip";
+        }
 
         $progress = function ($ch, $download_size, $downloaded, $upload_size, $uploaded) use ($url) {
             if($download_size > 0 || $downloaded > 0) {
