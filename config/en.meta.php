@@ -10,8 +10,8 @@ return [
         '$worker_id'   => 'int',
         '$worker_pid'  => 'int',
         '$taskworker'  => 'bool',
-        '$connections' => 'Swoole\\Coroutine\\Iterator:TCP连接迭代器',
-        '$ports'       => 'Swoole\\Server\\Port[]:监听端口数组',
+        '$connections' => '\\Swoole\\Coroutine\\Iterator:TCP连接迭代器',
+        '$ports'       => '\\Swoole\\Server\\Port[]:监听端口数组',
         '__construct'  => [
             '$host'      => 'string',
             '$port'      => 'int(0)',
@@ -50,10 +50,10 @@ return [
     ],
     'Swoole\\Coroutine'                   => [
         'defer'        => [
-            '$callback' => 'callback',
+            '$callback' => 'callable',
         ],
         'list'         => [
-            'return' => 'Swoole\\Coroutine\\Iterator',
+            'return' => '\\Swoole\\Coroutine\\Iterator',
         ],
         'getBackTrace' => [
             'return'   => 'array|false',
@@ -98,7 +98,7 @@ return [
         'prepare'        => [
             '$sql'     => 'string',
             '$timeout' => 'float',
-            'return'   => 'Swoole\\Coroutine\\MySQL\\Statement|false',
+            'return'   => '\\Swoole\\Coroutine\\MySQL\\Statement|false',
         ],
         'escape'         => [
             '$string' => 'string',
@@ -126,6 +126,48 @@ return [
         ],
         'nextResult' => [
             'return' => '?bool',
+        ],
+    ],
+    'Swoole\\Table' => [
+        'offsetExists'    => [
+            '$offset' => 'int|string',
+        ],
+        'offsetGet'    => [
+            '$offset' => 'int|string',
+        ],
+        'offsetSet'    => [
+            '$offset' => 'int|string',
+        ],
+        'offsetUnset'    => [
+            '$offset' => 'int|string',
+        ],
+    ],
+    'Swoole\\Table\\Row' => [
+        'offsetExists'    => [
+            '$offset' => 'int|string',
+        ],
+        'offsetGet'    => [
+            '$offset' => 'int|string',
+        ],
+        'offsetSet'    => [
+            '$offset' => 'int|string',
+        ],
+        'offsetUnset'    => [
+            '$offset' => 'int|string',
+        ],
+    ],
+    'Swoole\\Connection\\Iterator' => [
+        'offsetExists'    => [
+            '$fd' => 'int|string',
+        ],
+        'offsetGet'    => [
+            '$fd' => 'int|string',
+        ],
+        'offsetSet'    => [
+            '$fd' => 'int|string',
+        ],
+        'offsetUnset'    => [
+            '$fd' => 'int|string',
         ],
     ],
     // Func

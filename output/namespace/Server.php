@@ -15,7 +15,7 @@ class Server
     public $setting;
     /**
      * TCP连接迭代器
-     * @var Swoole\Coroutine\Iterator
+     * @var \Swoole\Coroutine\Iterator
      */
     public $connections;
     public $host;
@@ -24,7 +24,7 @@ class Server
     public $mode;
     /**
      * 监听端口数组
-     * @var Swoole\Server\Port[]
+     * @var \Swoole\Server\Port[]
      */
     public $ports;
     /**
