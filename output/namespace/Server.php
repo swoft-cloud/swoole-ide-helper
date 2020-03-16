@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole;
 
 /**
- * @since 4.4.12
+ * @since 4.4.16
  */
 class Server
 {
@@ -285,12 +285,6 @@ class Server
      * @return mixed
      */
     public function stats(){}
-
-    /**
-     * @param int $port
-     * @return mixed
-     */
-    public function getSocket(int $port = null){}
 
     /**
      * @param int $fd

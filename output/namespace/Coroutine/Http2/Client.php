@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\Coroutine\Http2;
 
 /**
- * @since 4.4.12
+ * @since 4.4.16
  */
 class Client
 {

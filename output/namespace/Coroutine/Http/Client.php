@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\Coroutine\Http;
 
 /**
- * @since 4.4.12
+ * @since 4.4.16
  */
 class Client
 {
@@ -165,10 +165,10 @@ class Client
     /**
      * @param mixed $data
      * @param int $opcode
-     * @param bool $finish
+     * @param $flags
      * @return mixed
      */
-    public function push($data, int $opcode = null, bool $finish = null){}
+    public function push($data, int $opcode = null, $flags = null){}
 
     /**
      * @param float $timeout
