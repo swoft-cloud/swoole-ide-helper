@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole;
 
 /**
- * @since 4.4.8
+ * @since 4.4.16
  */
 class Server
 {
@@ -15,7 +15,7 @@ class Server
     public $setting;
     /**
      * TCP连接迭代器
-     * @var Swoole\Coroutine\Iterator
+     * @var \Swoole\Coroutine\Iterator
      */
     public $connections;
     public $host;
@@ -24,7 +24,7 @@ class Server
     public $mode;
     /**
      * 监听端口数组
-     * @var Swoole\Server\Port[]
+     * @var \Swoole\Server\Port[]
      */
     public $ports;
     /**
@@ -285,12 +285,6 @@ class Server
      * @return mixed
      */
     public function stats(){}
-
-    /**
-     * @param int $port
-     * @return mixed
-     */
-    public function getSocket(int $port = null){}
 
     /**
      * @param int $fd

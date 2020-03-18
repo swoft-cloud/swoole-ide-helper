@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\Connection;
 
 /**
- * @since 4.4.8
+ * @since 4.4.16
  */
 class Iterator implements \Iterator, \ArrayAccess, \Countable
 {
@@ -45,27 +45,27 @@ class Iterator implements \Iterator, \ArrayAccess, \Countable
     public function count(){}
 
     /**
-     * @param int $fd
+     * @param int|string $fd
      * @return mixed
      */
-    public function offsetExists(int $fd){}
+    public function offsetExists($fd){}
 
     /**
-     * @param int $fd
+     * @param int|string $fd
      * @return mixed
      */
-    public function offsetGet(int $fd){}
+    public function offsetGet($fd){}
 
     /**
-     * @param int $fd
+     * @param int|string $fd
      * @param $value
      * @return mixed
      */
-    public function offsetSet(int $fd, $value){}
+    public function offsetSet($fd, $value){}
 
     /**
-     * @param int $fd
+     * @param int|string $fd
      * @return mixed
      */
-    public function offsetUnset(int $fd){}
+    public function offsetUnset($fd){}
 }

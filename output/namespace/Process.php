@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole;
 
 /**
- * @since 4.4.8
+ * @since 4.4.16
  */
 class Process
 {
@@ -16,7 +16,6 @@ class Process
 
     // property of the class Process
     public $pipe;
-    public $callback;
     public $msgQueueId;
     public $msgQueueKey;
     public $pid;

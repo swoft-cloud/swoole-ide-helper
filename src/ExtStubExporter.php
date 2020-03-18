@@ -172,7 +172,7 @@ class ExtStubExporter
          * @var string          $className
          * @var ReflectionClass $ref
          */
-        foreach ($this->rftExt->getClasses() + SwooleLibrary::loadLibClass() as $className => $ref) {
+        foreach ($this->rftExt->getClasses() as $className => $ref) {
             // 短命名别名
             if (stripos($className, 'co\\') === 0) {
                 $this->exportShortAlias($className);
@@ -194,6 +194,9 @@ class ExtStubExporter
         }
 
         $this->writePhpFile($outDir . '/aliases.php', $shortAliases);
+
+        $this->println(' - Parse and export swoole library');
+        (new SwooleLibrary())->extract($this->outDir . '/library');
     }
 
     /**
@@ -269,7 +272,7 @@ class ExtStubExporter
         $all = [];
 
         /** @var $v ReflectionFunction */
-        foreach ($this->rftExt->getFunctions() + SwooleLibrary::loadLibFun() as $function) {
+        foreach ($this->rftExt->getFunctions() as $function) {
             $this->stats['function']++;
 
             $comment = $this->exportFunctions($function) . "\n\n";
@@ -708,6 +711,11 @@ PHP;
         // is class
         $pType = $this->paddingNsRoot($pType);
 
+        // is array
+        if ('[]' === ($pDefaultVal ?? null) && $pType === 'array') {
+            $pDefaultVal = [];
+        }
+
         if ((!$p->isVariadic() && $p->isOptional()) || isset($pDefaultVal)) {
             $pDefaultVal = $this->getParameterDefaultValue($p, $pDefaultVal ?? null);
         }
@@ -838,7 +846,7 @@ PHP;
      */
     private function writePhpFile(string $filepath, string $content): void
     {
-        $phpText = "<?php /** @noinspection ALL - For disable PhpStorm check */\n\n{$content}";
+        $phpText = "<?php\n\n{$content}";
         file_put_contents($filepath, $phpText);
     }
 

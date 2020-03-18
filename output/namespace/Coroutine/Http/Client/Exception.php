@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\Coroutine\Http\Client;
 
 /**
- * @since 4.4.8
+ * @since 4.4.16
  */
 class Exception extends \Swoole\Exception implements \Throwable
 {

@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole;
 
 /**
- * @since 4.4.8
+ * @since 4.4.16
  */
 class Coroutine
 {
@@ -17,10 +17,10 @@ class Coroutine
     public static function create(callable $func, ...$params){}
 
     /**
-     * @param callback $callback
+     * @param callable $callback
      * @return mixed
      */
-    public static function defer(callback $callback){}
+    public static function defer(callable $callback){}
 
     /**
      * @param array $options

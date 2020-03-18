@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\Http;
 
 /**
- * @since 4.4.8
+ * @since 4.4.16
  */
 class Response
 {
@@ -145,9 +145,12 @@ class Response
     public function upgrade(){}
 
     /**
+     * @param mixed $data
+     * @param int $opcode
+     * @param $flags
      * @return mixed
      */
-    public function push(){}
+    public function push($data, int $opcode = null, $flags = null){}
 
     /**
      * @return mixed

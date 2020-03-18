@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\WebSocket;
 
 /**
- * @since 4.4.8
+ * @since 4.4.16
  */
 class Server extends \Swoole\Http\Server
 {
@@ -13,10 +13,10 @@ class Server extends \Swoole\Http\Server
      * @param int $fd
      * @param mixed $data
      * @param int $opcode
-     * @param bool $finish
+     * @param $flags
      * @return mixed
      */
-    public function push(int $fd, $data, int $opcode = null, bool $finish = null){}
+    public function push(int $fd, $data, int $opcode = null, $flags = null){}
 
     /**
      * @param int $fd
@@ -35,11 +35,10 @@ class Server extends \Swoole\Http\Server
     /**
      * @param mixed $data
      * @param int $opcode
-     * @param bool $finish
-     * @param $mask
+     * @param $flags
      * @return mixed
      */
-    public static function pack($data, int $opcode = null, bool $finish = null, $mask = null){}
+    public static function pack($data, int $opcode = null, $flags = null){}
 
     /**
      * @param mixed $data

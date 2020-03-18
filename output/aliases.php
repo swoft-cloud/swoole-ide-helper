@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Co
 {
@@ -11,8 +11,6 @@ namespace Co
     class Client extends \Swoole\Coroutine\Client{}
     class Mysql extends \Swoole\Coroutine\Mysql{}
     class Redis extends \Swoole\Coroutine\Redis{}
-    class WaitGroup extends \Swoole\Coroutine\WaitGroup{}
-    class Server extends \Swoole\Coroutine\Server{}
 }
 
 namespace Co\Socket

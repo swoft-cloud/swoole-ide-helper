@@ -1,9 +1,9 @@
-<?php /** @noinspection ALL - For disable PhpStorm check */
+<?php
 
 namespace Swoole\Coroutine\MySQL;
 
 /**
- * @since 4.4.8
+ * @since 4.4.16
  */
 class Statement
 {
@@ -18,27 +18,27 @@ class Statement
     /**
      * @param array $params
      * @param float $timeout
-     * @return mixed
+     * @return bool
      */
-    public function execute(array $params = null, float $timeout = null){}
+    public function execute(array $params = null, float $timeout = null): bool{}
 
     /**
      * @param float $timeout
-     * @return mixed
+     * @return ?array
      */
-    public function fetch(float $timeout = null){}
+    public function fetch(float $timeout = null): ?array{}
 
     /**
      * @param float $timeout
-     * @return mixed
+     * @return ?array
      */
-    public function fetchAll(float $timeout = null){}
+    public function fetchAll(float $timeout = null): ?array{}
 
     /**
      * @param float $timeout
-     * @return mixed
+     * @return ?bool
      */
-    public function nextResult(float $timeout = null){}
+    public function nextResult(float $timeout = null): ?bool{}
 
     /**
      * @param float $timeout
